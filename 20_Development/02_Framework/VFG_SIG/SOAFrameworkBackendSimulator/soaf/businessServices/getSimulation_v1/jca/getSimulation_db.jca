@@ -1,0 +1,12 @@
+<adapter-config name="getSimulation" adapter="db" wsdlLocation="../wsdl/getSimulation.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory UIConnectionName="eis/DB/SOAF" location="eis/DB/SOAF"/>
+  <endpoint-interaction portType="getSimulation_ptt" operation="getSimulation">
+    <interaction-spec className="oracle.tip.adapter.db.DBStoredProcedureInteractionSpec">
+      <property name="PackageName" value="PKG_SOAF_BACKEND_SIMULATOR"/>
+      <property name="ProcedureName" value="GET_SIMULATION"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

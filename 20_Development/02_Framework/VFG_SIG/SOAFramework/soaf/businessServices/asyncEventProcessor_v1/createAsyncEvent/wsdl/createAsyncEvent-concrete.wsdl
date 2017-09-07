@@ -1,0 +1,15 @@
+<wsdl:definitions targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/VFIE-OSS/SOAFramework/createAsyncEvent" name="createAsyncEvent-concrete" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <wsdl:import location="createAsyncEvent.wsdl" namespace="http://xmlns.oracle.com/pcbpel/adapter/db/VFIE-OSS/SOAFramework/createAsyncEvent"/>
+    <wsdl:binding name="createAsyncEvent_ptt-binding" type="cre:createAsyncEvent_ptt" xmlns:cre="http://xmlns.oracle.com/pcbpel/adapter/db/VFIE-OSS/SOAFramework/createAsyncEvent">
+        <soap:binding style="document" transport="http://www.bea.com/wli/sb/transports/jca"/>
+        <wsdl:operation name="createAsyncEvent">
+            <soap:operation soapAction="createAsyncEvent"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+</wsdl:definitions>

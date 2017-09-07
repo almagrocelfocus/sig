@@ -1,0 +1,15 @@
+<wsdl:definitions targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/VFIE-OSS/SOAFrameworkBackendSimulator/getSimulation" name="getSimulation-concrete" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <wsdl:import location="getSimulation.wsdl" namespace="http://xmlns.oracle.com/pcbpel/adapter/db/VFIE-OSS/SOAFrameworkBackendSimulator/getSimulation"/>
+    <wsdl:binding name="getSimulation_ptt-binding" type="get:getSimulation_ptt" xmlns:get="http://xmlns.oracle.com/pcbpel/adapter/db/VFIE-OSS/SOAFrameworkBackendSimulator/getSimulation">
+        <soap:binding style="document" transport="http://www.bea.com/wli/sb/transports/jca"/>
+        <wsdl:operation name="getSimulation">
+            <soap:operation soapAction="getSimulation"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+</wsdl:definitions>

@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is JAX-WS RI 2.2.10-b140319.1121 svn-revision#7b34660d6bc70e587e8ec81a17e4d76af68816a6. -->
+<xsd:schema xmlns:ns0="http://xmlns.telco.com/SOAFramework/emailSender/v1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://xmlns.telco.com/SOAFramework/emailSender/v1">
+	<xsd:complexType name="emailSenderRequest">
+		<xsd:sequence>
+			<xsd:element name="from" type="xsd:string" minOccurs="0" />
+			<xsd:element name="to" type="xsd:string" />
+                        <xsd:element name="cc" type="xsd:string" minOccurs="0" />
+                        <xsd:element name="bcc" type="xsd:string" minOccurs="0" />
+                        <xsd:element name="subject" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="message" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="emailSenderRequest" type="ns0:emailSenderRequest"/>
+</xsd:schema>

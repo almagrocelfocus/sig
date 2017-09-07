@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://xmlns.telco.com/SOAFramework/soaf/common/schemas/commonTypes/v1"
+	targetNamespace="http://xmlns.telco.com/SOAFramework/soaf/common/schemas/commonTypes/v1">
+
+
+	<xs:element name="serviceHeader" type="tns:serviceHeader" />
+	<xs:complexType name="serviceHeader">
+		<xs:sequence>
+			<!-- Unique request Id (should be unique to the request) -->
+			<xs:element name="requestId" type="xs:string" minOccurs="0" />
+			<!-- Process ID Identifier (can be re-used across multiple calls) -->
+			<xs:element name="correlationId" type="xs:string" minOccurs="0" />
+			<!-- Channel -> Example: "BSS" -->	
+			<xs:element name="source" type="xs:string" />
+                        <xs:element ref="tns:attributes" minOccurs="0"/>
+                        <xs:element ref="tns:responseCodes" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:element name="attributes" type="tns:attributes" />
+	<xs:complexType name="attributes">
+		<xs:sequence>
+			<xs:element ref="tns:attribute" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:element name="attribute" type="tns:attribute" />
+	<xs:complexType name="attribute">
+		<xs:sequence>
+			<xs:element name="name" type="xs:string" />
+			<xs:element name="value" type="xs:string" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:element name="responseCodes" type="tns:responseCodes" />
+	<xs:complexType name="responseCodes">
+		<xs:sequence>
+			<!-- Only Functional Error Response -->
+			<xs:element name="responseCode" type="xs:string" minOccurs="0" />
+			<xs:element name="responseMessage" type="xs:string" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="Payload">
+		<xs:sequence>
+			<xs:any namespace="##any" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

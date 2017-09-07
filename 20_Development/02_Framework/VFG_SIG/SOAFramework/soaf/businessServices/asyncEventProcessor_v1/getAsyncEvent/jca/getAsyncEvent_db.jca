@@ -1,0 +1,12 @@
+<adapter-config name="getAsyncEvent" adapter="db" wsdlLocation="../wsdl/getAsyncEvent.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory UIConnectionName="eis/DB/SOAF" location="eis/DB/SOAF"/>
+  <endpoint-interaction portType="getAsyncEvent_ptt" operation="getAsyncEvent">
+    <interaction-spec className="oracle.tip.adapter.db.DBStoredProcedureInteractionSpec">
+      <property name="PackageName" value="PKG_SOAF"/>
+      <property name="ProcedureName" value="GET_ASYNC_EVENT"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

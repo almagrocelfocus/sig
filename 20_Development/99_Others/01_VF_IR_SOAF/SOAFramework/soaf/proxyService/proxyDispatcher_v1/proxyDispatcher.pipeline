@@ -1,0 +1,688 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:pipelineEntry xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:oper="http://xmlns.oracle.com/servicebus/pipeline/operations" xmlns:con1="http://www.bea.com/wli/sb/stages/config">
+    <con:coreEntry>
+        <con:binding type="Any SOAP" isSoap12="false" xsi:type="con:AnySoapBindingType"/>
+        <oper:operations>
+            <oper:monitoring enabled="false" aggregationInterval="10" level="pipeline"/>
+            <oper:reporting>true</oper:reporting>
+            <oper:logging enabled="true" level="debug"/>
+            <oper:sla-alerting enabled="true" level="normal"/>
+            <oper:pipeline-alerting enabled="true" level="normal"/>
+        </oper:operations>
+        <con:largeMessageSupport isEnabled="false">
+            <con:persistToFile>true</con:persistToFile>
+            <con:enableCompression>false</con:enableCompression>
+        </con:largeMessageSupport>
+        <con:xopMtom isEnabled="true">
+            <con:xopBinary>ByRef</con:xopBinary>
+        </con:xopMtom>
+    </con:coreEntry>
+    <con:router errorHandler="_onErrorHandler-2348698588051999113--14611ccd.147c5f1bfc4.-7f21" xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:con2="http://www.bea.com/wli/sb/typesystem/config" xmlns:con3="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con5="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con6="http://www.bea.com/wli/sb/stages/logging/config">
+        <con:pipeline type="request" name="ppProxyDispatcher_request">
+            <con:stage id="_StageId-7f000001.60a1335b.0.148d157d17d.N8000" name="sValidateIDs">
+                <con:context>
+                    <con1:userNsDecl prefix="he" namespace="http://xmlns.telco.com/SOAFramework/soaf/common/schemas/headerExtended/v1"/>
+                </con:context>
+                <con:actions>
+                    <con4:ifThenElse>
+                        <con1:id>_ActionId-7f000001.N6e571ab6.0.149a9c740fb.N7f97</con1:id>
+                        <con4:case id="_BranchId-7f000001.N6e571ab6.0.149a9c740fb.N7f96">
+                            <con4:condition>
+                                <con1:xqueryText>not(data($header/he:headerExtended/he:requestId))</con1:xqueryText>
+                            </con4:condition>
+                            <con4:actions>
+                                <con4:replace varName="header" contents-only="true">
+                                    <con1:id>_ActionId-7f000001.N6e571ab6.0.149a9c740fb.N7f95</con1:id>
+                                    <con4:location>
+                                        <con1:xpathText>./he:headerExtended/he:requestId</con1:xpathText>
+                                    </con4:location>
+                                    <con4:expr>
+                                        <con1:xqueryText>data($header/he:headerExtended/he:messageId)</con1:xqueryText>
+                                    </con4:expr>
+                                </con4:replace>
+                            </con4:actions>
+                        </con4:case>
+                        <con4:default>
+                            <con4:replace varName="header" contents-only="true">
+                                <con1:id>_ActionId-7f000001.N6e571ab6.0.149a9c740fb.N7f01</con1:id>
+                                <con4:location>
+                                    <con1:xpathText>./he:headerExtended/he:messageId</con1:xpathText>
+                                </con4:location>
+                                <con4:expr>
+                                    <con1:xqueryText>data($header/he:headerExtended/he:requestId)</con1:xqueryText>
+                                </con4:expr>
+                            </con4:replace>
+                        </con4:default>
+                    </con4:ifThenElse>
+                    <con4:ifThenElse>
+                        <con1:id>_ActionId-7f000001.60a1335b.0.148d157d17d.N7ff6</con1:id>
+                        <con4:case id="_BranchId-7f000001.60a1335b.0.148d157d17d.N7ff5">
+                            <con4:condition>
+                                <con1:xqueryText>not(fn:exists($header/he:headerExtended/he:correlationId))</con1:xqueryText>
+                            </con4:condition>
+                            <con4:actions>
+                                <con4:insert varName="header">
+                                    <con1:id>_ActionId-7f000001.60a1335b.0.148d157d17d.N7fc0</con1:id>
+                                    <con4:location>
+                                        <con1:xpathText>./he:headerExtended/he:requestId</con1:xpathText>
+                                    </con4:location>
+                                    <con4:where>after</con4:where>
+                                    <con4:expr>
+                                        <con1:xqueryText>&lt;he:correlationId>{fn:concat('CID-', fn-bea:uuid())}&lt;/he:correlationId></con1:xqueryText>
+                                    </con4:expr>
+                                </con4:insert>
+                            </con4:actions>
+                        </con4:case>
+                        <con4:case id="_BranchId-7f000001.60a1335b.0.148d157d17d.N7f78">
+                            <con4:condition>
+                                <con1:xqueryText>not(data($header/he:headerExtended/he:correlationId))</con1:xqueryText>
+                            </con4:condition>
+                            <con4:actions>
+                                <con4:replace varName="header" contents-only="true">
+                                    <con1:id>_ActionId-7f000001.60a1335b.0.148d157d17d.N7f7b</con1:id>
+                                    <con4:location>
+                                        <con1:xpathText>./he:headerExtended/he:correlationId</con1:xpathText>
+                                    </con4:location>
+                                    <con4:expr>
+                                        <con1:xqueryText>fn:concat('CID-', fn-bea:uuid())</con1:xqueryText>
+                                    </con4:expr>
+                                </con4:replace>
+                            </con4:actions>
+                        </con4:case>
+                        <con4:default/>
+                    </con4:ifThenElse>
+                </con:actions>
+            </con:stage>
+            <con:stage name="sBackupHeaderExtended">
+                <con:context>
+                    <con1:userNsDecl namespace="http://xmlns.telco.com/SOAFramework/soaf/common/schemas/headerExtended/v1" prefix="he"/>
+                </con:context>
+                <con:actions>
+                    <con7:assign varName="headerExtended" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con2="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con5="http://www.bea.com/wli/sb/stages/logging/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con6="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con7="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con8:id xmlns:con8="http://www.bea.com/wli/sb/stages/config">_ActionId-3786916938139717671-15d29469.145efbe529b.-7ca4</con8:id>
+                        <con7:expr>
+                            <con8:xqueryText xmlns:con8="http://www.bea.com/wli/sb/stages/config">$header/he:headerExtended</con8:xqueryText>
+                        </con7:expr>
+                    </con7:assign>
+                </con:actions>
+            </con:stage>
+            <con:stage name="sServiceConfiguration">
+                <con:context>
+                    <con1:userNsDecl namespace="http://xmlns.telco.com/SOAFramework/soaf/common/schemas/headerExtended/v1" prefix="he"/>
+                </con:context>
+                <con:actions>
+                    <con4:wsCallout>
+                        <con1:id>_ActionId-4177772503027266255--101f2709.1441c4aaab9.-7c4a</con1:id>
+                        <con4:service xsi:type="ref:BusinessServiceRef" ref="SOAFramework/soaf/businessServices/serviceConfiguratorService_v1/serviceConfiguratorService" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        <con4:operation>getServiceConfigurationList</con4:operation>
+                        <con4:request>
+                            <con4:body>req</con4:body>
+                        </con4:request>
+                        <con4:response>
+                            <con4:body>resp</con4:body>
+                        </con4:response>
+                        <con4:requestTransform>
+                            <con4:assign varName="req">
+                                <con1:id>_ActionId-4177772503027266255--101f2709.1441c4aaab9.-7c4d</con1:id>
+                                <con4:expr>
+                                    <con1:xqueryTransform>
+                                        <con1:resource ref="SOAFramework/soaf/proxyService/proxyDispatcher_v1/transformations/toGetServiceConfigurationList"/>
+                                        <con1:param name="interface">
+                                            <con1:path>$headerExtended/he:businessInterface[1]</con1:path>
+                                        </con1:param>
+                                        <con1:param name="username">
+                                            <con1:path>$headerExtended/he:username[1]/text()</con1:path>
+                                        </con1:param>
+                                    </con1:xqueryTransform>
+                                </con4:expr>
+                            </con4:assign>
+                        </con4:requestTransform>
+                        <con4:responseTransform>
+                            <con4:replace varName="headerExtended" contents-only="false">
+                                <con1:id>_ActionId-7f000001.N122afaa2.0.148645b5184.N7b98</con1:id>
+                                <con4:expr>
+                                    <con1:xqueryTransform>
+                                        <con1:resource ref="SOAFramework/soaf/proxyService/proxyDispatcher_v1/transformations/fromServiceConfigurationToHeaderAttributes"/>
+                                        <con1:param name="getServiceConfigurationListResponse">
+                                            <con1:path>$resp</con1:path>
+                                        </con1:param>
+                                        <con1:param name="context">
+                                            <con1:path>$headerExtended/he:businessInterface[1]/he:name[1]/text()</con1:path>
+                                        </con1:param>
+                                        <con1:param name="headerExtended">
+                                            <con1:path>$headerExtended</con1:path>
+                                        </con1:param>
+                                    </con1:xqueryTransform>
+                                </con4:expr>
+                            </con4:replace>
+                        </con4:responseTransform>
+                    </con4:wsCallout>
+                    <con4:insert varName="header">
+                        <con1:id>_ActionId-7f000001.14dd0b8b.0.14919c95e12.N7fc8</con1:id>
+                        <con4:location>
+                            <con1:xpathText>./he:headerExtended</con1:xpathText>
+                        </con4:location>
+                        <con4:where>last-child</con4:where>
+                        <con4:expr>
+                            <con1:xqueryText>$headerExtended/he:attributeList</con1:xqueryText>
+                        </con4:expr>
+                    </con4:insert>
+                    <con4:delete varName="req">
+                        <con1:id>_ActionId-5004456850087688657-13162676.145cc170a53.-74a4</con1:id>
+                    </con4:delete>
+                    <con4:delete varName="resp">
+                        <con1:id>_ActionId-5004456850087688657-13162676.145cc170a53.-74a1</con1:id>
+                    </con4:delete>
+                </con:actions>
+            </con:stage>
+            <con:stage name="sLogServiceStart" errorHandler="_onErrorHandler-4177772503027266255--101f2709.1441c4aaab9.-77ad">
+                <con:context>
+                    <con1:userNsDecl namespace="http://xmlns.telco.com/SOAFramework/soaf/common/schemas/headerExtended/v1" prefix="he"/>
+                </con:context>
+                <con:actions>
+                    <con4:ifThenElse xmlns:con3="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con5="http://www.bea.com/wli/sb/typesystem/config" xmlns:jms="http://www.bea.com/wli/sb/transports/jms" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config">
+                        <con6:id xmlns:con6="http://www.bea.com/wli/sb/stages/config">_ActionId-3398343041089186468--26821f64.1441d049e90.-7b48</con6:id>
+                        <con4:case>
+                            <con4:condition>
+                                <con7:xqueryText xmlns:con7="http://www.bea.com/wli/sb/stages/config">let $logSystemLevel := dvm:lookup('SOAFramework/soaf/def_LogMapping', 'LOG', $attrList/he:attribute[ he:name='LOG_LEVEL_SYSTEM' ][1]/he:value[1], 'LEVEL', 'OFF')
+let $logLevel := dvm:lookup('SOAFramework/soaf/def_LogMapping', 'LOG', $attrList/he:attribute[ he:name='LOG_LEVEL' ][1]/he:value[1], 'LEVEL', 'OFF')
+
+return 
+	fn:boolean($logSystemLevel >= $logLevel)</con7:xqueryText>
+                            </con4:condition>
+                            <con4:actions>
+                                <con4:ifThenElse>
+                                    <con7:id xmlns:con7="http://www.bea.com/wli/sb/stages/config">_ActionId-7f000001.77bffeb1.0.14b5e7418c5.N7f8d</con7:id>
+                                    <con4:case id="_BranchId-7f000001.77bffeb1.0.14b5e7418c5.N7f8c">
+                                        <con4:condition>
+                                            <con7:xqueryText xmlns:con7="http://www.bea.com/wli/sb/stages/config">string-length($headerExtended/he:attributeList[1]/he:attribute[ he:name='LOG_KEY_SERVICE_START' ][1]/he:value[1])>0</con7:xqueryText>
+                                        </con4:condition>
+                                        <con4:actions>
+                                            <con4:insert varName="headerExtended">
+                                                <con7:id xmlns:con7="http://www.bea.com/wli/sb/stages/config">_ActionId-7f000001.41ea0211.0.14b5f727810.N7e79</con7:id>
+                                                <con4:location>
+                                                    <con7:xpathText xmlns:con7="http://www.bea.com/wli/sb/stages/config">.</con7:xpathText>
+                                                </con4:location>
+                                                <con4:where>first-child</con4:where>
+                                                <con4:expr>
+                                                    <con7:xqueryTransform xmlns:con7="http://www.bea.com/wli/sb/stages/config">
+                                                        <con7:resource ref="SOAFramework/soaf/common/transformations/pub/evalXPath"/>
+                                                        <con7:param name="path">
+                                                            <con7:path>$headerExtended/*:attributeList[1]/*:attribute[*:name='LOG_KEY_SERVICE_START'][1]/*:value/text()</con7:path>
+                                                        </con7:param>
+                                                        <con7:param name="xml">
+                                                            <con7:path>$body/*[1]</con7:path>
+                                                        </con7:param>
+                                                    </con7:xqueryTransform>
+                                                </con4:expr>
+                                            </con4:insert>
+                                        </con4:actions>
+                                    </con4:case>
+                                    <con4:default/>
+                                </con4:ifThenElse>
+                                <con6:report>
+                                    <con7:id xmlns:con7="http://www.bea.com/wli/sb/stages/config">_ActionId-5600035152657638483-635deec2.1448772776c.-7f44</con7:id>
+                                    <con6:expr>
+                                        <con7:xqueryTransform xmlns:con7="http://www.bea.com/wli/sb/stages/config">
+                                            <con7:resource ref="SOAFramework/soaf/common/transformations/logger/serviceLogStart"/>
+                                            <con7:param name="headerExtended">
+                                                <con7:path>$headerExtended</con7:path>
+                                            </con7:param>
+                                            <con7:param name="headerInner">
+                                                <con7:path>$header/*[not(self::he:headerExtended)]</con7:path>
+                                            </con7:param>
+                                            <con7:param name="bodyInner">
+                                                <con7:path>if(string($headerExtended/he:attributeList[1]/he:attribute[ he:name='LOG_WRITE_BODY' ][1]/he:value[1]) = 'false')
+then ()
+else typeswitch ($body/*[1]) 
+  case element() return $body/*[1] (:SOAP:)
+  default return $body/text() (:JSON:)</con7:path>
+                                            </con7:param>
+                                        </con7:xqueryTransform>
+                                    </con6:expr>
+                                    <con6:labels>
+                                        <con6:key>messageId</con6:key>
+                                        <con6:varName>headerExtended</con6:varName>
+                                        <con6:value>
+                                            <con7:xpathText xmlns:con7="http://www.bea.com/wli/sb/stages/config">he:messageId[1]/text()</con7:xpathText>
+                                        </con6:value>
+                                    </con6:labels>
+                                    <con6:labels>
+                                        <con6:key>correlationId</con6:key>
+                                        <con6:varName>headerExtended</con6:varName>
+                                        <con6:value>
+                                            <con7:xpathText xmlns:con7="http://www.bea.com/wli/sb/stages/config">he:correlationId[1]/text()</con7:xpathText>
+                                        </con6:value>
+                                    </con6:labels>
+                                    <con6:labels>
+                                        <con6:key>dynamicKey</con6:key>
+                                        <con6:varName>headerExtended</con6:varName>
+                                        <con6:value>
+                                            <con7:xpathText xmlns:con7="http://www.bea.com/wli/sb/stages/config">he:dynLog[1]/text()</con7:xpathText>
+                                        </con6:value>
+                                    </con6:labels>
+                                </con6:report>
+                            </con4:actions>
+                        </con4:case>
+                    </con4:ifThenElse>
+                </con:actions>
+            </con:stage>
+            <con:stage name="sRepublisherRequest">
+                <con:context>
+                    <con1:userNsDecl namespace="http://xmlns.telco.com/SOAFramework/soaf/common/schemas/headerExtended/v1" prefix="he"/>
+                </con:context>
+                <con:actions>
+                    <con4:ifThenElse>
+                        <con1:id>_ActionId-3199289646728570055-696a4e0a.147b0d7c581.-71c3</con1:id>
+                        <con4:case>
+                            <con4:condition>
+                                <con1:xqueryText>$headerExtended/he:repubContext[1]/he:numberOfRetries[1]/text() != ''</con1:xqueryText>
+                            </con4:condition>
+                            <con4:actions>
+                                <con3:replace varName="body" contents-only="true" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config">
+                                    <con7:id xmlns:con7="http://www.bea.com/wli/sb/stages/config">_ActionId-3199289646728570055-696a4e0a.147b0d7c581.-7152</con7:id>
+                                    <con3:expr>
+                                        <con7:xqueryText xmlns:con7="http://www.bea.com/wli/sb/stages/config">fn-bea:inlinedXML($body/*[1]/*:request)</con7:xqueryText>
+                                    </con3:expr>
+                                </con3:replace>
+                            </con4:actions>
+                        </con4:case>
+                    </con4:ifThenElse>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="response" name="ppProxyDispatcher_response">
+            <con:stage name="sErrorMasking">
+                <con:context>
+                    <con1:userNsDecl namespace="http://xmlns.telco.com/SOAFramework/soaf/common/schemas/headerExtended/v1" prefix="he"/>
+                </con:context>
+                <con:actions>
+                    <con4:ifThenElse>
+                        <con1:id>_ActionId-3199289646728570055-696a4e0a.147b0d7c581.-7c32</con1:id>
+                        <con4:case>
+                            <con4:condition>
+                                <con1:xqueryText>$headerExtended/he:repubContext[1]/he:numberOfRetries[1]/text() != ''</con1:xqueryText>
+                            </con4:condition>
+                            <con4:actions>
+                                <con4:replace contents-only="true" varName="body">
+                                    <con1:id>_ActionId-3199289646728570055-696a4e0a.147b0d7c581.-6e33</con1:id>
+                                    <con4:expr>
+                                        <con1:xqueryTransform>
+                                            <con1:resource ref="SOAFramework/soaf/proxyService/proxyDispatcher_v1/transformations/fromPublisherCallback"/>
+                                            <con1:param name="responseCodes">
+                                                <con1:path>$header/he:responseCodes[1]</con1:path>
+                                            </con1:param>
+                                            <con1:param name="repubInfo">
+                                                <con1:path>$header/he:headerExtended[1]/he:repubContext[1]/he:repubInfo[1]/text()</con1:path>
+                                            </con1:param>
+                                        </con1:xqueryTransform>
+                                    </con4:expr>
+                                </con4:replace>
+                            </con4:actions>
+                        </con4:case>
+                        <con4:case>
+                            <con4:condition>
+                                <con1:xqueryText>$headerExtended/he:attributeList[1]/he:attribute[ he:name='ERROR_MASKING_HEADER' ]/he:value/text() != ''</con1:xqueryText>
+                            </con4:condition>
+                            <con4:actions>
+                                <con4:replace contents-only="true" varName="header">
+                                    <con1:id>_ActionId-7f000001.36478ccc.0.1487e7a5fa9.N7ffe</con1:id>
+                                    <con4:expr>
+                                        <con1:dynamicXqueryTransform>
+                                            <con1:resourceExpr>$headerExtended/he:attributeList[1]/he:attribute[ he:name='ERROR_MASKING_HEADER' ]/he:value/text()</con1:resourceExpr>
+                                            <con1:param name="headerExtended">
+                                                <con1:path>$header/he:headerExtended</con1:path>
+                                            </con1:param>
+                                            <con1:param name="ResultCode">
+                                                <con1:path>if($header/he:headerExtended[1]/he:responseCodes[1]/he:responseCode[1]/text())
+then $header/he:headerExtended[1]/he:responseCodes[1]/he:responseCode[1]/text()
+else $header/he:headerExtended[1]/he:responseCodes[1]/he:externalError[1]/he:errorCode[1]/text()</con1:path>
+                                            </con1:param>
+                                            <con1:param name="ResultMessage">
+                                                <con1:path>if($header/he:headerExtended[1]/he:responseCodes[1]/he:responseMessage[1]/text())
+then $header/he:headerExtended[1]/he:responseCodes[1]/he:responseMessage[1]/text()
+else $header/he:headerExtended[1]/he:responseCodes[1]/he:externalError[1]/he:errorMessage[1]/text()</con1:path>
+                                            </con1:param>
+                                        </con1:dynamicXqueryTransform>
+                                    </con4:expr>
+                                </con4:replace>
+                            </con4:actions>
+                        </con4:case>
+                        <con4:case>
+                            <con4:condition>
+                                <con1:xqueryText>$headerExtended/he:attributeList[1]/he:attribute[ he:name='ERROR_MASKING_BODY' ]/he:value/text() != ''</con1:xqueryText>
+                            </con4:condition>
+                            <con4:actions>
+                                <con4:replace varName="body" contents-only="true">
+                                    <con1:id>_ActionId-6623877237788818874-2681b5d8.147cf95d829.-7f25</con1:id>
+                                    <con4:expr>
+                                        <con1:dynamicXqueryTransform>
+                                            <con1:resourceExpr>$headerExtended/he:attributeList[1]/he:attribute[ he:name='ERROR_MASKING_BODY' ]/he:value/text()</con1:resourceExpr>
+                                            <con1:param name="errorMessage">
+                                                <con1:path>$header/he:responseCodes[1]/he:responseMessage[1]/text()</con1:path>
+                                            </con1:param>
+                                            <con1:param name="errorCode">
+                                                <con1:path>$header/he:responseCodes[1]/he:responseCode[1]/text()</con1:path>
+                                            </con1:param>
+                                        </con1:dynamicXqueryTransform>
+                                    </con4:expr>
+                                </con4:replace>
+                            </con4:actions>
+                        </con4:case>
+                    </con4:ifThenElse>
+                </con:actions>
+            </con:stage>
+            <con:stage id="_StageId-7f000001.N122afaa2.0.148645b5184.N7e1d" name="sServiceHeader">
+                <con:comment>Changing headerExtended to serviceHeader</con:comment>
+                <con:context>
+                    <con1:userNsDecl prefix="he" namespace="http://xmlns.telco.com/SOAFramework/soaf/common/schemas/headerExtended/v1"/>
+                </con:context>
+                <con:actions>
+                    <con4:insert varName="header">
+                        <con1:id>_ActionId-7f000001.N122afaa2.0.148645b5184.N7ddb</con1:id>
+                        <con4:where>last-child</con4:where>
+                        <con4:expr>
+                            <con1:xqueryTransform>
+                                <con1:resource ref="SOAFramework/soaf/common/transformations/dispatcher/headerExtendedToServiceHeader"/>
+                                <con1:param name="headerExtended">
+                                    <con1:path>$header/he:headerExtended</con1:path>
+                                </con1:param>
+                            </con1:xqueryTransform>
+                        </con4:expr>
+                    </con4:insert>
+                </con:actions>
+            </con:stage>
+            <con:stage name="sLogServiceEnd" errorHandler="_onErrorHandler-4177772503027266255--101f2709.1441c4aaab9.-77a8">
+                <con:context>
+                    <con1:userNsDecl namespace="http://xmlns.telco.com/SOAFramework/soaf/common/schemas/headerExtended/v1" prefix="he"/>
+                </con:context>
+                <con:actions>
+                    <con4:insert varName="headerExtended">
+                        <con1:id>_ActionId-4248425684926203549--283d567e.147595c054c.-798b</con1:id>
+                        <con4:where>last-child</con4:where>
+                        <con4:expr>
+                            <con1:xqueryText>$header/he:headerExtended[1]/he:adapterInformation</con1:xqueryText>
+                        </con4:expr>
+                    </con4:insert>
+                    <con4:insert varName="headerExtended">
+                        <con1:id>_ActionId-7f000001.N7b96131f.0.14a4e866196.N7d26</con1:id>
+                        <con4:where>last-child</con4:where>
+                        <con4:expr>
+                            <con1:xqueryText>$header/he:headerExtended[1]/he:responseCodes</con1:xqueryText>
+                        </con4:expr>
+                    </con4:insert>
+                    <con4:ifThenElse xmlns:con3="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con5="http://www.bea.com/wli/sb/typesystem/config" xmlns:jms="http://www.bea.com/wli/sb/transports/jms" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config">
+                        <con6:id xmlns:con6="http://www.bea.com/wli/sb/stages/config">_ActionId-5063485621138318656--3c71b004.1441bba2ec2.-7f18</con6:id>
+                        <con4:case>
+                            <con4:condition>
+                                <con7:xqueryText xmlns:con7="http://www.bea.com/wli/sb/stages/config">let $attrList := $headerExtended/he:attributeList[1]
+let $logSystemLevel := dvm:lookup('SOAFramework/soaf/def_LogMapping', 'LOG', $attrList/he:attribute[ he:name='LOG_LEVEL_SYSTEM' ][1]/he:value[1], 'LEVEL', 'OFF')
+let $logLevel := dvm:lookup('SOAFramework/soaf/def_LogMapping', 'LOG', $attrList/he:attribute[ he:name='LOG_LEVEL' ][1]/he:value[1], 'LEVEL', 'OFF')
+let $logLevelEvent := dvm:lookup('SOAFramework/soaf/def_LogMapping', 'LOG', $attrList/he:attribute[ he:name='LOG_LEVEL_EVENT' ][1]/he:value[1], 'LEVEL', 'OFF')
+
+return 
+	 fn:boolean($logSystemLevel >= $logLevel or $logSystemLevel >= $logLevelEvent)</con7:xqueryText>
+                            </con4:condition>
+                            <con4:actions>
+                                <con4:delete varName="headerExtended">
+                                    <con7:id xmlns:con7="http://www.bea.com/wli/sb/stages/config">_ActionId-7f000001.N325a1bf8.0.14b6e106b1b.N7e5c</con7:id>
+                                    <con4:location>
+                                        <con7:xpathText xmlns:con7="http://www.bea.com/wli/sb/stages/config">./he:dynLog</con7:xpathText>
+                                    </con4:location>
+                                </con4:delete>
+                                <con4:ifThenElse>
+                                    <con7:id xmlns:con7="http://www.bea.com/wli/sb/stages/config">_ActionId-7f000001.N325a1bf8.0.14b6e106b1b.N7e94</con7:id>
+                                    <con4:case id="_BranchId-7f000001.N325a1bf8.0.14b6e106b1b.N7e93">
+                                        <con4:condition>
+                                            <con7:xqueryText xmlns:con7="http://www.bea.com/wli/sb/stages/config">string-length($headerExtended/he:attributeList[1]/he:attribute[ he:name='LOG_KEY_SERVICE_END' ][1]/he:value[1])>0</con7:xqueryText>
+                                        </con4:condition>
+                                        <con4:actions>
+                                            <con4:insert varName="headerExtended">
+                                                <con7:id xmlns:con7="http://www.bea.com/wli/sb/stages/config">_ActionId-7f000001.N325a1bf8.0.14b6e106b1b.N7e92</con7:id>
+                                                <con4:location>
+                                                    <con7:xpathText xmlns:con7="http://www.bea.com/wli/sb/stages/config">.</con7:xpathText>
+                                                </con4:location>
+                                                <con4:where>first-child</con4:where>
+                                                <con4:expr>
+                                                    <con7:xqueryTransform xmlns:con7="http://www.bea.com/wli/sb/stages/config">
+                                                        <con7:resource ref="SOAFramework/soaf/common/transformations/pub/evalXPath"/>
+                                                        <con7:param name="path">
+                                                            <con7:path>$headerExtended/*:attributeList[1]/*:attribute[*:name='LOG_KEY_SERVICE_END'][1]/*:value/text()</con7:path>
+                                                        </con7:param>
+                                                        <con7:param name="xml">
+                                                            <con7:path>$body/*[1]</con7:path>
+                                                        </con7:param>
+                                                    </con7:xqueryTransform>
+                                                </con4:expr>
+                                            </con4:insert>
+                                        </con4:actions>
+                                    </con4:case>
+                                    <con4:default/>
+                                </con4:ifThenElse>
+                                <con6:report>
+                                    <con7:id xmlns:con7="http://www.bea.com/wli/sb/stages/config">_ActionId-5600035152657638483-635deec2.1448772776c.-7f0c</con7:id>
+                                    <con6:expr>
+                                        <con7:xqueryTransform xmlns:con7="http://www.bea.com/wli/sb/stages/config">
+                                            <con7:resource ref="SOAFramework/soaf/common/transformations/logger/serviceLogEnd"/>
+                                            <con7:param name="headerExtended">
+                                                <con7:path>$headerExtended</con7:path>
+                                            </con7:param>
+                                            <con7:param name="headerInner">
+                                                <con7:path>$header/*[not(self::he:headerExtended)]</con7:path>
+                                            </con7:param>
+                                            <con7:param name="bodyInner">
+                                                <con7:path>if(string($headerExtended/he:attributeList[1]/he:attribute[ he:name='LOG_WRITE_BODY' ][1]/he:value[1]) = 'false')
+then ()
+else typeswitch ($body/*[1]) 
+  case element() return $body/*[1] (:SOAP:)
+  default return $body/text() (:JSON:)</con7:path>
+                                            </con7:param>
+                                        </con7:xqueryTransform>
+                                    </con6:expr>
+                                    <con6:labels>
+                                        <con6:key>messageId</con6:key>
+                                        <con6:varName>headerExtended</con6:varName>
+                                        <con6:value>
+                                            <con7:xpathText xmlns:con7="http://www.bea.com/wli/sb/stages/config">he:messageId[1]/text()</con7:xpathText>
+                                        </con6:value>
+                                    </con6:labels>
+                                    <con6:labels>
+                                        <con6:key>requestId</con6:key>
+                                        <con6:varName>headerExtended</con6:varName>
+                                        <con6:value>
+                                            <con7:xpathText xmlns:con7="http://www.bea.com/wli/sb/stages/config">he:requestId[1]/text()</con7:xpathText>
+                                        </con6:value>
+                                    </con6:labels>
+                                    <con6:labels>
+                                        <con6:key>correlationId</con6:key>
+                                        <con6:varName>headerExtended</con6:varName>
+                                        <con6:value>
+                                            <con7:xpathText xmlns:con7="http://www.bea.com/wli/sb/stages/config">he:correlationId[1]/text()</con7:xpathText>
+                                        </con6:value>
+                                    </con6:labels>
+                                    <con6:labels>
+                                        <con6:key>dynamicKey</con6:key>
+                                        <con6:varName>headerExtended</con6:varName>
+                                        <con6:value>
+                                            <con7:xpathText xmlns:con7="http://www.bea.com/wli/sb/stages/config">he:dynLog[1]/text()</con7:xpathText>
+                                        </con6:value>
+                                    </con6:labels>
+                                </con6:report>
+                            </con4:actions>
+                        </con4:case>
+                    </con4:ifThenElse>
+                    <con4:delete varName="header" xmlns:jms="http://www.bea.com/wli/sb/transports/jms">
+                        <con1:id>_ActionId-3786916938139717671-15d29469.145efbe529b.-7ca6</con1:id>
+                        <con4:location>
+                            <con1:xpathText>he:headerExtended[1]|he:responseCodes[1]|he:attributeList[1]|wsu:Security[1]</con1:xpathText>
+                        </con4:location>
+                    </con4:delete>
+                    <con4:delete varName="body">
+                        <con1:id>_ActionId-7f000001.36478ccc.0.1487e7a5fa9.N7f6a</con1:id>
+                        <con4:location>
+                            <con1:xpathText>*:Fault</con1:xpathText>
+                        </con4:location>
+                    </con4:delete>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="error" name="_onErrorHandler-4177772503027266255--101f2709.1441c4aaab9.-77ad">
+            <con:stage name="sSkipLogServiceStart">
+                <con:context/>
+                <con:actions>
+                    <con6:log>
+                        <con1:id>_ActionId-2348698588051999113--14611ccd.147c5f1bfc4.-7dee</con1:id>
+                        <con6:logLevel>error</con6:logLevel>
+                        <con6:expr>
+                            <con1:xqueryText>$fault,
+$header,
+$body</con1:xqueryText>
+                        </con6:expr>
+                        <con6:message>::PROXY:LOG::</con6:message>
+                    </con6:log>
+                    <con1:resume>
+                        <con1:id>_ActionId-4177772503027266255--101f2709.1441c4aaab9.-77a9</con1:id>
+                    </con1:resume>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="error" name="_onErrorHandler-4177772503027266255--101f2709.1441c4aaab9.-77a8">
+            <con:stage name="sSkipLogServiceEnd">
+                <con:context/>
+                <con:actions>
+                    <con6:log>
+                        <con1:id>_ActionId-2348698588051999113--14611ccd.147c5f1bfc4.-7e07</con1:id>
+                        <con6:logLevel>error</con6:logLevel>
+                        <con6:expr>
+                            <con1:xqueryText>$fault,
+$header,
+$body</con1:xqueryText>
+                        </con6:expr>
+                        <con6:message>::PROXY:LOG::</con6:message>
+                    </con6:log>
+                    <con1:resume>
+                        <con1:id>_ActionId-5127069327951496328-75a97c93.1461f28f966.-7ff9</con1:id>
+                    </con1:resume>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="error" name="_onErrorHandler-2348698588051999113--14611ccd.147c5f1bfc4.-7f21">
+            <con:stage name="sError">
+                <con:context>
+                    <con1:userNsDecl namespace="http://xmlns.telco.com/SOAFramework/soaf/common/schemas/headerExtended/v1" prefix="he"/>
+                </con:context>
+                <con:actions>
+                    <con4:replace varName="header" contents-only="true">
+                        <con1:id>_ActionId-2348698588051999113--14611ccd.147c5f1bfc4.-7eb0</con1:id>
+                        <con4:expr>
+                            <con1:xqueryTransform>
+                                <con1:resource ref="SOAFramework/soaf/common/transformations/dispatcher/exceptionToHeaderExtended"/>
+                                <con1:param name="route">
+                                    <con1:path>&lt;ctx:route>
+	&lt;ctx:service isProxy="true">{$header/he:headerExtended[1]/he:businessInterface[1]/he:name[1]/text()}&lt;/ctx:service>
+&lt;/ctx:route></con1:path>
+                                </con1:param>
+                                <con1:param name="headerExtended">
+                                    <con1:path>$headerExtended</con1:path>
+                                </con1:param>
+                                <con1:param name="inbound">
+                                    <con1:path>$inbound</con1:path>
+                                </con1:param>
+                                <con1:param name="fault">
+                                    <con1:path>if($body/*:Fault)
+then ($body/*:Fault)
+else ($fault)</con1:path>
+                                </con1:param>
+                            </con1:xqueryTransform>
+                        </con4:expr>
+                    </con4:replace>
+                    <con4:replace varName="header" contents-only="true">
+                        <con1:id>_ActionId-7f000001.36478ccc.0.1487e7a5fa9.N7f64</con1:id>
+                        <con4:expr>
+                            <con1:xqueryTransform>
+                                <con1:resource ref="SOAFramework/soaf/common/transformations/dispatcher/headerExtendedToServiceHeader"/>
+                                <con1:param name="headerExtended">
+                                    <con1:path>$header/he:headerExtended</con1:path>
+                                </con1:param>
+                            </con1:xqueryTransform>
+                        </con4:expr>
+                    </con4:replace>
+                    <con4:delete varName="header">
+                        <con1:id>_ActionId-8217515490669357236--596120ef.147cb7aaeae.-7fb9</con1:id>
+                        <con4:location>
+                            <con1:xpathText>he:headerExtended[1]|he:responseCodes[1]|wsu:Security[1]</con1:xpathText>
+                        </con4:location>
+                    </con4:delete>
+                    <con4:delete varName="body">
+                        <con1:id>_ActionId-7f000001.36478ccc.0.1487e7a5fa9.N7f61</con1:id>
+                        <con4:location>
+                            <con1:xpathText>*:Fault</con1:xpathText>
+                        </con4:location>
+                    </con4:delete>
+                    <con1:resume>
+                        <con1:id>_ActionId-2348698588051999113--14611ccd.147c5f1bfc4.-7eaf</con1:id>
+                    </con1:resume>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="error" name="_onErrorHandler-3135082020874653007-de56a2d.147d06de472.-7f8d">
+            <con:stage name="sErrorHandlerDispatch">
+                <con:context>
+                    <con1:userNsDecl namespace="http://xmlns.telco.com/SOAFramework/soaf/common/schemas/headerExtended/v1" prefix="he"/>
+                </con:context>
+                <con:actions>
+                    <con4:replace contents-only="true" varName="header">
+                        <con1:id>_ActionId-3135082020874653007-de56a2d.147d06de472.-7f8a</con1:id>
+                        <con4:expr>
+                            <con1:xqueryTransform>
+                                <con1:resource ref="SOAFramework/soaf/common/transformations/dispatcher/exceptionToHeaderExtended"/>
+                                <con1:param name="route">
+                                    <con1:path>&lt;ctx:route>
+	&lt;ctx:service isProxy="true">{$header/he:headerExtended[1]/he:businessInterface[1]/he:name[1]/text()}&lt;/ctx:service>
+&lt;/ctx:route></con1:path>
+                                </con1:param>
+                                <con1:param name="headerExtended">
+                                    <con1:path>$headerExtended</con1:path>
+                                </con1:param>
+                                <con1:param name="inbound">
+                                    <con1:path>$inbound</con1:path>
+                                </con1:param>
+                                <con1:param name="fault">
+                                    <con1:path>if($body/*:Fault)
+then ($body/*:Fault)
+else ($fault)</con1:path>
+                                </con1:param>
+                            </con1:xqueryTransform>
+                        </con4:expr>
+                    </con4:replace>
+                    <con1:resume>
+                        <con1:id>_ActionId-3135082020874653007-de56a2d.147d06de472.-7f89</con1:id>
+                    </con1:resume>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:flow>
+            <con:pipeline-node name="ppProxyDispatcher">
+                <con:request>ppProxyDispatcher_request</con:request>
+                <con:response>ppProxyDispatcher_response</con:response>
+            </con:pipeline-node>
+            <con:route-node name="rnBusinessService" error-handler="_onErrorHandler-3135082020874653007-de56a2d.147d06de472.-7f8d">
+                <con:context>
+                    <con1:userNsDecl namespace="http://xmlns.telco.com/SOAFramework/soaf/common/schemas/headerExtended/v1" prefix="he"/>
+                </con:context>
+                <con:actions>
+                    <con3:dynamic-route>
+                        <con1:id>_ActionId-4273013200602320143-7bae19f4.1440c188ac8.-7da0</con1:id>
+                        <con3:service>
+                            <con1:xqueryText>&lt;ctx:route>
+	&lt;ctx:service isProxy="true">{$header/he:headerExtended[1]/he:businessInterface[1]/he:name[1]/text()}&lt;/ctx:service>
+&lt;/ctx:route></con1:xqueryText>
+                        </con3:service>
+                        <con3:outboundTransform/>
+                        <con3:responseTransform/>
+                    </con3:dynamic-route>
+                </con:actions>
+            </con:route-node>
+        </con:flow>
+    </con:router>
+</con:pipelineEntry>

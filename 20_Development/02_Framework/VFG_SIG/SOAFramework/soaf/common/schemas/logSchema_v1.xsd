@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema
+      elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema"
+      targetNamespace="http://xmlns.telco.com/SOAFramework/soaf/common/schemas/logSchema/v1"
+      xmlns:log="http://xmlns.telco.com/SOAFramework/soaf/common/schemas/logSchema/v1"
+	>
+
+    <element name="input" type="log:LogInput"></element>
+    <complexType name="LogInput">
+      <sequence>
+            <element name="serviceName" type="string" minOccurs="0"/> <!-- ObjectID -->
+            <element name="level">
+                  <simpleType>
+                        <restriction base="string">
+                              <enumeration value="TRACE"/>
+                              <enumeration value="DEBUG"/>
+                              <enumeration value="INFO"/>
+                              <enumeration value="WARN"/>
+                              <enumeration value="ERROR"/>
+                              <enumeration value="FATAL"/>
+                        </restriction>
+                  </simpleType>
+            </element>
+            <element name="task" type="string"/>
+            <element name="createdBy" type="string"/>
+            <element name="timestamp" type="dateTime" minOccurs="0"/>
+            <element name="engine" type="string" minOccurs="0"/>
+            
+            <!-- Status message and details -->
+            <element name="statusCode" type="string" minOccurs="0"/>
+            <element name="statusMessage" type="string" minOccurs="0"/>
+                              
+            <!-- Internal log keys -->
+            <element name="messageId" type="string" minOccurs="0"/>
+            <element name="externalMessageId" type="string" minOccurs="0"/>
+            
+            <!-- Clients and targets keys -->
+            <element name="requestId" type="string" minOccurs="0"/>
+            <element name="correlationId" type="string" minOccurs="0"/>
+            
+            <!-- Client specific information -->
+           <element name="requestorRequestId" type="string" /><!-- AParty UniqueIdentifier : headerExtended/KeyValue -->
+           <element name="requestorIp" type="string" minOccurs="0" /><!-- AParty IP : inbound/http-header/http:client-address -->
+           <element name="requestorAgent" type="string" minOccurs="0" /><!-- http:User-Agent -->
+           
+           <element name="sessionId" type="string" minOccurs="0" /><!-- SessionID : Not mapped -->
+           <element name="action" type="string" /><!-- SOAPAction / Service name -->
+           <element name="objectId" type="string" /><!-- Service name -->
+           <element name="description" type="string" minOccurs="0" /><!-- Description/Other information -->
+           <element name="timeToComplete" type="long" minOccurs="0" /><!-- Time calculated -->
+           <element name="adapterTimeSum" type="decimal" minOccurs="0"/>
+           
+           <element name="targetRequestId" type="string" /><!-- BParty UniqueIdentifier -->
+           <element name="targetIp" type="string" /><!-- BParty IP ? need to review how to get this information, probably I can't, I can only provide target system name -->
+           <element name="targetAgent" type="string" minOccurs="0" /><!-- BParty Device ? No information, OSB user agent-->
+            
+            <element name="payload" type="anyURI" minOccurs="0"/>
+      </sequence>
+    </complexType>
+</schema>

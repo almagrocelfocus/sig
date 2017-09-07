@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://xmlns.telco.com/SOAFramework/soaf/common/schemas/headerExtended/v1"
+	elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:he="http://xmlns.telco.com/SOAFramework/soaf/common/schemas/headerExtended/v1">
+
+	<element name="headerExtended" type="he:headerExtended" />
+	<complexType name="headerExtended">
+		<sequence>
+			<element name="originalService" type="string" />
+			<element name="messageId" type="string" />
+			<element name="requestId" type="string" />
+			<element name="correlationId" type="string" minOccurs="0" />
+			<element name="source" type="string" />
+			<element name="priority" type="he:tPriority" minOccurs="0"/>
+			<element name="username" type="string" minOccurs="0" />
+			<element name="timestamp" type="dateTime" minOccurs="0" />
+			<element name="externalMessageId" type="string" minOccurs="0" />
+                        <element name="businessInterface" type="he:interface" minOccurs="0" />
+			<element name="technicalInterface" type="he:interface" minOccurs="0" />
+			<element ref="he:contextInformation" minOccurs="0" />
+			<element ref="he:repubContext" minOccurs="0" />
+			<element ref="he:attributeList" minOccurs="0" />
+			<element ref="he:adapterInformation" minOccurs="0" maxOccurs="unbounded" />
+                        <element ref="he:responseCodes" minOccurs="0" />
+                        <element name="logValue" minOccurs="0" />
+		</sequence>
+	</complexType>
+
+	<simpleType name="tPriority">
+		<restriction base="int">
+			<minInclusive value="1" />
+		</restriction>
+	</simpleType>
+
+	<element name="attributeList" type="he:attributeList" />
+	<complexType name="attributeList">
+		<sequence>
+			<element name="attribute" type="he:attribute" minOccurs="1" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+	<element name="attribute" type="he:attribute" />
+	<complexType name="attribute">
+		<sequence>
+			<element name="name" type="string" />
+			<element name="value" type="string" />
+			<element name="context" type="string" minOccurs="0" />
+		</sequence>
+	</complexType>
+
+	<element name="businessInterface" type="he:interface" />
+	<element name="technicalInterface" type="he:interface" />
+	<complexType name="interface">
+		<sequence>
+			<element name="name" type="string" minOccurs="1" />
+			<element name="domain" type="string" minOccurs="1" />
+			<element name="category" type="string" minOccurs="1" />
+			<element name="target" type="string" minOccurs="1" />
+			<element name="service" type="string" minOccurs="1" />
+			<element name="version" minOccurs="1">
+				<simpleType>
+					<restriction base="int">
+						<minInclusive value="1" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="operation" type="string" minOccurs="0" />
+			<element name="soapAction" type="string" minOccurs="0" />
+		</sequence>
+	</complexType>
+
+	<element name="responseCodes" type="he:responseCodes" />
+	<complexType name="responseCodes">
+		<sequence>
+			<element name="responseCode" type="string" />
+			<element name="responseMessage" type="string" />
+			<element name="externalError" type="he:externalError" minOccurs="0" />
+		</sequence>
+	</complexType>
+
+	<element name="externalError" type="he:externalError" />
+	<complexType name="externalError">
+		<sequence>
+			<element name="errorCode" type="string" minOccurs="1" />
+			<element name="errorMessage" type="string" minOccurs="0" />
+			<element name="system" type="string" minOccurs="0" />
+		</sequence>
+	</complexType>
+
+	<element name="contextInformation" type="he:contextInformation" />
+	<complexType name="contextInformation">
+		<sequence>
+			<element name="requestorIp" type="string" />
+			<element name="requestorAgent" type="string" />
+			<element name="sessionId" type="string" minOccurs="0" />
+		</sequence>
+	</complexType>
+
+	<element name="adapterInformation" type="he:adapterInformation" />
+	<complexType name="adapterInformation">
+		<sequence>
+			<element name="targetIp" type="string" />
+			<element name="adapterExecutionMili" type="long" />
+		</sequence>
+	</complexType>
+
+
+	<element name="repubContext" type="he:repubContext" />
+	<complexType name="repubContext">
+		<sequence>
+			<element name="numberOfRetries" type="int" />
+			<element name="maxNumberOfRetries" type="int" />
+			<element name="repubInfo" type="string" />
+		</sequence>
+	</complexType>
+
+	<complexType name="payload">
+		<sequence>
+			<any namespace="##any" />
+		</sequence>
+	</complexType>
+</schema>

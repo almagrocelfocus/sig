@@ -1,0 +1,32 @@
+<wsdl:definitions targetNamespace="http://xmlns.telco.com/SOAFrameworkBackendSimulator/wsDispatcher/v1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://xmlns.telco.com/SOAFrameworkBackendSimulator/wsDispatcher/v1">
+  <wsdl:types>
+    <xsd:schema>
+      <xsd:import namespace="http://xmlns.telco.com/SOAFrameworkBackendSimulator/wsDispatcher/v1" schemaLocation="../schemas/wsDispatcher.xsd"/>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="wsDispatcher_v1Request">
+    <wsdl:part name="requestParameters" element="tns:wsDispatcherRequest"/>
+  </wsdl:message>
+  <wsdl:message name="wsDispatcher_v1Response">
+    <wsdl:part name="responseParameters" element="tns:wsDispatcherResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="wsDispatcher_ptt">
+    <wsdl:operation name="wsDispatcher_v1">
+      <wsdl:input message="tns:wsDispatcher_v1Request"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="wsDispatcher_binding" type="tns:wsDispatcher_ptt">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="wsDispatcher_v1">
+      <soap:operation soapAction="http://www.example.org/SOAFramework/wsDispatcher_v1"/>
+      <wsdl:input>
+        <soap:body use="literal" parts="requestParameters"/>
+      </wsdl:input>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="wsDispatcher_service">
+    <wsdl:port name="wsDispatcher" binding="tns:wsDispatcher_binding">
+      <soap:address location="http://localhost:7001/SOAFrameworkBackendSimulator/soaf/proxyServices/wsDispatcher_v1/wsDispatcher"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

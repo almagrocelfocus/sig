@@ -1,0 +1,36 @@
+<definitions targetNamespace="http://ws.esb.telco.com/PublisherCallback" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://ws.esb.telco.com/PublisherCallback" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/wsdl/">
+	<types>
+		<xsd:schema>
+			<xsd:import namespace="http://ws.esb.telco.com/PublisherCallback" schemaLocation="../schemas/publisherCallback.xsd"/>
+		</xsd:schema>
+	</types>
+	<message name="republishEvent">
+		<part name="parameters" element="tns:republishEvent"/>
+	</message>
+	<message name="republishEventResponse">
+		<part name="parameters" element="tns:republishEventResponse"/>
+	</message>
+	<portType name="PublisherCallback">
+		<operation name="republishEvent">
+			<input message="tns:republishEvent"/>
+			<output message="tns:republishEventResponse"/>
+		</operation>
+	</portType>
+	<binding name="PublisherCallbackPortBinding" type="tns:PublisherCallback">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+		<operation name="republishEvent">
+			<soap:operation soapAction="http://ws.esb.telco.com/PublisherCallback/republishEvent"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="PublisherCallbackService">
+		<port name="PublisherCallbackPort" binding="tns:PublisherCallbackPortBinding">
+			<soap:address location="http://ws.esb.telco.com/PublisherCallback"/>
+		</port>
+	</service>
+</definitions>

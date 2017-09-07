@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:pipelineEntry xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+    <con:coreEntry>
+        <con:binding type="SOAP" isSoap12="false" xsi:type="con:SoapBindingType">
+            <con:wsdl ref="SOAFramework/soaf/proxyService/cleanCache_v1/wsdl/cleanCache"/>
+            <con:binding>
+                <con:name>cleanCache_binding</con:name>
+                <con:namespace>http://xmlns.telco.com/SOAFramework/cleanCache/v1</con:namespace>
+            </con:binding>
+        </con:binding>
+        <con:xqConfiguration>
+            <con:snippetVersion>1.0</con:snippetVersion>
+        </con:xqConfiguration>
+    </con:coreEntry>
+    <con:router errorHandler="error-7f000001.N46a0bcc6.0.14dae548149.N7ec0">
+        <con:pipeline type="request" name="request-N3f57c7ff.ecad0cd.0.148dacda0da.N7f9d">
+            <con:stage id="_StageId-N3f57c7ff.ecad0cd.0.148dacda0da.N7f9b" name="sPrepareRequest">
+                <con:context>
+                    <con2:userNsDecl prefix="v1" namespace="http://xmlns.telco.com/SOAFramework/cleanCache/v1"/>
+                </con:context>
+                <con:actions>
+                    <con3:validate>
+                        <con2:id>_ActionId-7f000001.N46a0bcc6.0.14dae548149.N7ffe</con2:id>
+                        <con3:schema ref="SOAFramework/soaf/proxyService/cleanCache_v1/schemas/cleanCache"/>
+                        <con3:schemaElement xmlns:v1="http://xmlns.telco.com/SOAFramework/cleanCache/v1">v1:cleanCacheRequest</con3:schemaElement>
+                        <con3:varName>body</con3:varName>
+                        <con3:location>
+                            <con2:xpathText>*[1]</con2:xpathText>
+                        </con3:location>
+                    </con3:validate>
+                    <con3:replace contents-only="true" varName="body">
+                        <con2:id>_ActionId-N3f57c7ff.ecad0cd.0.148dacda0da.N7f02</con2:id>
+                        <con3:expr>
+                            <con2:xqueryTransform>
+                                <con2:resource ref="SOAFramework/soaf/proxyService/cleanCache_v1/transformations/to_cleanCache"/>
+                                <con2:param name="input">
+                                    <con2:path>$body/*[1]</con2:path>
+                                </con2:param>
+                            </con2:xqueryTransform>
+                        </con3:expr>
+                    </con3:replace>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="response" name="response-N3f57c7ff.ecad0cd.0.148dacda0da.N7f9c">
+            <con:stage id="_StageId-N3f57c7ff.ecad0cd.0.148dacda0da.N7c3e" name="sPrepareResponse">
+                <con:context/>
+                <con:actions>
+                    <con3:ifThenElse>
+                        <con2:id>_ActionId-7f000001.N46a0bcc6.0.14dae548149.N7ff3</con2:id>
+                        <con3:case id="_BranchId-7f000001.N46a0bcc6.0.14dae548149.N7ff2">
+                            <con3:condition>
+                                <con2:xqueryText>exists($body/*:soafCacheCleanResponse)</con2:xqueryText>
+                            </con3:condition>
+                            <con3:actions>
+                                <con1:replace varName="header" contents-only="true" xmlns:con3="http://www.bea.com/wli/sb/stages/routing/config" xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:oper="http://xmlns.oracle.com/servicebus/pipeline/operations" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+                                    <con2:id>_ActionId-7f000001.N46a0bcc6.0.14dae548149.N7f5d</con2:id>
+                                    <con1:expr>
+                                        <con2:xqueryTransform>
+                                            <con2:resource ref="SOAFramework/soaf/proxyService/cleanCache_v1/transformations/from_headerResponse"/>
+                                            <con2:param name="responseCode">
+                                                <con2:path>dvm:lookup('Network/Resources/network', 'Name', 'SuccessResponse', 'Value', '_0')</con2:path>
+                                            </con2:param>
+                                            <con2:param name="source">
+                                                <con2:path>'SOAF'</con2:path>
+                                            </con2:param>
+                                            <con2:param name="responseDescription">
+                                                <con2:path>dvm:lookup('Network/Resources/network', 'Name', 'SuccessResponse', 'Description', '_Success')</con2:path>
+                                            </con2:param>
+                                        </con2:xqueryTransform>
+                                    </con1:expr>
+                                </con1:replace>
+                                <con3:replace varName="body" contents-only="true">
+                                    <con2:id>_ActionId-7f000001.N46a0bcc6.0.14dae548149.N7ffb</con2:id>
+                                    <con3:expr>
+                                        <con2:xqueryTransform>
+                                            <con2:resource ref="SOAFramework/soaf/proxyService/cleanCache_v1/transformations/from_cleanCache"/>
+                                            <con2:param name="input">
+                                                <con2:path>$body/*[1]</con2:path>
+                                            </con2:param>
+                                        </con2:xqueryTransform>
+                                    </con3:expr>
+                                </con3:replace>
+                            </con3:actions>
+                        </con3:case>
+                        <con3:default>
+                            <con1:replace varName="header" contents-only="true" xmlns:con3="http://www.bea.com/wli/sb/stages/routing/config" xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:oper="http://xmlns.oracle.com/servicebus/pipeline/operations" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+                                <con2:id>_ActionId-7f000001.N46a0bcc6.0.14dae548149.N7d91</con2:id>
+                                <con1:expr>
+                                    <con2:xqueryTransform>
+                                        <con2:resource ref="SOAFramework/soaf/proxyService/cleanCache_v1/transformations/from_headerResponse"/>
+                                        <con2:param name="responseCode">
+                                            <con2:path>data($body/*:Fault/detail/*:fault/*:errorCode)</con2:path>
+                                        </con2:param>
+                                        <con2:param name="source">
+                                            <con2:path>'SOAF'</con2:path>
+                                        </con2:param>
+                                        <con2:param name="responseDescription">
+                                            <con2:path>substring(data($body/*:Fault/detail/*:fault/*:reason),0,500)</con2:path>
+                                        </con2:param>
+                                    </con2:xqueryTransform>
+                                </con1:expr>
+                            </con1:replace>
+                            <con3:delete varName="header">
+                                <con2:id>_ActionId-N3f57c7ff.ecad0cd.0.148dacda0da.N7842</con2:id>
+                            </con3:delete>
+                        </con3:default>
+                    </con3:ifThenElse>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="error" name="error-7f000001.N46a0bcc6.0.14dae548149.N7ec0">
+            <con:stage id="_StageId-7f000001.N46a0bcc6.0.14dae548149.N7ebf" name="sError">
+                <con:context/>
+                <con:actions>
+                    <con1:replace varName="header" contents-only="true" xmlns:con3="http://www.bea.com/wli/sb/stages/routing/config" xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:oper="http://xmlns.oracle.com/servicebus/pipeline/operations" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con2:id>_ActionId-7f000001.N46a0bcc6.0.14dae548149.N7df4</con2:id>
+                        <con1:expr>
+                            <con2:xqueryTransform>
+                                <con2:resource ref="SOAFramework/soaf/proxyService/cleanCache_v1/transformations/from_headerResponse"/>
+                                <con2:param name="responseCode">
+                                    <con2:path>data($fault/*:errorCode)</con2:path>
+                                </con2:param>
+                                <con2:param name="source">
+                                    <con2:path>'SOAF'</con2:path>
+                                </con2:param>
+                                <con2:param name="responseDescription">
+                                    <con2:path>substring(data($fault/*:reason),0,500)</con2:path>
+                                </con2:param>
+                            </con2:xqueryTransform>
+                        </con1:expr>
+                    </con1:replace>
+                    <con3:delete varName="fault">
+                        <con2:id>_ActionId-7f000001.N46a0bcc6.0.14dae548149.N7d58</con2:id>
+                    </con3:delete>
+                    <con3:delete varName="body">
+                        <con2:id>_ActionId-7f000001.N46a0bcc6.0.14dae548149.N7e59</con2:id>
+                    </con3:delete>
+                    <con2:resume>
+                        <con2:id>_ActionId-7f000001.N46a0bcc6.0.14dae548149.N7d55</con2:id>
+                    </con2:resume>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:flow>
+            <con:pipeline-node name="PipelinePairNode1">
+                <con:request>request-N3f57c7ff.ecad0cd.0.148dacda0da.N7f9d</con:request>
+                <con:response>response-N3f57c7ff.ecad0cd.0.148dacda0da.N7f9c</con:response>
+            </con:pipeline-node>
+            <con:route-node name="rnToProxy">
+                <con:context>
+                    <con2:userNsDecl prefix="v1" namespace="http://xmlns.telco.com/SOAFramework/cleanCache/v1"/>
+                </con:context>
+                <con:actions>
+                    <con1:route>
+                        <con2:id>_ActionId-N3f57c7ff.701e2dff.0.148d0e0b920.N7bdd</con2:id>
+                        <con1:service ref="SOAFramework/soaf/businessServices/cleanCache_v1/cleanCache" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        <con1:operation>soafCacheClean</con1:operation>
+                        <con1:outboundTransform/>
+                        <con1:responseTransform/>
+                    </con1:route>
+                </con:actions>
+            </con:route-node>
+        </con:flow>
+    </con:router>
+</con:pipelineEntry>

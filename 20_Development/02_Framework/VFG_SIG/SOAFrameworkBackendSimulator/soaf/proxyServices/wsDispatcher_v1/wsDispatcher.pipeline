@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:pipelineEntry xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+    <con:coreEntry>
+        <con:binding type="Any SOAP" isSoap12="false" xsi:type="con:AnySoapBindingType"/>
+        <con:xqConfiguration>
+            <con:snippetVersion>1.0</con:snippetVersion>
+        </con:xqConfiguration>
+    </con:coreEntry>
+    <con:router errorHandler="error-N3f57c7ff.36cd2e5d.0.14a5dd447d0.N7fd0">
+        <con:pipeline type="request" name="request-N3f57c7ff.N4de978c4.0.14a4f2bb546.N7c5e">
+            <con:stage id="_StageId-N3f57c7ff.Nd70a328.0.14a4f66b039.N7e08" name="sGetSimulation">
+                <con:context>
+                    <con2:userNsDecl prefix="ns1" namespace="http://xmlns.telco.com/SOAFrameworkBackendSimulator/wsDispatcher/v1"/>
+                </con:context>
+                <con:actions>
+                    <con3:assign varName="nsOperation">
+                        <con2:id>_ActionId-N3f57c7ff.Nd70a328.0.14a4f66b039.N74e9</con2:id>
+                        <con3:expr>
+                            <con2:xqueryText>concat('{',namespace-uri($body/*),'}',local-name($body/*))</con2:xqueryText>
+                        </con3:expr>
+                    </con3:assign>
+                    <con3:assign varName="requestNodeNoNamespaces">
+                        <con2:id>_ActionId-N3f57c7ff.Nd70a328.0.14a4f66b039.N7887</con2:id>
+                        <con3:expr>
+                            <con2:xsltTransform>
+                                <con2:resource ref="SOAFrameworkBackendSimulator/soaf/common/xslt/stripNamespaces"/>
+                                <con2:input>$body/*</con2:input>
+                            </con2:xsltTransform>
+                        </con3:expr>
+                    </con3:assign>
+                    <con3:assign varName="requestNodeNoNamespacesStr">
+                        <con2:id>_ActionId-N53ed7623.N6b2e8f12.0.14a5d0efe0a.N7ffe</con2:id>
+                        <con3:expr>
+                            <con2:xqueryText>fn-bea:serialize(xs:string(fn-bea:serialize($requestNodeNoNamespaces)))</con2:xqueryText>
+                        </con3:expr>
+                    </con3:assign>
+                    <con3:assign varName="getSimulationRequest">
+                        <con2:id>_ActionId-N3f57c7ff.Nd70a328.0.14a4f66b039.N77e9</con2:id>
+                        <con3:expr>
+                            <con2:xqueryTransform>
+                                <con2:resource ref="SOAFrameworkBackendSimulator/soaf/proxyServices/wsDispatcher_v1/transformations/to_getSimulation"/>
+                                <con2:param name="request">
+                                    <con2:path>$requestNodeNoNamespacesStr</con2:path>
+                                </con2:param>
+                                <con2:param name="nsOperation">
+                                    <con2:path>$nsOperation</con2:path>
+                                </con2:param>
+                            </con2:xqueryTransform>
+                        </con3:expr>
+                    </con3:assign>
+                    <con1:wsCallout xmlns:con3="http://www.bea.com/wli/sb/stages/routing/config" xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:oper="http://xmlns.oracle.com/servicebus/pipeline/operations" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con2:id>_ActionId-N3f57c7ff.Nd70a328.0.14a4f66b039.N77ec</con2:id>
+                        <con1:service ref="SOAFrameworkBackendSimulator/soaf/businessServices/getSimulation_v1/getSimulation" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        <con1:operation>getSimulation</con1:operation>
+                        <con1:request>
+                            <con1:body wrapped="false">getSimulationRequest</con1:body>
+                        </con1:request>
+                        <con1:response>
+                            <con1:body wrapped="false">getSimulationResponse</con1:body>
+                        </con1:response>
+                        <con1:requestTransform/>
+                        <con1:responseTransform/>
+                    </con1:wsCallout>
+                    <con3:ifThenElse>
+                        <con2:id>_ActionId-N3f57c7ff.Nd70a328.0.14a4f66b039.N774d</con2:id>
+                        <con3:case id="_BranchId-N3f57c7ff.Nd70a328.0.14a4f66b039.N774c">
+                            <con3:condition>
+                                <con2:xqueryText>not(exists($getSimulationResponse/*:O_SERVICE)) or data($getSimulationResponse/*:O_SERVICE) = ''</con2:xqueryText>
+                            </con3:condition>
+                            <con3:actions>
+                                <con3:replace contents-only="true" varName="body">
+                                    <con2:id>_ActionId-N3f57c7ff.Nd70a328.0.14a4f66b039.N76e4</con2:id>
+                                    <con3:expr>
+                                        <con2:xqueryText>fn-bea:inlinedXML($getSimulationResponse/*:O_RESPONSE_BODY)</con2:xqueryText>
+                                    </con3:expr>
+                                </con3:replace>
+                                <con3:replace contents-only="true" varName="header">
+                                    <con2:id>_ActionId-N53f1f5f4.N43652b82.0.14acb40c1a5.N7f9d</con2:id>
+                                    <con3:expr>
+                                        <con2:xqueryText>fn-bea:inlinedXML($getSimulationResponse/*:O_RESPONSE_HEADER)</con2:xqueryText>
+                                    </con3:expr>
+                                </con3:replace>
+                                <con2:reply>
+                                    <con2:id>_ActionId-N3f57c7ff.Nd70a328.0.14a4f66b039.N76e1</con2:id>
+                                </con2:reply>
+                            </con3:actions>
+                        </con3:case>
+                        <con3:default/>
+                    </con3:ifThenElse>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="response" name="response-N3f57c7ff.N4de978c4.0.14a4f2bb546.N7c5d">
+            <con:stage id="_StageId-N3f57c7ff.Nd70a328.0.14a4f66b039.N7efe" name="sWsDispatcherResponse" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+                <con:context/>
+                <con:actions/>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="error" name="error-N3f57c7ff.36cd2e5d.0.14a5dd447d0.N7fd0">
+            <con:stage id="_StageId-N3f57c7ff.36cd2e5d.0.14a5dd447d0.N7fcf" name="sErrorHandler">
+                <con:context/>
+                <con:actions>
+                    <con3:replace contents-only="true" varName="body">
+                        <con2:id>_ActionId-N3f57c7ff.36cd2e5d.0.14a5dd447d0.N7fc9</con2:id>
+                        <con3:expr>
+                            <con2:xqueryText><![CDATA[<soap-env:Fault>
+	<faultcode>{fn:concat('SOAFBackendSimulator-',fn:data($fault/*:errorCode))}</faultcode> {
+          if(exists($fault/details)) then (
+            <faultstring>Unable to process request: {fn:substring(fn:data($fault/details), 0, 500)}</faultstring>
+          )
+          else (
+            <faultstring>Unable to process request: {fn:substring(fn:data($fault), 0, 500)}</faultstring>
+          )
+      }
+</soap-env:Fault>]]></con2:xqueryText>
+                        </con3:expr>
+                    </con3:replace>
+                    <con2:reply isError="false">
+                        <con2:id>_ActionId-N3f57c7ff.36cd2e5d.0.14a5dd447d0.N7d11</con2:id>
+                    </con2:reply>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:flow>
+            <con:pipeline-node name="ppWsDispatcher">
+                <con:request>request-N3f57c7ff.N4de978c4.0.14a4f2bb546.N7c5e</con:request>
+                <con:response>response-N3f57c7ff.N4de978c4.0.14a4f2bb546.N7c5d</con:response>
+            </con:pipeline-node>
+            <con:route-node name="CallServiceDynamically">
+                <con:context/>
+                <con:actions>
+                    <con1:dynamic-route>
+                        <con2:id>_ActionId-N3f57c7ff.Nd70a328.0.14a4f66b039.N76ab</con2:id>
+                        <con1:service>
+                            <con2:xqueryText><![CDATA[<ctx:route>
+	<ctx:service isProxy="true">{$getSimulationResponse/*:O_SERVICE/text()}</ctx:service>
+        <ctx:operation></ctx:operation>
+</ctx:route>]]></con2:xqueryText>
+                        </con1:service>
+                        <con1:outboundTransform/>
+                        <con1:responseTransform/>
+                    </con1:dynamic-route>
+                </con:actions>
+            </con:route-node>
+        </con:flow>
+    </con:router>
+</con:pipelineEntry>

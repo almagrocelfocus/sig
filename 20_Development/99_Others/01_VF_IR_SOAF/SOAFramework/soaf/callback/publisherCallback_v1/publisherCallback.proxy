@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ser:proxyServiceEntry xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:oper="http://xmlns.oracle.com/servicebus/proxy/operations" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <ser:coreEntry>
+        <ser:description>Internal framework service, won't execute direct logging since initial transformations are required, only after this initial actions will be executed the actions</ser:description>
+        <ser:security xmlns:con3="http://www.bea.com/wli/sb/services/security/config" xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:env="http://www.bea.com/wli/config/env" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config"/>
+        <ser:binding type="SOAP" isSoap12="false" xsi:type="con3:SoapBindingType" xmlns:con3="http://www.bea.com/wli/sb/services/bindings/config" xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:env="http://www.bea.com/wli/config/env" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con3:wsdl ref="SOAFramework/soaf/callback/publisherCallback_v1/wsdl/publisherCallback"/>
+            <con3:port>
+                <con3:name>PublisherCallbackPort</con3:name>
+                <con3:namespace>http://ws.esb.telco.com/PublisherCallback</con3:namespace>
+            </con3:port>
+            <con3:selector type="SOAP body"/>
+            <con3:WSI-compliant>false</con3:WSI-compliant>
+        </ser:binding>
+        <oper:operations enabled="true">
+            <oper:monitoring enabled="false" aggregationInterval="10"/>
+            <oper:sla-alerting enabled="true" level="normal"/>
+        </oper:operations>
+        <ser:ws-policy>
+            <ser:binding-mode>no-policies</ser:binding-mode>
+        </ser:ws-policy>
+        <ser:invoke ref="SOAFramework/soaf/callback/publisherCallback_v1/publisherCallback" xsi:type="con:PipelineRef" xmlns:con="http://www.bea.com/wli/sb/pipeline/config"/>
+    </ser:coreEntry>
+    <ser:endpointConfig xmlns:con3="http://www.bea.com/wli/sb/services/security/config" xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:env="http://www.bea.com/wli/config/env" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+        <tran:provider-id>http</tran:provider-id>
+        <tran:inbound>true</tran:inbound>
+        <tran:URI>
+            <env:value>/SOAFramework/soaf/callback/publisherCallback_v1/publisherCallback</env:value>
+        </tran:URI>
+        <tran:inbound-properties/>
+        <tran:all-headers>false</tran:all-headers>
+        <tran:provider-specific>
+            <http:inbound-properties/>
+        </tran:provider-specific>
+    </ser:endpointConfig>
+</ser:proxyServiceEntry>

@@ -1,0 +1,36 @@
+<!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is Oracle JAX-WS 2.1.5. --><definitions targetNamespace="http://ws.esb.telco.com/Publisher" name="PublisherService" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://ws.esb.telco.com/Publisher" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/wsdl/">
+	<types>
+		<xsd:schema>
+			<xsd:import namespace="http://ws.esb.telco.com/Publisher" schemaLocation="../schemas/publisherService_schema1.xsd"/>
+		</xsd:schema>
+	</types>
+	<message name="storeOperation">
+		<part name="parameters" element="tns:storeOperation"/>
+	</message>
+	<message name="storeOperationResponse">
+		<part name="parameters" element="tns:storeOperationResponse"/>
+	</message>
+	<portType name="Publisher">
+		<operation name="storeOperation">
+			<input message="tns:storeOperation"/>
+			<output message="tns:storeOperationResponse"/>
+		</operation>
+	</portType>
+	<binding name="PublisherPortBinding" type="tns:Publisher">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+		<operation name="storeOperation">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="PublisherService">
+		<port name="PublisherPort" binding="tns:PublisherPortBinding">
+			<soap:address location="http://localhost:7001/soaf-osb-ws/PublisherService"/>
+		</port>
+	</service>
+</definitions>

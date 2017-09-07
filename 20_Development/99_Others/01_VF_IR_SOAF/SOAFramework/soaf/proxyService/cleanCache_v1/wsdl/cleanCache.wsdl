@@ -1,0 +1,39 @@
+<wsdl:definitions targetNamespace="http://xmlns.telco.com/SOAFramework/cleanCache/v1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://xmlns.telco.com/SOAFramework/cleanCache/v1" xmlns:c="http://xmlns.telco.com/SOAFramework/soaf/common/schemas/commonTypes/v1">
+  <wsdl:types>
+    <xsd:schema>
+      <xsd:import namespace="http://xmlns.telco.com/SOAFramework/cleanCache/v1" schemaLocation="../schemas/cleanCache.xsd" />
+      <xsd:import namespace="http://xmlns.telco.com/SOAFramework/soaf/common/schemas/commonTypes/v1" schemaLocation="../../../common/schemas/commonTypes_v1.xsd" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="cleanCache_v1Request">
+    <wsdl:part name="requestParameters" element="tns:cleanCacheRequest" />
+  </wsdl:message>
+  <wsdl:message name="cleanCache_v1Response">
+       <wsdl:part name="responseServiceHeader" element="c:serviceHeader" />
+       <wsdl:part name="responseParameters" element="tns:cleanCacheResponse" />
+  </wsdl:message>
+  <wsdl:portType name="cleanCache_ptt">
+    <wsdl:operation name="cleanCache_v1">
+      <wsdl:input message="tns:cleanCache_v1Request" />
+      <wsdl:output message="tns:cleanCache_v1Response" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="cleanCache_binding" type="tns:cleanCache_ptt">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="cleanCache_v1">
+      <soap:operation soapAction="http://www.example.org/SOAFramework/cleanCache_v1" />
+      <wsdl:input>
+        <soap:body use="literal" parts="requestParameters" />
+      </wsdl:input>
+      <wsdl:output>
+          <soap:body use="literal" parts="responseParameters" />
+        <soap:header message="tns:cleanCache_v1Response" part="responseServiceHeader" use="literal" /> 
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="cleanCache_service">
+    <wsdl:port name="cleanCache" binding="tns:cleanCache_binding">
+      <soap:address location="http://localhost:7001/SOAFramework/soaf/proxyService/cleanCache_v1/cleanCache" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:businessServiceEntry xmlns:con="http://xmlns.oracle.com/servicebus/business/config" xmlns:oper="http://xmlns.oracle.com/servicebus/business/operations" xmlns:con1="http://www.bea.com/wli/sb/stages/config" xmlns:ser="http://www.bea.com/wli/sb/services">
+    <con:coreEntry>
+        <con2:binding type="SOAP" isSoap12="false" xsi:type="con1:SoapBindingType" xmlns:con1="http://www.bea.com/wli/sb/services/bindings/config" xmlns:con="http://www.bea.com/wli/sb/stages/config" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:sb="http://www.bea.com/wli/sb/transports/sb" xmlns:env="http://www.bea.com/wli/config/env" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con2="http://xmlns.oracle.com/servicebus/business/config">
+            <con1:wsdl ref="SOAFramework/soaf/businessServices/serviceConfiguratorService_v1/wsdl/serviceConfiguratorService"/>
+            <con1:port>
+                <con1:name>ServiceConfiguratorPort</con1:name>
+                <con1:namespace>http://ws.esb.telco.com/ServiceConfigurator</con1:namespace>
+            </con1:port>
+            <con1:WSI-compliant>false</con1:WSI-compliant>
+        </con2:binding>
+        <oper:operations enabled="true">
+            <oper:monitoring enabled="false" aggregationInterval="10"/>
+            <oper:sla-alerting enabled="true" level="normal"/>
+            <oper:resultCachingEnabled>true</oper:resultCachingEnabled>
+        </oper:operations>
+        <con:ws-policy>
+            <ser:binding-mode>no-policies</ser:binding-mode>
+        </con:ws-policy>
+    </con:coreEntry>
+    <con2:endpointConfig xmlns:con="http://www.bea.com/wli/sb/stages/config" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:sb="http://www.bea.com/wli/sb/transports/sb" xmlns:env="http://www.bea.com/wli/config/env" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con2="http://xmlns.oracle.com/servicebus/business/config">
+        <tran:provider-id>http</tran:provider-id>
+        <tran:inbound>false</tran:inbound>
+        <tran:URI>
+            <env:value>http://localhost:7101/soaf-osb-ws/ServiceConfiguratorService</env:value>
+        </tran:URI>
+        <tran:outbound-properties>
+            <tran:load-balancing-algorithm>round-robin</tran:load-balancing-algorithm>
+            <tran:retry-count>0</tran:retry-count>
+            <tran:retry-interval>0</tran:retry-interval>
+            <tran:retry-application-errors>true</tran:retry-application-errors>
+        </tran:outbound-properties>
+        <tran:provider-specific>
+            <http:outbound-properties>
+                <http:request-method>POST</http:request-method>
+                <http:timeout>0</http:timeout>
+                <http:connection-timeout>0</http:connection-timeout>
+                <http:follow-redirects>false</http:follow-redirects>
+                <http:chunked-streaming-mode>true</http:chunked-streaming-mode>
+                <http:session-sctikiness enabled="false" session-id-name="JSESSIONID"/>
+            </http:outbound-properties>
+        </tran:provider-specific>
+    </con2:endpointConfig>
+</con:businessServiceEntry>
