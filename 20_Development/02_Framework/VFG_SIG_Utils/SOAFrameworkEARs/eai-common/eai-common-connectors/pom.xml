@@ -1,0 +1,24 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>eai-common</artifactId>
+		<groupId>com.eai.common</groupId>
+		<version>0.1.0</version>
+	</parent>
+
+	<artifactId>eai-common-connectors</artifactId>
+	<packaging>pom</packaging>
+	<name>EAI Connections Module</name>
+	
+	<modules>
+		<module>eai-common-connectors-jms</module>
+	</modules>
+	
+	<dependencies>	
+		<dependency>
+			<groupId>com.eai.common</groupId>
+			<artifactId>eai-common-lib</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+</project>

@@ -1,0 +1,201 @@
+<?xml version="1.0" standalone="yes" ?>
+<diagram>
+    <title>sobe-message-validation-db</title>
+    <DiagramType>Class Diagram</DiagramType>
+    <Version>3.2</Version>
+    <valuesFileName />
+    <elements num="3">
+        <element>
+            <type>UMLCLASS</type>
+            <description />
+            <bgrColor R="128" G="255" B="128" />
+            <fgrColor R="0" G="0" B="0" />
+            <objId>20</objId>
+            <ptul X="421" Y="105" />
+            <ptdr X="645" Y="216" />
+            <links num="1">
+                <link id="18" />
+            </links>
+            <name>LOG_KEYS</name>
+            <stereotype>entity</stereotype>
+            <constraint />
+            <showAttributes />
+            <showMethods />
+            <attributes num="4">
+                <attribute>
+                    <name>ID</name>
+                    <stereotype>PK</stereotype>
+                    <constraint />
+                    <type>VARCHAR2(250)</type>
+                    <defValue />
+                    <vis>Unspec</vis>
+                    <description />
+                </attribute>
+                <attribute>
+                    <name>ID_LOG</name>
+                    <stereotype>FK</stereotype>
+                    <constraint />
+                    <type>VARCHAR2(250)</type>
+                    <defValue />
+                    <vis>Unspec</vis>
+                    <description />
+                </attribute>
+                <attribute>
+                    <name>KEY_NAME</name>
+                    <stereotype />
+                    <constraint />
+                    <type>VARCHAR2(250)</type>
+                    <defValue />
+                    <vis>Unspec</vis>
+                    <description />
+                </attribute>
+                <attribute>
+                    <name>KEY_VALUE</name>
+                    <stereotype />
+                    <constraint />
+                    <type>VARCHAR2(2500)</type>
+                    <defValue />
+                    <vis>Unspec</vis>
+                    <description />
+                </attribute>
+            </attributes>
+            <operations num="0" />
+        </element>
+        <element>
+            <type>UMLAGG</type>
+            <description />
+            <bgrColor R="255" G="255" B="255" />
+            <fgrColor R="0" G="0" B="0" />
+            <objId>18</objId>
+            <points num="2">
+                <pt x="322" y="176" />
+                <pt x="421" y="176" />
+            </points>
+            <objStart id="19" />
+            <objEnd id="20" />
+            <stereotype />
+            <constraint />
+            <roleA mult="1" />
+            <roleB mult="0..*" />
+        </element>
+        <element>
+            <type>UMLCLASS</type>
+            <description />
+            <bgrColor R="128" G="255" B="128" />
+            <fgrColor R="0" G="0" B="0" />
+            <objId>19</objId>
+            <ptul X="64" Y="57" />
+            <ptdr X="322" Y="280" />
+            <links num="1">
+                <link id="18" />
+            </links>
+            <name>LOG</name>
+            <stereotype>entity</stereotype>
+            <constraint />
+            <showAttributes />
+            <showMethods />
+            <attributes num="11">
+                <attribute>
+                    <name>ID</name>
+                    <stereotype>PK</stereotype>
+                    <constraint />
+                    <type>VARCHAR2(250)</type>
+                    <defValue />
+                    <vis>Unspec</vis>
+                    <description />
+                </attribute>
+                <attribute>
+                    <name>MESSAGE_ID</name>
+                    <stereotype />
+                    <constraint />
+                    <type>VARCHAR2(250)</type>
+                    <defValue>ALL</defValue>
+                    <vis>Unspec</vis>
+                    <description />
+                </attribute>
+                <attribute>
+                    <name>SERVICE_NAME</name>
+                    <stereotype />
+                    <constraint />
+                    <type>VARCHAR2(250)</type>
+                    <defValue>ALL</defValue>
+                    <vis>Unspec</vis>
+                    <description />
+                </attribute>
+                <attribute>
+                    <name>LOG_LEVEL</name>
+                    <stereotype />
+                    <constraint />
+                    <type>VARCHAR2(20)</type>
+                    <defValue>ALL</defValue>
+                    <vis>Unspec</vis>
+                    <description />
+                </attribute>
+                <attribute>
+                    <name>TASK</name>
+                    <stereotype />
+                    <constraint />
+                    <type>VARCHAR2(250)</type>
+                    <defValue />
+                    <vis>Unspec</vis>
+                    <description />
+                </attribute>
+                <attribute>
+                    <name>CREATED_BY</name>
+                    <stereotype />
+                    <constraint />
+                    <type>VARCHAR2(250)</type>
+                    <defValue />
+                    <vis>Unspec</vis>
+                    <description />
+                </attribute>
+                <attribute>
+                    <name>TIMESTAMP</name>
+                    <stereotype />
+                    <constraint />
+                    <type>TIMESTAMP</type>
+                    <defValue />
+                    <vis>Unspec</vis>
+                    <description />
+                </attribute>
+                <attribute>
+                    <name>PAYLOAD</name>
+                    <stereotype />
+                    <constraint />
+                    <type>CLOB</type>
+                    <defValue />
+                    <vis>Unspec</vis>
+                    <description />
+                </attribute>
+                <attribute>
+                    <name>STATUS_CODE</name>
+                    <stereotype />
+                    <constraint />
+                    <type>VARCHAR2(250)</type>
+                    <defValue />
+                    <vis>Unspec</vis>
+                    <description />
+                </attribute>
+                <attribute>
+                    <name>STATUS_MESSAGE</name>
+                    <stereotype />
+                    <constraint />
+                    <type>VARCHAR2(250)</type>
+                    <defValue />
+                    <vis>Unspec</vis>
+                    <description />
+                </attribute>
+                <attribute>
+                    <name>ENGINE</name>
+                    <stereotype />
+                    <constraint />
+                    <type>VARCHAR2(250)</type>
+                    <defValue />
+                    <vis>Unspec</vis>
+                    <description />
+                </attribute>
+            </attributes>
+            <operations num="0" />
+        </element>
+    </elements>
+</diagram>

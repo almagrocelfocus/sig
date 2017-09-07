@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Class-Path: 
+Build-Jdk: 1.7.0_79
+Built-By: NB19418
+Created-By: Apache Maven
+Archiver-Version: Plexus Archiver
+

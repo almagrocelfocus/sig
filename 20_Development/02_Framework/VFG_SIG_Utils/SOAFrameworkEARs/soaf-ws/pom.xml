@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>soaf-ws</artifactId>
+	<groupId>com.vodafone.soaf.ws</groupId>
+	<version>0.1.0</version>
+
+	<packaging>pom</packaging>
+	<name>soaf-ws</name>
+
+	<modules>
+		<module>soaf-logger</module>
+		<module>soaf-osb</module>
+		<module>soaf-service-configurator</module>
+	</modules>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+		<maven.build.timestamp.format>yyyyMMddHHmm</maven.build.timestamp.format>
+
+		<build.debug>true</build.debug>
+		<build.quiet>true</build.quiet>
+		<build.skipTests>true</build.skipTests>
+
+		<dependency.common.eai.version>0.1.0</dependency.common.eai.version>
+
+		<!-- START - Properties that are enviroment relative, overwrite values through settings.xml -->
+		<mw.home>/oracle/fmwhome</mw.home>
+		<wls.user>weblogic</wls.user>
+		<wls.pass>welcome1</wls.pass>
+
+		<wls.admin.host>localhost</wls.admin.host>
+		<wls.admin.port>7010</wls.admin.port>
+		<wls.server.host>localhost</wls.server.host>
+		<wls.server.port>7001</wls.server.port>
+
+		<wls.admin.server>http://${wls.admin.host}:${wls.admin.port}</wls.admin.server>
+		<wls.t3.admin.server>t3://${wls.admin.host}:${wls.admin.port}</wls.t3.admin.server>
+		<wls.server>http://${wls.server.host}:${wls.server.port}</wls.server>
+
+		<wls.deploy.target>Cluster_1</wls.deploy.target>
+		<!-- END - Properties that are environment relative, overwrite values through settings.xml -->
+
+		<skip.cluster.descriptors>true</skip.cluster.descriptors>
+	</properties>
+
+	<profiles>
+
+		<!-- 
+			usage: mvn install -P vf-ie-esb 
+			note: include all and only vf-ie-esb related artifacts
+		-->
+		<profile>
+			<id>vf-ie-esb</id>
+			<properties>
+				<build.debug>false</build.debug>
+			</properties>
+			<modules>
+				<module>soaf-logger</module>
+				<module>soaf-osb</module>
+				<module>soaf-service-configurator</module>
+			</modules>
+		</profile>
+
+	</profiles>
+
+	<repositories>
+		<repository>
+			<id>prime-repo</id>
+			<name>PrimeFaces Maven Repository</name>
+			<url>http://repository.primefaces.org</url>
+			<layout>default</layout>
+		</repository>
+		<repository>
+			<id>maven2-repository.dev.java.net</id>
+			<name>Java.net Repository for Maven</name>
+			<url>http://download.java.net/maven/2/</url>
+			<layout>default</layout>
+		</repository>
+		<repository>
+			<!-- Required by Eclipselink dependency -->
+			<id>oss.sonatype.org</id>
+			<name>OSS Sonatype Staging</name>
+			<url>https://oss.sonatype.org/content/groups/staging</url>
+		</repository>
+	</repositories>
+
+	<build>
+		<finalName>${project.artifactId}</finalName>
+		<sourceDirectory>${project.basedir}/src</sourceDirectory>
+		<!-- source directory 
+			and resources are required to be changed in ejb projects -->
+		<testSourceDirectory>${project.basedir}/test/java</testSourceDirectory>
+		<resources>
+			<resource>
+				<directory>ejbModule</directory>
+				<excludes>
+					<exclude>**/*.java</exclude>
+				</excludes>
+			</resource>
+			<resource>
+				<directory>src</directory>
+				<excludes>
+					<exclude>**/*.java</exclude>
+				</excludes>
+			</resource>
+		</resources>
+		<testResources>
+			<testResource>
+				<directory>test/resources</directory>
+			</testResource>
+		</testResources>
+
+		<plugins>
+			<!-- since at this moment we don't actually use distribution management, we skip this action-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>2.8</version>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+					<debug>${build.debug}</debug>
+					<showWarnings>true</showWarnings>
+					<showDeprecation>true</showDeprecation>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<warSourceDirectory>WebContent</warSourceDirectory>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+					<skinnyWars>true</skinnyWars>
+					<!-- Why? shouldn't be on project itself, remove from there or make 
+						a provided property -->
+					<packagingExcludes>**/WEB-INF/lib/sobe*.jar</packagingExcludes>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ear-plugin</artifactId>
+				<version>2.8</version>
+				<configuration>
+					<version>5</version>
+					<earSourceDirectory>EarContent</earSourceDirectory>
+					<defaultLibBundleDir>APP-INF/lib</defaultLibBundleDir>
+					<generateApplicationXml>false</generateApplicationXml>
+					<fileNameMapping>no-version</fileNameMapping>
+					<skinnyWars>true</skinnyWars>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-ejb-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<ejbVersion>3.0</ejbVersion>
+				</configuration>
+			</plugin>
+
+			<!-- Test plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.16</version>
+				<configuration>
+					<skipTests>${build.skipTests}</skipTests>
+					<requiresDependencyResolution>compile</requiresDependencyResolution>
+					<classpathDependencyExcludes>
+						<classpathDependencyExclude>javax:javaee-api</classpathDependencyExclude>
+						<classpathDependencyExclude>javax.persistence:javax.persistence</classpathDependencyExclude>
+						<forkMode>pertest</forkMode>
+						<argLine>-javaagent:${basedir}/target/openejb-javaagent-3.0-beta-2.jar</argLine>
+						<workingDirectory>${basedir}/target</workingDirectory>
+					</classpathDependencyExcludes>
+				</configuration>
+			</plugin>
+
+			<!-- Create extensions plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.2</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>test-jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Source code attach plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.2.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>deploy</phase>
+						<!-- only backup source during deploy phase -->
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<attach>false</attach>
+					<excludeResources>true</excludeResources>
+					<!-- very verbose due to skipping 
+						warining: Resources found in distribution -->
+				</configuration>
+			</plugin>
+		</plugins>
+
+		<pluginManagement>
+			<plugins>
+				<plugin> 
+					<groupId>com.oracle.weblogic</groupId> 
+					<artifactId>weblogic-maven-plugin</artifactId> 
+					<version>10.3.6.0</version> 
+					<configuration> 
+						<adminurl>${wls.t3.admin.server}</adminurl>
+						<user>${wls.user}</user> 
+						<password>${wls.pass}</password> 
+						<upload>true</upload> 
+						<action>deploy</action> 
+						<remote>true</remote> 
+						<verbose>true</verbose> 
+						<source>${project.build.directory}/${project.build.finalName}.${project.packaging}</source> 
+						<name>${project.build.finalName}</name>
+						<targets>${wls.deploy.target}</targets>
+					</configuration> 
+					<executions> 
+						<execution> 
+							<phase>deploy</phase> 
+							<goals> 
+								<goal>redeploy</goal>
+							</goals> 
+						</execution> 
+					</executions> 
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+
+	<dependencies>
+		<!-- START: Weblogic container properties -->
+		<dependency>
+			<groupId>com.oracle.weblogic</groupId>
+			<artifactId>javax.persistence</artifactId>
+			<version>1.0.0.0_1-0-2</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.oracle.weblogic</groupId>
+			<artifactId>javax.persistence</artifactId>
+			<version>1.1.0.0_2-0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.oracle.weblogic</groupId>
+			<artifactId>weblogic-maven-plugin</artifactId>
+			<version>10.3.6.0</version>
+			<type>maven-plugin</type>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.faces</groupId>
+			<artifactId>jsf-api</artifactId>
+			<version>2.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.xml.ws</groupId>
+			<artifactId>jaxws-rt</artifactId>
+			<version>2.1.4</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.jws</groupId>
+			<artifactId>jsr181-api</artifactId>
+			<version>1.0-MR1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>6.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.ejb</groupId>
+			<artifactId>ejb-api</artifactId>
+			<version>3.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- added since my buid was giving error missing: interface javax.persistence.EntityManager -->
+
+
+
+		<!-- END: Weblogic container properties -->
+
+		<!-- START: Test specific dependencies -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<!-- Used to provide persistence on JUNIT tests -->
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>eclipselink</artifactId>
+			<version>2.5.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<!-- openejb provide light EJB and JPA actions -->
+			<groupId>org.apache.openejb</groupId>
+			<artifactId>openejb-jee</artifactId>
+			<version>4.6.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.openejb</groupId>
+			<artifactId>openejb-core</artifactId>
+			<version>4.6.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<!-- Used to provided DB connection on JUNIT tests -->
+			<groupId>com.oracle.db</groupId>
+			<artifactId>ojdbc</artifactId>
+			<version>6</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- END: Test specific dependencies -->
+	</dependencies>
+</project>

@@ -1,0 +1,33 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>soaf-service-configurator</artifactId>
+	
+	<parent>
+		<artifactId>soaf-ws</artifactId>
+		<groupId>com.vodafone.soaf.ws</groupId>
+		<version>0.1.0</version>
+	</parent>
+	
+	<packaging>pom</packaging>
+	<name>soaf-service-configurator</name>
+	
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		
+		<maven.build.timestamp.format>yyyyMMddHHmm</maven.build.timestamp.format>
+		
+		<build.debug>true</build.debug>
+		<build.quiet>true</build.quiet>
+		<build.skipTests>true</build.skipTests>
+	</properties>
+	
+	<modules>
+		<module>soaf-service-configurator-ear</module>
+		<module>soaf-service-configurator-ws</module>
+		<module>soaf-service-configurator-db</module>
+	</modules>
+	
+	<dependencies>
+	</dependencies>
+	
+</project>

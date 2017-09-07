@@ -1,0 +1,10 @@
+10:27:53.530 [main] INFO  com.vodafone.sobe.logger.db.Logger - test
+10:28:40.587 [main] INFO  com.vodafone.sobe.logger.db.Logger - test
+10:28:40.588 [main] ERROR com.vodafone.sobe.logger.db.Logger - ERROR
+11:41:21.186 [main] INFO  com.vodafone.sobe.logger.db.Logger - test
+11:41:21.187 [main] ERROR com.vodafone.sobe.logger.db.Logger - ERROR
+11:42:49.171 [main] INFO  com.vodafone.sobe.logger.db.Logger - test
+11:42:49.173 [main] ERROR com.vodafone.sobe.logger.db.Logger - ERROR
+11:44:11.861 [main] ERROR com.vodafone.sobe.logger.db.Logger - ERROR
+11:44:52.918 [main] INFO  com.vodafone.sobe.logger.db.Logger - test
+11:44:52.920 [main] ERROR com.vodafone.sobe.logger.db.Logger - ERROR

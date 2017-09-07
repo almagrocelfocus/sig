@@ -1,0 +1,34 @@
+#####################################
+##		DATABASE CONNECTIONS
+#####################################
+datasource.names=soaf-logger-db,sobe-assign-target-sim-db,sobe-country-of-pdp-db,sobe-error-handler-db,sobe-get-all-sim-details-db,sobe-integrity-checks-db,sobe-transform-sim-db,sobe-transformation-direction-db
+
+# common configuration	
+datasource.database.name=scode
+datasource.target=AdminServer
+datasource.driver.class=oracle.jdbc.xa.client.OracleXADataSource
+datasource.url=jdbc:oracle:thin:@localhost:1521:scode
+datasource.username=soberules
+datasource.password=soberules
+datasource.test.query=SQL SELECT * FROM DUAL
+
+#Custom properties
+#soaf-logger-db.jndiname=soaf-logger-db
+
+#####################################
+##		MULTI DATABASE CONNECTIONS
+#####################################
+
+#mds.names=demo1,demo2
+
+#could be: Load-Balancing or Failover
+#mds.algorithm=Load-Balancing
+
+# define physical ds name separated by comma.
+#mds.physical.ds.name=demo1,demo2
+
+#custom properties
+#demo1.mds.name=demoT
+#demo1.mds.target=ManagedServer1
+#demo1.mds.jndiname=jndi.demoT
+#demo1.mds.physical.ds.name=demo3,demo4

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xpf:xpathFunctions xmlns:xpf="http://www.bea.com/wli/sb/xpath/config">
+	<xpf:category id="%OSB_CUSTOM_XQUERY_FUNCTIONS%">
+		<xpf:function>
+			<xpf:name>serverName</xpf:name>
+			<xpf:comment>%FUNCTION_CUSTOM_SERVER_NAME_COMMENT%</xpf:comment>
+			<xpf:namespaceURI>http://com.telco.osb.utils/osb/custom/functions/ServerUtilsCustomXpathFunc
+			</xpf:namespaceURI>
+			<xpf:className>com.telco.osb.utils.ServerUtils</xpf:className>
+			<xpf:method>java.lang.String serverName()</xpf:method>
+			<xpf:isDeterministic>false</xpf:isDeterministic>
+			<xpf:scope>Pipeline</xpf:scope>
+			<xpf:scope>SplitJoin</xpf:scope>
+		</xpf:function>
+		<xpf:function>
+			<xpf:name>serverHostName</xpf:name>
+			<xpf:comment>%FUNCTION_CUSTOM_SERVER_HOST_NAME_COMMENT%</xpf:comment>
+			<xpf:namespaceURI>http://com.telco.osb.utils/osb/custom/functions/ServerUtilsCustomXpathFunc
+			</xpf:namespaceURI>
+			<xpf:className>com.telco.osb.utils.ServerUtils</xpf:className>
+			<xpf:method>java.lang.String serverHostName()</xpf:method>
+			<xpf:isDeterministic>false</xpf:isDeterministic>
+			<xpf:scope>Pipeline</xpf:scope>
+			<xpf:scope>SplitJoin</xpf:scope>
+		</xpf:function>
+		<xpf:function>
+			<xpf:name>getSystemCode</xpf:name>
+			<xpf:comment>%FUNCTION_CUSTOM_GET_SYSTEM_CODE%</xpf:comment>
+			<xpf:namespaceURI>http://com.telco.osb.utils/osb/custom/functions/OSBUtilsCustomXpathFunc</xpf:namespaceURI>
+			<xpf:className>com.telco.osb.utils.OSBUtils</xpf:className>
+			<xpf:method>java.lang.String getSystemCode(java.lang.String)</xpf:method>
+			<xpf:isDeterministic>false</xpf:isDeterministic>
+			<xpf:scope>Pipeline</xpf:scope>
+			<xpf:scope>SplitJoin</xpf:scope>
+		</xpf:function>
+		<xpf:function>
+			<xpf:name>getErrorSystemCode</xpf:name>
+			<xpf:comment>%FUNCTION_CUSTOM_GET_ERROR_SYSTEM_CODE%</xpf:comment>
+			<xpf:namespaceURI>http://com.telco.osb.utils/osb/custom/functions/OSBUtilsCustomXpathFunc</xpf:namespaceURI>
+			<xpf:className>com.telco.osb.utils.OSBUtils</xpf:className>
+			<xpf:method>java.lang.String getErrorSystemCode(java.lang.String)</xpf:method>
+			<xpf:isDeterministic>false</xpf:isDeterministic>
+			<xpf:scope>Pipeline</xpf:scope>
+			<xpf:scope>SplitJoin</xpf:scope>
+		</xpf:function>
+		<xpf:function>
+			<xpf:name>getExternalHeader</xpf:name>
+			<xpf:comment>%FUNCTION_CUSTOM_GET_EXTERNAL_HEADER%</xpf:comment>
+			<xpf:namespaceURI>http://com.telco.osb.utils/osb/custom/functions/OSBUtilsCustomXpathFunc</xpf:namespaceURI>
+			<xpf:className>com.telco.osb.utils.OSBUtils</xpf:className>
+			<xpf:method>org.w3c.dom.Element getExternalHeader(org.w3c.dom.Element)</xpf:method>
+			<xpf:isDeterministic>false</xpf:isDeterministic>
+			<xpf:scope>Pipeline</xpf:scope>
+			<xpf:scope>SplitJoin</xpf:scope>
+		</xpf:function>
+		<xpf:function>
+			<xpf:name>getErrorCode</xpf:name>
+			<xpf:comment>%FUNCTION_CUSTOM_GET_ERROR_CODE%</xpf:comment>
+			<xpf:namespaceURI>http://com.telco.osb.utils/osb/custom/functions/OSBUtilsCustomXpathFunc</xpf:namespaceURI>
+			<xpf:className>com.telco.osb.utils.OSBUtils</xpf:className>
+			<xpf:method>java.lang.String getErrorCode(org.w3c.dom.Element)</xpf:method>
+			<xpf:isDeterministic>false</xpf:isDeterministic>
+			<xpf:scope>Pipeline</xpf:scope>
+			<xpf:scope>SplitJoin</xpf:scope>
+		</xpf:function>
+		<xpf:function>
+			<xpf:name>getErrorMessage</xpf:name>
+			<xpf:comment>%FUNCTION_CUSTOM_GET_ERROR_MESSAGE%</xpf:comment>
+			<xpf:namespaceURI>http://com.telco.osb.utils/osb/custom/functions/OSBUtilsCustomXpathFunc</xpf:namespaceURI>
+			<xpf:className>com.telco.osb.utils.OSBUtils</xpf:className>
+			<xpf:method>java.lang.String getErrorMessage(org.w3c.dom.Element)</xpf:method>
+			<xpf:isDeterministic>false</xpf:isDeterministic>
+			<xpf:scope>Pipeline</xpf:scope>
+			<xpf:scope>SplitJoin</xpf:scope>
+		</xpf:function>
+		<xpf:function>
+			<xpf:name>getExternalErrorCode</xpf:name>
+			<xpf:comment>%FUNCTION_CUSTOM_GET_EXTERNAL_ERROR_CODE%</xpf:comment>
+			<xpf:namespaceURI>http://com.telco.osb.utils/osb/custom/functions/OSBUtilsCustomXpathFunc</xpf:namespaceURI>
+			<xpf:className>com.telco.osb.utils.OSBUtils</xpf:className>
+			<xpf:method>java.lang.String getExternalErrorCode(org.w3c.dom.Element)</xpf:method>
+			<xpf:isDeterministic>false</xpf:isDeterministic>
+			<xpf:scope>Pipeline</xpf:scope>
+			<xpf:scope>SplitJoin</xpf:scope>
+		</xpf:function>
+		<xpf:function>
+			<xpf:name>getExternalErrorMessage</xpf:name>
+			<xpf:comment>%FUNCTION_CUSTOM_GET_EXTERNAL_ERROR_MESSAGE%</xpf:comment>
+			<xpf:namespaceURI>http://com.telco.osb.utils/osb/custom/functions/OSBUtilsCustomXpathFunc</xpf:namespaceURI>
+			<xpf:className>com.telco.osb.utils.OSBUtils</xpf:className>
+			<xpf:method>java.lang.String getExternalErrorMessage(org.w3c.dom.Element)</xpf:method>
+			<xpf:isDeterministic>false</xpf:isDeterministic>
+			<xpf:scope>Pipeline</xpf:scope>
+			<xpf:scope>SplitJoin</xpf:scope>
+		</xpf:function>
+		<xpf:function>
+			<xpf:name>getExternalErrorSystem</xpf:name>
+			<xpf:comment>%FUNCTION_CUSTOM_GET_EXTERNAL_SYSTEM%</xpf:comment>
+			<xpf:namespaceURI>http://com.telco.osb.utils/osb/custom/functions/OSBUtilsCustomXpathFunc</xpf:namespaceURI>
+			<xpf:className>com.telco.osb.utils.OSBUtils</xpf:className>
+			<xpf:method>java.lang.String getExternalErrorSystem(org.w3c.dom.Element)</xpf:method>
+			<xpf:isDeterministic>false</xpf:isDeterministic>
+			<xpf:scope>Pipeline</xpf:scope>
+			<xpf:scope>SplitJoin</xpf:scope>
+		</xpf:function>
+		<xpf:function>
+			<xpf:name>isLogActive</xpf:name>
+			<xpf:comment>%FUNCTION_CUSTOM_IS_LOG_ACTIVE%</xpf:comment>
+			<xpf:namespaceURI>http://com.telco.osb.utils/osb/custom/functions/OSBUtilsCustomXpathFunc</xpf:namespaceURI>
+			<xpf:className>com.telco.osb.utils.OSBUtils</xpf:className>
+			<xpf:method>java.lang.Boolean isLogActive(java.lang.String, java.lang.String)</xpf:method>
+			<xpf:isDeterministic>false</xpf:isDeterministic>
+			<xpf:scope>Pipeline</xpf:scope>
+			<xpf:scope>SplitJoin</xpf:scope>
+		</xpf:function>
+		<xpf:function>
+			<xpf:name>isMaxRetriesReached</xpf:name>
+			<xpf:comment>%FUNCTION_CUSTOM_IS_MAX_RETRIES_REACHED%</xpf:comment>
+			<xpf:namespaceURI>http://com.telco.osb.utils/osb/custom/functions/OSBUtilsCustomXpathFunc</xpf:namespaceURI>
+			<xpf:className>com.telco.osb.utils.OSBUtils</xpf:className>
+			<xpf:method>java.lang.Boolean isMaxRetriesReached(org.w3c.dom.Element)</xpf:method>
+			<xpf:isDeterministic>false</xpf:isDeterministic>
+			<xpf:scope>Pipeline</xpf:scope>
+			<xpf:scope>SplitJoin</xpf:scope>
+		</xpf:function>
+		<xpf:function>
+			<xpf:name>convertLongToDatetime</xpf:name>
+			<xpf:comment>%FUNCTION_CUSTOM_CONVERT_LONG_TO_DATETIME%</xpf:comment>
+			<xpf:namespaceURI>http://com.telco.osb.utils/osb/custom/functions/OSBUtilsCustomXpathFunc</xpf:namespaceURI>
+			<xpf:className>com.telco.osb.utils.OSBUtils</xpf:className>
+			<xpf:method>java.lang.String convertLongToDatetime(java.lang.String)</xpf:method>
+			<xpf:isDeterministic>false</xpf:isDeterministic>
+			<xpf:scope>Pipeline</xpf:scope>
+			<xpf:scope>SplitJoin</xpf:scope>
+		</xpf:function>
+		<xpf:function>
+			<xpf:name>convertDatetimeToLong</xpf:name>
+			<xpf:comment>%FUNCTION_CUSTOM_CONVERT_DATETIME_TO_LONG%</xpf:comment>
+			<xpf:namespaceURI>http://com.telco.osb.utils/osb/custom/functions/OSBUtilsCustomXpathFunc</xpf:namespaceURI>
+			<xpf:className>com.telco.osb.utils.OSBUtils</xpf:className>
+			<xpf:method>java.lang.String convertDatetimeToLong(java.lang.String)</xpf:method>
+			<xpf:isDeterministic>false</xpf:isDeterministic>
+			<xpf:scope>Pipeline</xpf:scope>
+			<xpf:scope>SplitJoin</xpf:scope>
+		</xpf:function>
+	</xpf:category>
+</xpf:xpathFunctions>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="INFO" monitorInterval="30" packages="com.vodafone.sobe.reporting">
+	<appenders>
+		<!--
+		Para extrair os vários campos para o layout:
+		%X{message_id}
+		%X{service_name}
+		%X{log_level}
+		%X{task}
+		%X{created_by}
+		%X{engine}
+		%X{timestamp}
+		%X{payload}
+		%X{status_code}
+		%X{status_message}
+		%X{labels}
+		 -->
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout>
+                                <pattern>%d{yyyy/MM/dd HH:mm:ss.SSS} [%t] [%X{key}] %-5level %logger{36} - %msg%n</pattern>
+                        </PatternLayout>
+		</Console>
+		
+		<RollingFile name="EsbLogFile" fileName="logs/esb.log"
+                        filePattern="logs/$${date:yyyy-MM}/esb-%d{MM-dd-yyyy}-%i.log.gz">
+                        <PatternLayout>
+                                <pattern>%d{yyyy/MM/dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</pattern>
+                        </PatternLayout>
+                        <Policies>
+                                <TimeBasedTriggeringPolicy/>
+                                <SizeBasedTriggeringPolicy size="50 MB" />
+                        </Policies>
+                </RollingFile>
+
+		
+		<SoafJDBCAppender name="SoafJDBCAppender">
+			<PatternLayout pattern="%d{yyyy/MM/dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+		</SoafJDBCAppender>
+	</appenders>
+	
+	<loggers>
+		<root level="info">
+			<appender-ref ref="Console" />
+			<appender-ref ref="EsbLogFile"/>
+			<appender-ref ref="SoafJDBCAppender"/>
+		</root>
+	</loggers>
+</configuration>

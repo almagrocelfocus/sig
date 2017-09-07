@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wls:weblogic-ejb-jar xmlns:wls="http://xmlns.oracle.com/weblogic/weblogic-ejb-jar"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd http://xmlns.oracle.com/weblogic/weblogic-ejb-jar http://xmlns.oracle.com/weblogic/weblogic-ejb-jar/1.2/weblogic-ejb-jar.xsd">
+    <wls:weblogic-enterprise-bean>
+    	<wls:ejb-name>SOAFReportHandler</wls:ejb-name>
+    	<wls:message-driven-descriptor>
+    		<wls:pool>
+    			<wls:max-beans-in-free-pool>10</wls:max-beans-in-free-pool>
+    			<wls:initial-beans-in-free-pool>10</wls:initial-beans-in-free-pool>
+    		</wls:pool>
+    	</wls:message-driven-descriptor>
+    	<wls:transaction-descriptor>
+    		<wls:trans-timeout-seconds>600</wls:trans-timeout-seconds>
+    	</wls:transaction-descriptor>
+    	<wls:run-as-principal-name>weblogic</wls:run-as-principal-name>
+    </wls:weblogic-enterprise-bean>
+    
+    <wls:security-role-assignment>
+    	<wls:role-name>weblogic</wls:role-name>
+    	<wls:principal-name>weblogic</wls:principal-name>
+    </wls:security-role-assignment>
+</wls:weblogic-ejb-jar>

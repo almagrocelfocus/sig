@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wls:weblogic-ejb-jar xmlns:wls="http://xmlns.oracle.com/weblogic/weblogic-ejb-jar" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd http://xmlns.oracle.com/weblogic/weblogic-ejb-jar http://xmlns.oracle.com/weblogic/weblogic-ejb-jar/1.0/weblogic-ejb-jar.xsd">
+	<!--weblogic-version:10.3.2 -->
+	<wls:weblogic-enterprise-bean>
+		<wls:ejb-name>RepublisherTimerExec</wls:ejb-name>
+		<wls:stateless-session-descriptor>
+			<wls:timer-descriptor>
+				<wls:persistent-store-logical-name>soaf-osb-db</wls:persistent-store-logical-name>
+			</wls:timer-descriptor>
+		</wls:stateless-session-descriptor>
+	</wls:weblogic-enterprise-bean>
+	<wls:timer-implementation>Clustered</wls:timer-implementation>
+</wls:weblogic-ejb-jar>

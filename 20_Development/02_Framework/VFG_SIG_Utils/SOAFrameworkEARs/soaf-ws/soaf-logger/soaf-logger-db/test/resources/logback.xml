@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n</pattern>
+		</encoder>
+	</appender>
+	<appender name="FILEEVENT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>logs/m2m-osb-event.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<fileNamePattern>/logs/%d{yyyy-MM}/m2m-osb.%d{MM-dd-yyyy}-%i.log.zip</fileNamePattern>
+			<minIndex>1</minIndex>
+			<maxIndex>30</maxIndex>
+		</rollingPolicy>
+		<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<maxFileSize>50MB</maxFileSize>
+		</triggeringPolicy>
+		<encoder>
+			<pattern>%d{yyyyHH:mm:ss} | %X{requestor_request_id} | %X{requestor_ip} | %X{session_id} | %X{action} | %X{object_id} | %X{description} | %X{requestor_agent} | %X{status_code} | %X{time_to_complete} | %X{adapter_time_sum} | %X{target_agent} | %X{target_request_id} | %X{target_ip}%n</pattern>
+		</encoder>
+	</appender>
+	<appender name="FILELOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>logs/m2m-osb.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<fileNamePattern>/logs/%d{yyyy-MM}/m2m-osb.%d{MM-dd-yyyy}-%i.log.zip</fileNamePattern>
+			<minIndex>1</minIndex>
+			<maxIndex>30</maxIndex>
+		</rollingPolicy>
+		<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<maxFileSize>50MB</maxFileSize>
+		</triggeringPolicy>
+		<encoder>
+			<pattern>%d{yyyyHH:mm:ss} | %X{requestor_request_id} | %X{requestor_ip} | %X{session_id} | %X{action} | %X{object_id} | %X{payload}%n</pattern>
+		</encoder>
+	</appender>
+	<logger name="com.vodafone.sobe.logger.db.SOAFReportHandler" level="debug">
+		<appender-ref ref="FILELOG" />
+	</logger>
+	<logger name="com.vodafone.sobe.logger.db.SOAFReportEventHandler" level="debug">
+		<appender-ref ref="FILEEVENT" />
+	</logger>
+	<root level="DEBUG">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILELOG" />
+		<appender-ref ref="FILEEVENT" />
+	</root>
+</configuration>

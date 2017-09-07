@@ -1,0 +1,22 @@
+#####################################
+##		JMS COMMON
+#####################################
+jms.server.name=jms-server
+jms.module.name=jms-module
+jms.subdeployment.name=jms-target
+jms.redeliveryLimit=0
+
+#####################################
+##		JMS CONNECTION FACTORY
+#####################################
+connection.factory.names=soaf.jms.XAConnectionFactory,jms/sobeWsConnectonFactory,soaf.jms.LoggerXAConnectionFactory
+
+#####################################
+##		JMS QUEUES
+#####################################
+queues.names=SOAF.Common.InternalBusinessDispatcherWizard.RequestJNDI,SOAF.Common.BusinessAsync.RequestJNDI,SOAF.Logger.LogProcessing.RequestJNDI
+
+#####################################
+##		JMS TOPICS
+#####################################
+topic.names=jms/ErrorHandlerTopic

@@ -10,7 +10,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>System</module>
+        <module>SOAFramework</module>
+		<module>SOAFrameworkBackendSimulator</module>
     </modules>
 
 </project>

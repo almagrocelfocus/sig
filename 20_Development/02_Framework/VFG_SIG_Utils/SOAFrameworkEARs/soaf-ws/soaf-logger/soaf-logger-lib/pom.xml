@@ -1,0 +1,101 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>soaf-logger-lib</artifactId>
+  	<parent>
+		<artifactId>soaf-logger</artifactId>
+		<groupId>com.vodafone.soaf.ws</groupId>
+		<version>0.1.0</version>
+	</parent>
+  <packaging>jar</packaging>
+  
+  <dependencies>
+  		<dependency>
+            <groupId>me.moocar</groupId>
+            <artifactId>logback-gelf</artifactId>
+            <version>0.11</version>
+        </dependency>
+        
+  		<dependency>
+  			<groupId>com.vodafone.soaf.ws</groupId>
+  			<artifactId>soaf-logger-db</artifactId>
+  			<version>${project.version}</version>
+  			<type>ejb</type>
+  		</dependency>
+  
+		<dependency>
+			<artifactId>eai-common-connectors-jms</artifactId>
+			<groupId>com.eai.common</groupId>
+			<version>${dependency.common.eai.version}</version>
+		</dependency>
+		
+		<dependency>
+			<artifactId>eai-common-lib</artifactId>
+			<groupId>com.eai.common</groupId>
+			<version>${dependency.common.eai.version}</version>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+			<version>2.1.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.codehaus.woodstox</groupId>
+			<artifactId>woodstox-core-asl</artifactId>
+			<version>4.1.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.xmlbeans</groupId>
+			<artifactId>xmlbeans</artifactId>
+			<version>2.5.0</version>
+		</dependency>
+
+		
+		<dependency>
+			<groupId>com.bea.alsb.reporting.api</groupId>
+			<artifactId>reporting-api</artifactId>
+			<version>1.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.bea.alsb.reporting.impl</groupId>
+			<artifactId>reporting-impl</artifactId>
+			<version>1.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.bea.alsb.security.api</groupId>
+			<artifactId>com_bea_alsb_security_api</artifactId>
+			<version>1.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.bea.alsb.security.impl</groupId>
+			<artifactId>com_bea_alsb_security_impl</artifactId>
+			<version>1.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.bea.alsb.common</groupId>
+			<artifactId>com_bea_alsb_common</artifactId>
+			<version>1.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.bea.alsb.platform</groupId>
+			<artifactId>com_bea_alsb_platform</artifactId>
+			<version>1.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+		
+	</dependencies>
+</project>

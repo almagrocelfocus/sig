@@ -1,0 +1,9 @@
+#####################################
+##		APPLICATION NAMES
+#####################################
+application.names=soaf-logger,sobe-assign-target-sim,sobe-country-of-pdp,sobe-error-handler,sobe-get-all-sim-details,sobe-integrity-checks,sobe-transformation-direction,sobe-transform-sim,soaf-service-configurator
+
+#Custom properties
+#sobe-assign-target-sim.name=sobe-assign-target-sim2
+#sobe-assign-target-sim.target=AdminServer
+#sobe-assign-target-sim.file.path=C:/Workspace/VG/SVN/vg_sobe/sobe-ws/sobe-assign-target-sim/sobe-assign-target-sim-ear/target/sobe-assign-target-sim.ear

@@ -1,0 +1,5 @@
+test.jdbc.driver=oracle.jdbc.driver.OracleDriver
+test.jdbc.url=jdbc:oracle:thin:@<server>:<port>:<sid>
+test.jdbc.user=user
+test.jdbc.pass=pass
+test.ejb.packagescan.lst=com.eai;com.vodafone
