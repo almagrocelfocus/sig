@@ -8,8 +8,22 @@
     <element name="input" type="log:LogInput"></element>
     <complexType name="LogInput">
       <sequence>
-            <element name="serviceName" type="string" minOccurs="0"/> <!-- ObjectID -->
-            <element name="level">
+            <element name="serviceName" type="string" minOccurs="0" maxOccurs="1"/> <!-- ObjectID -->
+                        
+            <!-- Service description -->
+            <element name="domain" type="string" minOccurs="0" maxOccurs="1"/>
+            <element name="category" type="string" minOccurs="0" maxOccurs="1"/>
+            <element name="target" type="string" minOccurs="0" maxOccurs="1"/>
+            <element name="service" type="string" minOccurs="0" maxOccurs="1"/>
+            <element name="operation" type="string" minOccurs="0" maxOccurs="1"/>
+            <element name="version" type="string" minOccurs="0" maxOccurs="1"/>
+            
+            <!-- Source and Target description -->
+            <element name="source" type="string" minOccurs="0" maxOccurs="1"/>
+            <element name="targetEndpoint" type="string" minOccurs="0" maxOccurs="1"/>
+              
+
+            <element name="level" minOccurs="0" maxOccurs="1">
                   <simpleType>
                         <restriction base="string">
                               <enumeration value="TRACE"/>
@@ -21,40 +35,44 @@
                         </restriction>
                   </simpleType>
             </element>
-            <element name="task" type="string"/>
-            <element name="createdBy" type="string"/>
-            <element name="timestamp" type="dateTime" minOccurs="0"/>
-            <element name="engine" type="string" minOccurs="0"/>
+            
+            <!-- Task event: SERVICE_START,ADAPTER_START,ADAPTER_END, ADAPTER_ERROR,SERVICE_END, SERVICE_ERROR -->
+            <element name="task" type="string" minOccurs="0" maxOccurs="1"/>
+            
+            <!-- Username -->
+            <element name="username" type="string" minOccurs="0" maxOccurs="1"/>
+            <element name="timestamp" type="dateTime" minOccurs="0" maxOccurs="1"/>
+            <element name="engine" type="string" minOccurs="0" maxOccurs="1"/>
             
             <!-- Status message and details -->
-            <element name="statusCode" type="string" minOccurs="0"/>
-            <element name="statusMessage" type="string" minOccurs="0"/>
+            <element name="statusCode" type="string" minOccurs="0" maxOccurs="1"/>
+            <element name="statusMessage" type="string" minOccurs="0" maxOccurs="1"/>
                               
             <!-- Internal log keys -->
-            <element name="messageId" type="string" minOccurs="0"/>
-            <element name="externalMessageId" type="string" minOccurs="0"/>
+            <element name="messageId" type="string" minOccurs="0" maxOccurs="1"/>
+            <element name="externalMessageId" type="string" minOccurs="0" maxOccurs="1"/>
             
             <!-- Clients and targets keys -->
-            <element name="requestId" type="string" minOccurs="0"/>
-            <element name="correlationId" type="string" minOccurs="0"/>
+            <element name="requestId" type="string" minOccurs="0" maxOccurs="1"/>
+            <element name="correlationId" type="string" minOccurs="0" maxOccurs="1"/>
             
             <!-- Client specific information -->
-           <element name="requestorRequestId" type="string" /><!-- AParty UniqueIdentifier : headerExtended/KeyValue -->
-           <element name="requestorIp" type="string" minOccurs="0" /><!-- AParty IP : inbound/http-header/http:client-address -->
-           <element name="requestorAgent" type="string" minOccurs="0" /><!-- http:User-Agent -->
+           <element name="requestorRequestId" type="string" minOccurs="0" maxOccurs="1"/><!-- AParty UniqueIdentifier : headerExtended/KeyValue -->
+           <element name="requestorIp" type="string" minOccurs="0" maxOccurs="1" /><!-- AParty IP : inbound/http-header/http:client-address -->
+           <element name="requestorAgent" type="string" minOccurs="0" maxOccurs="1" /><!-- http:User-Agent -->
            
-           <element name="sessionId" type="string" minOccurs="0" /><!-- SessionID : Not mapped -->
-           <element name="action" type="string" /><!-- SOAPAction / Service name -->
-           <element name="objectId" type="string" /><!-- Service name -->
-           <element name="description" type="string" minOccurs="0" /><!-- Description/Other information -->
-           <element name="timeToComplete" type="long" minOccurs="0" /><!-- Time calculated -->
-           <element name="adapterTimeSum" type="decimal" minOccurs="0"/>
+           <element name="sessionId" type="string" minOccurs="0" maxOccurs="1" /><!-- SessionID : Not mapped -->
+           <element name="action" type="string" minOccurs="0" maxOccurs="1" /><!-- SOAPAction / Service name -->
+           <element name="objectId" type="string" minOccurs="0" maxOccurs="1" /><!-- Service name -->
+           <element name="description" type="string" minOccurs="0" maxOccurs="1" /><!-- Description/Other information -->
+           <element name="timeToComplete" type="long" minOccurs="0" maxOccurs="1" /><!-- Time calculated -->
+           <element name="adapterTimeSum" type="decimal" minOccurs="0" maxOccurs="1"/>
            
-           <element name="targetRequestId" type="string" /><!-- BParty UniqueIdentifier -->
-           <element name="targetIp" type="string" /><!-- BParty IP ? need to review how to get this information, probably I can't, I can only provide target system name -->
-           <element name="targetAgent" type="string" minOccurs="0" /><!-- BParty Device ? No information, OSB user agent-->
+           <element name="targetRequestId" type="string" minOccurs="0" maxOccurs="1"/><!-- BParty UniqueIdentifier -->
+           <element name="targetIp" type="string" minOccurs="0" maxOccurs="1" /><!-- BParty IP ? need to review how to get this information, probably I can't, I can only provide target system name -->
+           <element name="targetAgent" type="string" minOccurs="0" maxOccurs="1" /><!-- BParty Device ? No information, OSB user agent-->
             
-            <element name="payload" type="anyURI" minOccurs="0"/>
+            <element name="payload" type="anyURI" minOccurs="0" maxOccurs="1"/>
       </sequence>
     </complexType>
 </schema>

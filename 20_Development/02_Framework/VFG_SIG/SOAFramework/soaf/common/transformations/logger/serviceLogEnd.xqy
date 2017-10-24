@@ -18,9 +18,38 @@ declare function xf:serviceLogEnd($headerInner as element()*,
     	return
 			<log:input>
 				<log:serviceName>{$headerExtended/he:originalService/text()}</log:serviceName>
+                                {
+                                        for $domain in $headerExtended/he:businessInterface[1]/he:domain[1]
+                                        return 
+                                                <log:domain>{$domain/text()}</log:domain>
+                                }
+                                {
+                                        for $category in $headerExtended/he:businessInterface[1]/he:category[1]
+                                        return 
+                                                <log:category>{$category/text()}</log:category>
+                                }
+                                <log:target>pub</log:target>
+                                {
+                                        for $service in $headerExtended/he:businessInterface[1]/he:service[1]
+                                        return 
+                                                <log:service>{$service/text()}</log:service>
+                                }
+                                {
+                                        for $operation in $headerExtended/he:businessInterface[1]/he:operation[1]
+                                        return 
+                                                <log:operation>{$operation/text()}</log:operation>
+                                }
+                                {
+                                        for $version in $headerExtended/he:businessInterface[1]/he:version[1]
+                                        return 
+                                                <log:version>{$version/text()}</log:version>
+                                }
+        
+                                <log:source>{$headerExtended/he:source[1]/text()}</log:source>
+                                <log:targetEndpoint>{$headerExtended/he:adapterInformation[1]/he:uri[1]/text()}</log:targetEndpoint>
 				<log:level>{data($headerExtended/he:attributeList[1]/he:attribute[ he:name='LOG_LEVEL_EVENT' ][1]/he:value[1])}</log:level>
 				<log:task>{if($responseCodes/he:responseCode[1]/text() = '0') then 'SERVICE_END' else 'SERVICE_ERROR'}</log:task>
-				<log:createdBy>serviceLogEnd</log:createdBy>
+				<log:username>{$headerExtended/he:username[1]/text()}</log:username>
 				<log:timestamp>{fn:current-dateTime()}</log:timestamp>
 				<log:engine>{scf:serverName()}</log:engine>
 				<log:statusCode>{$responseCodes/he:responseCode[1]/text()}</log:statusCode>

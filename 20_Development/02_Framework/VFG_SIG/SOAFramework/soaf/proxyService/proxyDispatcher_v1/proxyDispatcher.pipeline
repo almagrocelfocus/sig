@@ -241,20 +241,6 @@ else typeswitch ($body/*[1])
                                         </con7:xqueryTransform>
                                     </con6:expr>
                                     <con6:labels>
-                                        <con6:key>messageId</con6:key>
-                                        <con6:varName>headerExtended</con6:varName>
-                                        <con6:value>
-                                            <con7:xpathText xmlns:con7="http://www.bea.com/wli/sb/stages/config">he:messageId[1]/text()</con7:xpathText>
-                                        </con6:value>
-                                    </con6:labels>
-                                    <con6:labels>
-                                        <con6:key>correlationId</con6:key>
-                                        <con6:varName>headerExtended</con6:varName>
-                                        <con6:value>
-                                            <con7:xpathText xmlns:con7="http://www.bea.com/wli/sb/stages/config">he:correlationId[1]/text()</con7:xpathText>
-                                        </con6:value>
-                                    </con6:labels>
-                                    <con6:labels>
                                         <con6:key>dynamicKey</con6:key>
                                         <con6:varName>headerExtended</con6:varName>
                                         <con6:value>
@@ -262,29 +248,6 @@ else typeswitch ($body/*[1])
                                         </con6:value>
                                     </con6:labels>
                                 </con6:report>
-                            </con4:actions>
-                        </con4:case>
-                    </con4:ifThenElse>
-                </con:actions>
-            </con:stage>
-            <con:stage name="sRepublisherRequest">
-                <con:context>
-                    <con1:userNsDecl namespace="http://xmlns.telco.com/SOAFramework/soaf/common/schemas/headerExtended/v1" prefix="he"/>
-                </con:context>
-                <con:actions>
-                    <con4:ifThenElse>
-                        <con1:id>_ActionId-3199289646728570055-696a4e0a.147b0d7c581.-71c3</con1:id>
-                        <con4:case>
-                            <con4:condition>
-                                <con1:xqueryText>$headerExtended/he:repubContext[1]/he:numberOfRetries[1]/text() != ''</con1:xqueryText>
-                            </con4:condition>
-                            <con4:actions>
-                                <con3:replace varName="body" contents-only="true" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config">
-                                    <con7:id xmlns:con7="http://www.bea.com/wli/sb/stages/config">_ActionId-3199289646728570055-696a4e0a.147b0d7c581.-7152</con7:id>
-                                    <con3:expr>
-                                        <con7:xqueryText xmlns:con7="http://www.bea.com/wli/sb/stages/config">fn-bea:inlinedXML($body/*[1]/*:request)</con7:xqueryText>
-                                    </con3:expr>
-                                </con3:replace>
                             </con4:actions>
                         </con4:case>
                     </con4:ifThenElse>
@@ -479,27 +442,6 @@ else typeswitch ($body/*[1])
                                             </con7:param>
                                         </con7:xqueryTransform>
                                     </con6:expr>
-                                    <con6:labels>
-                                        <con6:key>messageId</con6:key>
-                                        <con6:varName>headerExtended</con6:varName>
-                                        <con6:value>
-                                            <con7:xpathText xmlns:con7="http://www.bea.com/wli/sb/stages/config">he:messageId[1]/text()</con7:xpathText>
-                                        </con6:value>
-                                    </con6:labels>
-                                    <con6:labels>
-                                        <con6:key>requestId</con6:key>
-                                        <con6:varName>headerExtended</con6:varName>
-                                        <con6:value>
-                                            <con7:xpathText xmlns:con7="http://www.bea.com/wli/sb/stages/config">he:requestId[1]/text()</con7:xpathText>
-                                        </con6:value>
-                                    </con6:labels>
-                                    <con6:labels>
-                                        <con6:key>correlationId</con6:key>
-                                        <con6:varName>headerExtended</con6:varName>
-                                        <con6:value>
-                                            <con7:xpathText xmlns:con7="http://www.bea.com/wli/sb/stages/config">he:correlationId[1]/text()</con7:xpathText>
-                                        </con6:value>
-                                    </con6:labels>
                                     <con6:labels>
                                         <con6:key>dynamicKey</con6:key>
                                         <con6:varName>headerExtended</con6:varName>

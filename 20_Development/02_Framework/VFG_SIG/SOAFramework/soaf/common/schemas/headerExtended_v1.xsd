@@ -46,7 +46,7 @@
 			<element name="context" type="string" minOccurs="0" />
 		</sequence>
 	</complexType>
-
+        
 	<element name="businessInterface" type="he:interface" />
 	<element name="technicalInterface" type="he:interface" />
 	<complexType name="interface">
@@ -99,6 +99,7 @@
 	<complexType name="adapterInformation">
 		<sequence>
 			<element name="targetIp" type="string" />
+                        <element name="uri" type="string" />
 			<element name="adapterExecutionMili" type="long" />
 		</sequence>
 	</complexType>

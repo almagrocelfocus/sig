@@ -27,11 +27,12 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "LogEntity.findAll", query = "SELECT l FROM LogEntity l"),
     @NamedQuery(name = "LogEntity.findById", query = "SELECT l FROM LogEntity l WHERE l.id = :id"),
-    @NamedQuery(name = "LogEntity.findByMessageId", query = "SELECT l FROM LogEntity l WHERE l.messageId = :messageId"),
+    @NamedQuery(name = "LogEntity.findByRequestId", query = "SELECT l FROM LogEntity l WHERE l.requestId = :requestId"),
+    @NamedQuery(name = "LogEntity.findByCorrelationId", query = "SELECT l FROM LogEntity l WHERE l.requestId = :correlationId"),
     @NamedQuery(name = "LogEntity.findByServiceName", query = "SELECT l FROM LogEntity l WHERE l.serviceName = :serviceName"),
     @NamedQuery(name = "LogEntity.findByLogLevel", query = "SELECT l FROM LogEntity l WHERE l.logLevel = :logLevel"),
     @NamedQuery(name = "LogEntity.findByTask", query = "SELECT l FROM LogEntity l WHERE l.task = :task"),
-    @NamedQuery(name = "LogEntity.findByCreatedBy", query = "SELECT l FROM LogEntity l WHERE l.createdBy = :createdBy"),
+    @NamedQuery(name = "LogEntity.findByUsername", query = "SELECT l FROM LogEntity l WHERE l.createdBy = :username"),
     @NamedQuery(name = "LogEntity.findByTimestamp", query = "SELECT l FROM LogEntity l WHERE l.timestamp = :timestamp"),
     @NamedQuery(name = "LogEntity.findByStatusCode", query = "SELECT l FROM LogEntity l WHERE l.statusCode = :statusCode"),
     @NamedQuery(name = "LogEntity.findByStatusMessage", query = "SELECT l FROM LogEntity l WHERE l.statusMessage = :statusMessage"),
@@ -52,13 +53,45 @@ public class LogEntity implements Serializable {
     private String id;
     
 	@Size(max = 250)
-    @Column(name = "MESSAGE_ID")
-    private String messageId;
+    @Column(name = "REQUEST_ID")
+    private String requestId;
     
 	@Size(max = 250)
-    @Column(name = "SERVICE_NAME")
-    private String serviceName;
-    
+    @Column(name = "CORRELATION_ID")
+    private String correlationId;
+	
+	@Size(max = 250)
+    @Column(name = "DOMAIN")
+    private String domain;
+	
+	@Size(max = 250)
+    @Column(name = "CATEGORY")
+    private String category;
+	
+	@Size(max = 250)
+    @Column(name = "TARGET")
+    private String target;
+	
+	@Size(max = 250)
+    @Column(name = "SERVICE")
+    private String service;
+	
+	@Size(max = 250)
+    @Column(name = "OPERATION")
+    private String operation;
+	
+	@Size(max = 250)
+    @Column(name = "VERSION")
+    private String version;
+	
+	@Size(max = 250)
+    @Column(name = "SOURCE")
+    private String source;
+	
+	@Size(max = 250)
+    @Column(name = "TARGET_ENDPOINT")
+    private String targetEndpoint;
+	
 	@Size(max = 20)
     @Column(name = "LOG_LEVEL")
     private String logLevel;
@@ -68,11 +101,14 @@ public class LogEntity implements Serializable {
     private String task;
     
 	@Size(max = 250)
-    @Column(name = "CREATED_BY")
-    private String createdBy;
+    @Column(name = "USERNAME")
+    private String username;
     
 	@Column(name = "TIMESTAMP")
     private Timestamp timestamp;
+	
+	@Column(name = "CREATION_DATE")
+    private Timestamp creationDate;
     
 	@Lob
     @Column(name = "PAYLOAD")
@@ -108,21 +144,84 @@ public class LogEntity implements Serializable {
         this.id = id;
     }
 
-    public String getMessageId() {
-        return messageId;
+    public String getRequestId() {
+        return requestId;
     }
 
-    public void setMessageId(String messageId) {
-        this.messageId = messageId;
+    public void setRequestId(String requestId) {
+        this.requestId = requestId;
+    }
+    
+    public String getCorrelationId() {
+        return correlationId;
     }
 
-    public String getServiceName() {
-        return serviceName;
+    public void setCorrelationId(String correlationId) {
+        this.correlationId = correlationId;
     }
 
-    public void setServiceName(String serviceName) {
-        this.serviceName = serviceName;
-    }
+	public String getDomain() {
+		return domain;
+	}
+	public void setDomain(String domain) {
+		this.domain = domain;
+	}
+	
+	public String getCategory() {
+		return category;
+	}
+	
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	
+	public String getTarget() {
+		return target;
+	}
+	
+	public void setTarget(String target) {
+		this.target = target;
+	}	
+
+	public String getService() {
+		return service;
+	}
+	
+	public void setService(String service) {
+		this.service = service;
+	}	
+	
+	public String getOperation() {
+		return operation;
+	}
+	
+	public void setOperation(String operation) {
+		this.operation = operation;
+	}		
+
+	public String getVersion() {
+		return version;
+	}
+	
+	public void setVersion(String version) {
+		this.version = version;
+	}
+	
+	public String getSource() {
+		return source;
+	}
+	
+	public void setSource(String source) {
+		this.source = source;
+	}
+	
+	public String getTargetEndpoint() {
+		return targetEndpoint;
+	}
+	
+	public void setTargetEndpoint(String targetEndpoint) {
+		this.targetEndpoint = targetEndpoint;
+	}
 
     public String getLogLevel() {
         return logLevel;
@@ -140,12 +239,12 @@ public class LogEntity implements Serializable {
         this.task = task;
     }
 
-    public String getCreatedBy() {
-        return createdBy;
+    public String getUsername() {
+        return username;
     }
 
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public Timestamp getTimestamp() {
@@ -156,6 +255,14 @@ public class LogEntity implements Serializable {
         this.timestamp = timestamp;
     }
 
+    public Timestamp getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Timestamp creationDate) {
+        this.creationDate = creationDate;
+    }
+    
     public String getPayload() {
         return payload;
     }
@@ -227,11 +334,12 @@ public class LogEntity implements Serializable {
     	StringBuilder stringBuilder = new StringBuilder();
     	
     	stringBuilder.append("id = " + id + "\n");
-    	stringBuilder.append("messageId = " + messageId + "\n");
-    	stringBuilder.append("serviceName = " + serviceName + "\n");
+    	stringBuilder.append("requestId = " + requestId + "\n");
+    	stringBuilder.append("correlationId = " + correlationId + "\n");
+    	stringBuilder.append("service = " + service + "\n");
     	stringBuilder.append("logLevel = " + logLevel + "\n");
     	stringBuilder.append("task = " + task + "\n");
-    	stringBuilder.append("createdBy = " + createdBy + "\n");
+    	stringBuilder.append("username = " + username + "\n");
     	stringBuilder.append("timestamp = " + timestamp + "\n");
     	stringBuilder.append("payload = " + payload + "\n");
     	stringBuilder.append("statusCode = " + statusCode + "\n");

@@ -16,9 +16,42 @@ declare function xf:GetServiceLogStart($headerInner as element()*,
     as element(log:input) {
 		<log:input>
 			<log:serviceName>{$headerExtended/he:technicalInterface[1]/he:name[1]/text()}</log:serviceName>
+                       {
+				for $domain in $headerExtended/he:technicalInterface[1]/he:domain[1]
+				return 
+					<log:domain>{$domain/text()}</log:domain>
+			}
+                        {
+				for $category in $headerExtended/he:technicalInterface[1]/he:category[1]
+				return 
+					<log:category>{$category/text()}</log:category>
+			}
+                        {
+				for $target in $headerExtended/he:technicalInterface[1]/he:target[1]
+				return 
+					<log:target>{$target/text()}</log:target>
+			}
+                        {
+				for $service in $headerExtended/he:technicalInterface[1]/he:service[1]
+				return 
+					<log:service>{$service/text()}</log:service>
+			}
+                        {
+				for $operation in $headerExtended/he:technicalInterface[1]/he:operation[1]
+				return 
+					<log:operation>{$operation/text()}</log:operation>
+			}
+                        {
+				for $version in $headerExtended/he:technicalInterface[1]/he:version[1]
+				return 
+					<log:version>{$version/text()}</log:version>
+			}
+
+                        <log:source>{$headerExtended/he:source[1]/text()}</log:source>
+            		<log:targetEndpoint>N/A</log:targetEndpoint>(: Not in context yet :)
 			<log:level>{data($headerExtended/he:attributeList[1]/he:attribute[ he:name='LOG_LEVEL' ][1]/he:value[1])}</log:level>
 			<log:task>ADAPTER_START</log:task>
-			<log:createdBy>adapterLogStart</log:createdBy>
+			<log:username>{$headerExtended/he:username[1]/text()}</log:username>
 			<log:timestamp>{fn:current-dateTime()}</log:timestamp>
 			<log:engine>{scf:serverName()}</log:engine>
 			<log:statusCode>0</log:statusCode>
@@ -73,7 +106,7 @@ declare function xf:GetServiceLogStart($headerInner as element()*,
 				return 
 					<log:targetRequestId>{$targetRequestId/text()}</log:targetRequestId>
 			}			
-			<log:targetIp>BIZSERVICE</log:targetIp>(: FIXME :)
+			<log:targetIp>BIZSERVICE</log:targetIp>(: Not in context yet :)
 			<log:payload>
 				<soap-env:Header>{$headerInner}</soap-env:Header>
 				<soap-env:Body>{$bodyInner}</soap-env:Body>

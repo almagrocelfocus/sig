@@ -8,11 +8,15 @@
 	<xs:complexType name="serviceHeader">
 		<xs:sequence>
 			<!-- Unique request Id (should be unique to the request) -->
-			<xs:element name="requestId" type="xs:string" minOccurs="0" />
+			<xs:element name="requestId" type="xs:string" minOccurs="0" maxOccurs="1"/>
 			<!-- Process ID Identifier (can be re-used across multiple calls) -->
-			<xs:element name="correlationId" type="xs:string" minOccurs="0" />
-			<!-- Channel -> Example: "BSS" -->	
-			<xs:element name="source" type="xs:string" />
+			<xs:element name="correlationId" type="xs:string" minOccurs="0" maxOccurs="1" />
+			<!-- Channel -> Example: "BSS","SIEBEL","PORTAL" -->	
+			<xs:element name="source" type="xs:string"  minOccurs="1"  maxOccurs="1"/>
+                        <!-- IP from Source -> Example: "10.32.3.2" -->
+                        <xs:element name="requestorIp" type="xs:string"  minOccurs="0"  maxOccurs="1"/>
+                        <!-- Timestamp inserted by source -->
+                        <xs:element name="requestTimestamp" type="xs:dateTime"  minOccurs="0"  maxOccurs="1"/>
                         <xs:element ref="tns:attributes" minOccurs="0"/>
                         <xs:element ref="tns:responseCodes" minOccurs="0"/>
 		</xs:sequence>

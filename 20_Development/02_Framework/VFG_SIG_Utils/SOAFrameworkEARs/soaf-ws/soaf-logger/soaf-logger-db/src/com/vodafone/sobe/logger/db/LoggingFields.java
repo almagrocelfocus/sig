@@ -2,11 +2,22 @@ package com.vodafone.sobe.logger.db;
 
 public class LoggingFields {
 	
-	private String messageId = "";
-	private String serviceName = "";
+	private String requestId = "";
+	private String correlationId = "";
+	
+	private String domain = "";
+	private String category = "";
+	private String target = "";
+	private String service = "";
+	private String operation = "";
+	private String version = "";
+	private String source = "";
+	private String targetEndpoint = "";
+	
+	
 	private String logLevel = "ERROR";
 	private String task = "";
-	private String createdBy = "";
+	private String username = "";
 	private String timestamp = "";
 	private String statusCode = "";
 	private String statusMessage = "";
@@ -27,18 +38,19 @@ public class LoggingFields {
 	
 	private String labels = "";
 	
+	private String payload = "";
 	
-	public String getMessageId() {
-		return messageId;
+	public String getRequestId() {
+		return requestId;
 	}
-	public void setMessageId(String messageId) {
-		this.messageId = messageId;
+	public void setRequestId(String requestId) {
+		this.requestId = requestId;
 	}
-	public String getServiceName() {
-		return serviceName;
+	public String getCorrelationId() {
+		return correlationId;
 	}
-	public void setServiceName(String serviceName) {
-		this.serviceName = serviceName;
+	public void setCorrelationId(String correlationId) {
+		this.correlationId = correlationId;
 	}
 	public String getLogLevel() {
 		return logLevel;
@@ -52,11 +64,11 @@ public class LoggingFields {
 	public void setTask(String task) {
 		this.task = task;
 	}
-	public String getCreatedBy() {
-		return createdBy;
+	public String getUsername() {
+		return username;
 	}
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	public String getTimestamp() {
 		return timestamp;
@@ -161,6 +173,74 @@ public class LoggingFields {
 		this.labels = labels;
 	}
 	
+	public String getDomain() {
+		return domain;
+	}
+	public void setDomain(String domain) {
+		this.domain = domain;
+	}
 	
+	public String getCategory() {
+		return category;
+	}
+	
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	
+	public String getTarget() {
+		return target;
+	}
+	
+	public void setTarget(String target) {
+		this.target = target;
+	}	
 
+	public String getService() {
+		return service;
+	}
+	
+	public void setService(String service) {
+		this.service = service;
+	}	
+	
+	public String getOperation() {
+		return operation;
+	}
+	
+	public void setOperation(String operation) {
+		this.operation = operation;
+	}		
+
+	public String getVersion() {
+		return version;
+	}
+	
+	public void setVersion(String version) {
+		this.version = version;
+	}
+	
+	public String getSource() {
+		return source;
+	}
+	
+	public void setSource(String source) {
+		this.source = source;
+	}
+	
+	public String getTargetEndpoint() {
+		return targetEndpoint;
+	}
+	
+	public void setTargetEndpoint(String targetEndpoint) {
+		this.targetEndpoint = targetEndpoint;
+	}
+	
+	public String getPayload() {
+		return payload;
+	}
+	
+	public void setPayload(String payload) {
+		this.payload = payload;
+	}
 }

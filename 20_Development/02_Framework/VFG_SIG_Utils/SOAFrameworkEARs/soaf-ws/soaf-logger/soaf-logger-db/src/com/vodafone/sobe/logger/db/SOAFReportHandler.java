@@ -82,11 +82,22 @@ public class SOAFReportHandler implements MessageListener {
 			return;
 		}
 
-		loggingFields.setMessageId(extractPatternFromPayload(payload, SOAFReportPatterns.MESSAGE_ID_PATTERN));
-		loggingFields.setServiceName(extractPatternFromPayload(payload, SOAFReportPatterns.SERVICE_NAME_PATTERN));
+		loggingFields.setRequestId(extractPatternFromPayload(payload, SOAFReportPatterns.REQUEST_ID_PATTERN));
+		loggingFields.setCorrelationId(extractPatternFromPayload(payload, SOAFReportPatterns.CORRELATION_ID_PATTERN));
+		
+		loggingFields.setDomain(extractPatternFromPayload(payload, SOAFReportPatterns.DOMAIN_PATTERN));
+		loggingFields.setCategory(extractPatternFromPayload(payload, SOAFReportPatterns.CATEGORY_PATTERN));
+		loggingFields.setTarget(extractPatternFromPayload(payload, SOAFReportPatterns.TARGET_PATTERN));
+		loggingFields.setService(extractPatternFromPayload(payload, SOAFReportPatterns.SERVICE_PATTERN));
+		loggingFields.setOperation(extractPatternFromPayload(payload, SOAFReportPatterns.OPERATION_PATTERN));
+		loggingFields.setVersion(extractPatternFromPayload(payload, SOAFReportPatterns.VERSION_PATTERN));
+		loggingFields.setSource(extractPatternFromPayload(payload, SOAFReportPatterns.SOURCE_PATTERN));
+		loggingFields.setTargetEndpoint(extractPatternFromPayload(payload, SOAFReportPatterns.TARGET_ENDPOINT_PATTERN));
+		
 		loggingFields.setLogLevel(extractPatternFromPayload(payload, SOAFReportPatterns.LOG_LEVEL_PATTERN));
 		loggingFields.setTask(extractPatternFromPayload(payload, SOAFReportPatterns.TASK_PATTERN));
-		loggingFields.setCreatedBy(extractPatternFromPayload(payload, SOAFReportPatterns.CREATED_BY_PATTERN));
+		loggingFields.setUsername(extractPatternFromPayload(payload, SOAFReportPatterns.USERNAME_PATTERN));
+		
 		loggingFields.setTimestamp(extractPatternFromPayload(payload, SOAFReportPatterns.TIMESTAMP_PATTERN));
 		loggingFields.setStatusCode(extractPatternFromPayload(payload, SOAFReportPatterns.STATUS_CODE_PATTERN));
 		loggingFields.setStatusMessage(extractPatternFromPayload(payload, SOAFReportPatterns.STATUS_MESSAGE_PATTERN));
@@ -103,6 +114,9 @@ public class SOAFReportHandler implements MessageListener {
 		loggingFields.setTargetRequestId(extractPatternFromPayload(payload, SOAFReportPatterns.TARGET_REQUEST_ID_PATTERN));
 		loggingFields.setTargetIp(extractPatternFromPayload(payload, SOAFReportPatterns.TARGET_IP_PATTERN));
 		loggingFields.setTargetAgent(extractPatternFromPayload(payload, SOAFReportPatterns.TARGET_AGENT_PATTERN));
+		
+		loggingFields.setPayload(extractPatternFromPayload(payload, SOAFReportPatterns.PAYLOAD_PATTERN));
+		
 	}
 
 	private String extractPatternFromPayload(String payload, Pattern pattern) {
@@ -124,31 +138,6 @@ public class SOAFReportHandler implements MessageListener {
 
 			if (matcher.find()) {
 				loggingFields.setTimestamp(matcher.group(1));
-			}
-		}
-
-		if ("".equals(loggingFields.getServiceName())) {
-			// <rep:uri>/SOAFramework/Processes/Logger/ProxyService1</rep:uri>
-			Pattern serviceNamePattern = Pattern.compile("<uri>(.*)</uri>");
-			Matcher matcher = serviceNamePattern.matcher(metadata);
-
-			if (matcher.find()) {
-				loggingFields.setServiceName(matcher.group(1));
-			}
-		}
-
-		if ("".equals(loggingFields.getCreatedBy())) {
-			/*
-			 * <rep:origin> <rep:state>REQUEST</rep:state>
-			 * <rep:node>PipelinePairNode1</rep:node>
-			 * <rep:pipeline>PipelinePairNode1_request</rep:pipeline>
-			 * <rep:stage>stage1</rep:stage> </rep:origin>
-			 */
-			Pattern createdByPattern = Pattern
-					.compile("<state>(.*)<state>(?s).*<node>(.*)</node>(?s).*<pipeline>(.*)</pipeline>(?s).*<stage>(.*)</stage>");
-			Matcher matcher = createdByPattern.matcher(metadata);
-			if (matcher.find()) {
-				loggingFields.setCreatedBy(matcher.group(1) + "/" + matcher.group(2) + "/" + matcher.group(3) + "/" + matcher.group(4));
 			}
 		}
 
@@ -208,14 +197,26 @@ public class SOAFReportHandler implements MessageListener {
 
 	private void setLogMDC(LoggingFields loggingFields, String payload) {
 
-		MDC.put("message_id", loggingFields.getMessageId());
-		MDC.put("service_name", loggingFields.getServiceName());
+		MDC.put("request_id", loggingFields.getRequestId());
+		MDC.put("correlation_id",loggingFields.getCorrelationId());
+		
+		MDC.put("domain", loggingFields.getDomain());
+		MDC.put("category", loggingFields.getCategory());
+		MDC.put("target", loggingFields.getTarget());
+		MDC.put("service", loggingFields.getService());
+		MDC.put("operation", loggingFields.getOperation());
+		MDC.put("version", loggingFields.getVersion());
+		MDC.put("source", loggingFields.getSource());
+		MDC.put("target_endpoint", loggingFields.getTargetEndpoint());
+		
 		MDC.put("log_level", loggingFields.getLogLevel());
 		MDC.put("task", loggingFields.getTask());
-		MDC.put("created_by", loggingFields.getCreatedBy());
+		MDC.put("username", loggingFields.getUsername());
 		MDC.put("engine", loggingFields.getEngine());
 		MDC.put("timestamp", loggingFields.getTimestamp());
-		MDC.put("payload", payload);
+		
+		MDC.put("payload", "N/A".equals(loggingFields.getPayload())|| "".equals(loggingFields.getPayload()) ? "N/A" : "<payload>" + loggingFields.getPayload() + "</payload>");
+		
 		MDC.put("status_code", loggingFields.getStatusCode());
 		MDC.put("status_message", loggingFields.getStatusMessage());
 		MDC.put("labels", loggingFields.getLabels());
@@ -234,8 +235,6 @@ public class SOAFReportHandler implements MessageListener {
 		MDC.put("target_agent", "".equals(loggingFields.getTargetAgent()) ? "N/A" : loggingFields.getTargetAgent());
 	
 		Map<String, String> labelsKVP = extractKVPFromLabels(loggingFields.getLabels());
-		
-		MDC.put("correlation_id", "".equals(labelsKVP.get("correlationId"))? "N/A" : labelsKVP.get("correlationId"));
 		
 	}
 	

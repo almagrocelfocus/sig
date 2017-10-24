@@ -2,19 +2,29 @@
 --  DDL for Table LOG
 --------------------------------------------------------
 
-  CREATE TABLE "LOG" 
-   (	"ID" VARCHAR2(250 BYTE), 
-	"MESSAGE_ID" VARCHAR2(250 BYTE), 
-	"SERVICE_NAME" VARCHAR2(250 BYTE), 
+ CREATE TABLE "LOG" 
+   (	
+	"ID" VARCHAR2(250 BYTE), 
+	"REQUEST_ID" VARCHAR2(250 BYTE),	
+	"CORRELATION_ID" VARCHAR2(250 BYTE),  
+	"DOMAIN" VARCHAR2(250 BYTE), 
+	"CATEGORY" VARCHAR2(250 BYTE), 
+	"TARGET" VARCHAR2(250 BYTE), 	
+	"SERVICE" VARCHAR2(250 BYTE), 	
+	"OPERATION" VARCHAR2(250 BYTE), 
+	"VERSION" VARCHAR2(250 BYTE), 	
+	"SOURCE" VARCHAR2(250 BYTE), 
+	"TARGET_ENDPOINT" VARCHAR2(250 BYTE), 
 	"LOG_LEVEL" VARCHAR2(20 BYTE), 
 	"TASK" VARCHAR2(250 BYTE), 
-	"CREATED_BY" VARCHAR2(250 BYTE), 
+	"USERNAME" VARCHAR2(250 BYTE), 
 	"TIMESTAMP" TIMESTAMP (6), 
+	"CREATION_DATE" TIMESTAMP (6), 
 	"PAYLOAD" CLOB, 
 	"STATUS_CODE" VARCHAR2(250 BYTE), 
 	"STATUS_MESSAGE" VARCHAR2(250 BYTE), 
 	"ENGINE" VARCHAR2(250 BYTE)
-   ) ;
+	);
 --------------------------------------------------------
 --  DDL for Index SYS_C0016650
 --------------------------------------------------------
@@ -31,7 +41,7 @@
 --  DDL for Index IDX_L_MESSAGE_ID
 --------------------------------------------------------
 
-  CREATE INDEX "IDX_L_MESSAGE_ID" ON "LOG" ("MESSAGE_ID") ;
+  CREATE INDEX "IDX_L_MESSAGE_ID" ON "LOG" ("REQUEST_ID") ;
 --------------------------------------------------------
 --  Constraints for Table LOG
 --------------------------------------------------------

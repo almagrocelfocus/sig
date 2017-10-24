@@ -56,6 +56,7 @@ declare function xf:publisherDispatcherToHeader($header as element(soap-env:Head
 			        		<he:soapAction>{$soapAction}</he:soapAction>
 		        	}
 		        </he:businessInterface>
+                        
 	        	<he:contextInformation>
 	        		<he:keyName>keyName</he:keyName>
 	        		<he:keyValue>keyValue</he:keyValue>

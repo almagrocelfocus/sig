@@ -12,7 +12,9 @@ public class SoafCommonJdbcAppender {
 	}
 
 	private static final String DYNAMIC_KEY = "dynamicKey";
+	
 	public static void append(Map<String, String> map, String mathcherKey) {
+		
 		// Labels Parser start
 		Pattern pattern = SOAFReportPatterns.LABELS_PATTERN;
 		Matcher matcher = pattern.matcher(mathcherKey);

@@ -169,6 +169,27 @@ return
                                     </con4:case>
                                     <con4:default/>
                                 </con4:ifThenElse>
+                                <con7:assign varName="teste">
+                                    <con8:id xmlns:con8="http://www.bea.com/wli/sb/stages/config">_ActionId-N53effd54.N5d24d7d2.0.15f48dc976b.N7fce</con8:id>
+                                    <con7:expr>
+                                        <con8:xqueryTransform xmlns:con8="http://www.bea.com/wli/sb/stages/config">
+                                            <con8:resource ref="SOAFramework/soaf/common/transformations/logger/adapterLogStart"/>
+                                            <con8:param name="headerExtended">
+                                                <con8:path>$headerExtended</con8:path>
+                                            </con8:param>
+                                            <con8:param name="headerInner">
+                                                <con8:path>$header/*</con8:path>
+                                            </con8:param>
+                                            <con8:param name="bodyInner">
+                                                <con8:path>if(string($headerExtended/he:attributeList[1]/he:attribute[ he:name='LOG_WRITE_BODY' ][1]/he:value[1]) = 'false')
+then ()
+else typeswitch ($body/*[1]) 
+  case element() return $body/*[1] (:SOAP:)
+  default return $body/text() (:JSON:)</con8:path>
+                                            </con8:param>
+                                        </con8:xqueryTransform>
+                                    </con7:expr>
+                                </con7:assign>
                                 <con8:report xmlns:con8="http://www.bea.com/wli/sb/stages/logging/config">
                                     <con9:id xmlns:con9="http://www.bea.com/wli/sb/stages/config">_ActionId-3786916938139717671-15d29469.145efbe529b.-7b5d</con9:id>
                                     <con8:expr>
@@ -189,34 +210,6 @@ else typeswitch ($body/*[1])
                                             </con9:param>
                                         </con9:xqueryTransform>
                                     </con8:expr>
-                                    <con8:labels>
-                                        <con8:key>messageId</con8:key>
-                                        <con8:varName>headerExtended</con8:varName>
-                                        <con8:value>
-                                            <con9:xpathText xmlns:con9="http://www.bea.com/wli/sb/stages/config">he:messageId[1]/text()</con9:xpathText>
-                                        </con8:value>
-                                    </con8:labels>
-                                    <con8:labels>
-                                        <con8:key>externalMessageId</con8:key>
-                                        <con8:varName>headerExtended</con8:varName>
-                                        <con8:value>
-                                            <con9:xpathText xmlns:con9="http://www.bea.com/wli/sb/stages/config">he:externalMessageId[1]/text()</con9:xpathText>
-                                        </con8:value>
-                                    </con8:labels>
-                                    <con8:labels>
-                                        <con8:key>requestId</con8:key>
-                                        <con8:varName>headerExtended</con8:varName>
-                                        <con8:value>
-                                            <con9:xpathText xmlns:con9="http://www.bea.com/wli/sb/stages/config">he:requestId[1]/text()</con9:xpathText>
-                                        </con8:value>
-                                    </con8:labels>
-                                    <con8:labels>
-                                        <con8:key>correlationId</con8:key>
-                                        <con8:varName>headerExtended</con8:varName>
-                                        <con8:value>
-                                            <con9:xpathText xmlns:con9="http://www.bea.com/wli/sb/stages/config">he:correlationId[1]/text()</con9:xpathText>
-                                        </con8:value>
-                                    </con8:labels>
                                     <con8:labels>
                                         <con8:key>dynamicKey</con8:key>
                                         <con8:varName>headerExtended</con8:varName>
@@ -247,12 +240,13 @@ else typeswitch ($body/*[1])
                         <con1:id xmlns:con7="http://www.bea.com/wli/sb/stages/config">_ActionId-4248425684926203549--283d567e.147595c054c.-7a7f</con1:id>
                         <con2:where>last-child</con2:where>
                         <con2:expr>
-                            <con1:xqueryText xmlns:con7="http://www.bea.com/wli/sb/stages/config"><![CDATA[let $trimmedUri := fn:substring-before(fn:substring-after($outbound/ctx:transport/ctx:uri/text(), '//'), '/')
+                            <con7:xqueryText xmlns:con7="http://www.bea.com/wli/sb/stages/config"><![CDATA[let $trimmedUri := fn:substring-before(fn:substring-after($outbound/ctx:transport/ctx:uri/text(), '//'), '/')
 return
 	<he:adapterInformation>
 		<he:targetIp>{$trimmedUri}</he:targetIp>
+                <he:uri>{$outbound/ctx:transport/ctx:uri/text()}</he:uri>
 		<he:adapterExecutionMili>{fn:seconds-from-duration(xdt:dayTimeDuration(fn:current-dateTime() - xs:dateTime($adapterStartTime))) + (fn:minutes-from-duration(xdt:dayTimeDuration(fn:current-dateTime() - xs:dateTime($adapterStartTime) )) * 60.0) + (fn:hours-from-duration(xdt:dayTimeDuration(fn:current-dateTime() - xs:dateTime($adapterStartTime) )) * 3600.0)}</he:adapterExecutionMili>
-	</he:adapterInformation>]]></con1:xqueryText>
+	</he:adapterInformation>]]></con7:xqueryText>
                         </con2:expr>
                     </con2:insert>
                     <con7:ifThenElse xmlns:con3="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con5="http://www.bea.com/wli/sb/typesystem/config" xmlns:jms="http://www.bea.com/wli/sb/transports/jms" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con7="http://www.bea.com/wli/sb/stages/transform/config">
@@ -321,34 +315,6 @@ else typeswitch ($body/*[1])
                                             </con9:param>
                                         </con9:xqueryTransform>
                                     </con8:expr>
-                                    <con8:labels>
-                                        <con8:key>messageId</con8:key>
-                                        <con8:varName>headerExtended</con8:varName>
-                                        <con8:value>
-                                            <con9:xpathText xmlns:con9="http://www.bea.com/wli/sb/stages/config">he:messageId[1]/text()</con9:xpathText>
-                                        </con8:value>
-                                    </con8:labels>
-                                    <con8:labels>
-                                        <con8:key>externalMessageId</con8:key>
-                                        <con8:varName>headerExtended</con8:varName>
-                                        <con8:value>
-                                            <con9:xpathText xmlns:con9="http://www.bea.com/wli/sb/stages/config">he:externalMessageId[1]/text()</con9:xpathText>
-                                        </con8:value>
-                                    </con8:labels>
-                                    <con8:labels>
-                                        <con8:key>requestId</con8:key>
-                                        <con8:varName>headerExtended</con8:varName>
-                                        <con8:value>
-                                            <con9:xpathText xmlns:con9="http://www.bea.com/wli/sb/stages/config">he:requestId[1]/text()</con9:xpathText>
-                                        </con8:value>
-                                    </con8:labels>
-                                    <con8:labels>
-                                        <con8:key>correlationId</con8:key>
-                                        <con8:varName>headerExtended</con8:varName>
-                                        <con8:value>
-                                            <con9:xpathText xmlns:con9="http://www.bea.com/wli/sb/stages/config">he:correlationId[1]/text()</con9:xpathText>
-                                        </con8:value>
-                                    </con8:labels>
                                     <con8:labels>
                                         <con8:key>dynamicKey</con8:key>
                                         <con8:varName>headerExtended</con8:varName>
