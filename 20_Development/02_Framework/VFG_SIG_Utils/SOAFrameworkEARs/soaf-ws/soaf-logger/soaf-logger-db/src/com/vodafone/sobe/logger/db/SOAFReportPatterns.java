@@ -44,6 +44,11 @@ public class SOAFReportPatterns {
 	
 	public static final Pattern PAYLOAD_PATTERN;
 	
+	public static final Pattern DYNAMIC_KEYS_PATTERN;
+	public static final Pattern DYNAMIC_KEY_PATTERN;
+	public static final Pattern DYNAMIC_KEY_NAME_PATTERN;
+	public static final Pattern DYNAMIC_KEY_VALUE_PATTERN;
+	
 	private SOAFReportPatterns(){
 		
 	}
@@ -88,6 +93,13 @@ public class SOAFReportPatterns {
 		LABELS_PATTERN = Pattern.compile("<.*labels>(.*)</.*labels>");
 		
 		PAYLOAD_PATTERN = Pattern.compile("<[a-zA-Z0-9:]*payload>(.*?)</[a-zA-Z0-9:]*payload>", Pattern.DOTALL);
+		
+		DYNAMIC_KEYS_PATTERN = Pattern.compile("<[a-zA-Z0-9:]*dynamicKeys>(.*?)</[a-zA-Z0-9:]*dynamicKeys>", Pattern.DOTALL);
+		DYNAMIC_KEY_PATTERN = Pattern.compile("<[a-zA-Z0-9:]*dynamicKey>(.*?)</[a-zA-Z0-9:]*dynamicKey>", Pattern.DOTALL);
+
+		DYNAMIC_KEY_NAME_PATTERN = Pattern.compile("<.*dynamicKeyName>(.*)</.*dynamicKeyName>");
+		DYNAMIC_KEY_VALUE_PATTERN = Pattern.compile("<.*dynamicKeyValue>(.*)</.*dynamicKeyValue>");
+
 	
 	}
 }

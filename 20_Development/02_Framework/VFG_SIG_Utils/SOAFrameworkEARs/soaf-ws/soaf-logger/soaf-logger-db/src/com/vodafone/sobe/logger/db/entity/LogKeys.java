@@ -48,6 +48,14 @@ public class LogKeys implements Serializable {
     @Column(name = "KEY_VALUE")
     private String keyValue;
     
+	@Size(max = 250)
+    @Column(name = "REQUEST_ID")
+    private String requestId;
+    
+	@Size(max = 250)
+    @Column(name = "CORRELATION_ID")
+    private String correlationId;
+	
 	@JoinColumn(name = "ID_LOG", referencedColumnName = "ID")
     @ManyToOne
     private LogEntity idLog;
@@ -88,6 +96,22 @@ public class LogKeys implements Serializable {
         this.keyValue = keyValue;
     }
 
+    public String getRequestId() {
+        return requestId;
+    }
+
+    public void setRequestId(String requestId) {
+        this.requestId = requestId;
+    }
+    
+    public String getCorrelationId() {
+        return correlationId;
+    }
+
+    public void setCorrelationId(String correlationId) {
+        this.correlationId = correlationId;
+    }
+    
     public LogEntity getIdLog() {
         return idLog;
     }

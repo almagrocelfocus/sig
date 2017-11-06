@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.UUID;
 
 import javax.ejb.Stateless;
@@ -19,7 +22,7 @@ import javax.persistence.PersistenceContext;
 import com.eai.common.converter.ConverterFactory;
 import com.vodafone.sobe.logger.db.entity.LogEntity;
 import com.vodafone.sobe.logger.db.entity.LogKeys;
-
+import com.vodafone.sobe.logger.db.LoggerOperations;
 
 @Stateless
 public class Logger implements LoggerLocal{
@@ -62,6 +65,7 @@ public class Logger implements LoggerLocal{
 		String statusCode = map.get("status_code");
 		String statusMessage = map.get("status_message");
 		String engine = map.get("engine");
+		String dynamicKeys = map.get("dynamicKeys");
 		
 		LogEntity log = new LogEntity();
 		
@@ -99,17 +103,26 @@ public class Logger implements LoggerLocal{
 		log.setPayload(payload);
 		log.setStatusCode(statusCode);
 		log.setStatusMessage(statusMessage);
-		
-		//KeyValuePairs
-		if (keyValuePairs != null && !keyValuePairs.isEmpty()) {
-			List<LogKeys> logKeysList = new ArrayList<LogKeys>();
-			for (Map.Entry<String, String> entry : keyValuePairs.entrySet()) {
-				LogKeys logKeysEntry = new LogKeys(entry.getKey(), entry.getValue());
-				logKeysEntry.setIdLog(log);
-				logKeysList.add(logKeysEntry);
+
+		if(dynamicKeys != null){
+			try {
+				keyValuePairs = LoggerOperations.extractKeyValuesFromLabels(dynamicKeys);
+				
+				if (keyValuePairs != null && !keyValuePairs.isEmpty()) {
+					List<LogKeys> logKeysList = new ArrayList<LogKeys>();
+					for (Map.Entry<String, String> entry : keyValuePairs.entrySet()) {
+						LogKeys logKeysEntry = new LogKeys(entry.getKey(), entry.getValue());
+						logKeysEntry.setIdLog(log);
+						logKeysList.add(logKeysEntry);
+					}
+					log.setLogKeysList(logKeysList);
+				}
+			} catch (Exception e) {
+				LOGG_ERRORS.error("Exception processing dynamicKeys!", e);
 			}
-			log.setLogKeysList(logKeysList);
 		}
+		
+		
 		persist(log);
 	}
 	

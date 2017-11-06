@@ -46,6 +46,40 @@ declare function xf:GetServiceLogStart($headerInner as element()*,
                         <log:source>{$headerExtended/he:source[1]/text()}</log:source>
             		<log:targetEndpoint>N/A</log:targetEndpoint>(: Not in context yet :)
 			<log:level>{data($headerExtended/he:attributeList[1]/he:attribute[ he:name='LOG_LEVEL' ][1]/he:value[1])}</log:level>
+                        <log:dynamicKeys>
+                         {
+                               if (fn:not(fn:empty($bodyInner))) then
+                               for $pathDynamicKeyHeader in $headerExtended/he:attributeList[1]/he:attribute[he:name='LOG_KEY_SERVICE_START']
+                                return   
+                                  let $dynamicLogBody := local:evalPathImpl(tokenize($pathDynamicKeyHeader/he:value[1]/text(), "/"), local:strip-ns($bodyInner))
+                                  return
+                                        if (fn:not(fn:empty($dynamicLogBody))) then
+                                               <log:dynamicKey>
+                                                    <log:dynamicKeyName>{fn:node-name($dynamicLogBody)}</log:dynamicKeyName>
+                                                    <log:dynamicKeyValue>{$dynamicLogBody/text()}</log:dynamicKeyValue>
+                                                </log:dynamicKey>
+                                                
+                                            else
+                                             ()
+                               else ()              
+                          }
+                          {
+                               if (fn:not(fn:empty(<soap-env:Header>{$headerInner}</soap-env:Header>/*:serviceHeader))) then
+                               for $pathDynamicKeyHeader in $headerExtended/he:attributeList[1]/he:attribute[he:name='LOG_KEY_SERVICE_START']
+                                return   
+                                  let $dynamicLogHeader := local:evalPathImpl(tokenize($pathDynamicKeyHeader/he:value[1]/text(), "/"), local:strip-ns(<soap-env:Header>{$headerInner}</soap-env:Header>/*:serviceHeader))
+                                  return
+                                        if (fn:not(fn:empty($dynamicLogHeader))) then
+                                               <log:dynamicKey>
+                                                    <log:dynamicKeyName>{fn:node-name($dynamicLogHeader)}</log:dynamicKeyName>
+                                                    <log:dynamicKeyValue>{$dynamicLogHeader/text()}</log:dynamicKeyValue>
+                                                </log:dynamicKey>
+                                                
+                                            else
+                                             ()
+                               else ()              
+                          }
+                        </log:dynamicKeys>  
 			<log:task>SERVICE_START</log:task>
 			<log:username>{$headerExtended/he:username[1]/text()}</log:username>
 			<log:timestamp>{fn:current-dateTime()}</log:timestamp>
@@ -110,6 +144,33 @@ declare function xf:GetServiceLogStart($headerInner as element()*,
 			</log:payload>
 		</log:input>
 };
+
+declare function local:evalPathImpl($steps as xs:string*, $xml as 
+node()*) as node()*
+{
+   if(empty($steps)) then $xml
+   else if($steps[1] = "") then local:evalPathImpl(subsequence($steps, 
+2), $xml/root())
+   else if(starts-with($steps[1], "@")) then 
+local:evalPathImpl(subsequence($steps, 2), $xml/@*[name() = 
+substring($steps[1], 2)])
+   else local:evalPathImpl(subsequence($steps, 2), $xml/*[name() = 
+$steps[1]])
+};
+
+declare function local:strip-ns($xml as node()) as node() {
+     element { local-name($xml) } {
+         for $att in $xml/@*
+         return
+             attribute {local-name($att)} {$att},
+         for $child in $xml/node()
+         return
+             if ($child instance of element())
+             then local:strip-ns($child)
+             else $child
+         }
+};
+
 
 declare variable $headerInner as element()* external;
 declare variable $headerExtended as element(he:headerExtended)? external;

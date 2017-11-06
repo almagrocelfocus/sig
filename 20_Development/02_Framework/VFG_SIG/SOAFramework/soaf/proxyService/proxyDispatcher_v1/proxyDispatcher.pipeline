@@ -240,13 +240,6 @@ else typeswitch ($body/*[1])
                                             </con7:param>
                                         </con7:xqueryTransform>
                                     </con6:expr>
-                                    <con6:labels>
-                                        <con6:key>dynamicKey</con6:key>
-                                        <con6:varName>headerExtended</con6:varName>
-                                        <con6:value>
-                                            <con7:xpathText xmlns:con7="http://www.bea.com/wli/sb/stages/config">he:dynLog[1]/text()</con7:xpathText>
-                                        </con6:value>
-                                    </con6:labels>
                                 </con6:report>
                             </con4:actions>
                         </con4:case>
@@ -442,13 +435,6 @@ else typeswitch ($body/*[1])
                                             </con7:param>
                                         </con7:xqueryTransform>
                                     </con6:expr>
-                                    <con6:labels>
-                                        <con6:key>dynamicKey</con6:key>
-                                        <con6:varName>headerExtended</con6:varName>
-                                        <con6:value>
-                                            <con7:xpathText xmlns:con7="http://www.bea.com/wli/sb/stages/config">he:dynLog[1]/text()</con7:xpathText>
-                                        </con6:value>
-                                    </con6:labels>
                                 </con6:report>
                             </con4:actions>
                         </con4:case>

@@ -19,6 +19,21 @@ declare function local:func($headerExtended as element() (:: schema-element(ns1:
         }
         <source>{fn:data($headerExtended/ns1:source)}</source>
         {
+            if ($headerExtended/ns1:requestorIp)
+            then <requestorIp>{fn:data($headerExtended/ns1:requestorIp)}</requestorIp>
+            else ()
+        }
+        {
+            if ($headerExtended/ns1:requestTimestamp)
+            then <requestTimestamp>{fn:data($headerExtended/ns1:requestTimestamp)}</requestTimestamp>
+            else ()
+        }
+        {
+            if ($headerExtended/ns1:username)
+            then <username>{fn:data($headerExtended/ns1:username)}</username>
+            else ()
+        }
+        {
             if ($headerExtended/ns1:responseCodes)
             then <ns2:responseCodes>
                 <responseCode>{fn:data($headerExtended/ns1:responseCodes/ns1:responseCode)}</responseCode>

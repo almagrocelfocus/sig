@@ -169,27 +169,6 @@ return
                                     </con4:case>
                                     <con4:default/>
                                 </con4:ifThenElse>
-                                <con7:assign varName="teste">
-                                    <con8:id xmlns:con8="http://www.bea.com/wli/sb/stages/config">_ActionId-N53effd54.N5d24d7d2.0.15f48dc976b.N7fce</con8:id>
-                                    <con7:expr>
-                                        <con8:xqueryTransform xmlns:con8="http://www.bea.com/wli/sb/stages/config">
-                                            <con8:resource ref="SOAFramework/soaf/common/transformations/logger/adapterLogStart"/>
-                                            <con8:param name="headerExtended">
-                                                <con8:path>$headerExtended</con8:path>
-                                            </con8:param>
-                                            <con8:param name="headerInner">
-                                                <con8:path>$header/*</con8:path>
-                                            </con8:param>
-                                            <con8:param name="bodyInner">
-                                                <con8:path>if(string($headerExtended/he:attributeList[1]/he:attribute[ he:name='LOG_WRITE_BODY' ][1]/he:value[1]) = 'false')
-then ()
-else typeswitch ($body/*[1]) 
-  case element() return $body/*[1] (:SOAP:)
-  default return $body/text() (:JSON:)</con8:path>
-                                            </con8:param>
-                                        </con8:xqueryTransform>
-                                    </con7:expr>
-                                </con7:assign>
                                 <con8:report xmlns:con8="http://www.bea.com/wli/sb/stages/logging/config">
                                     <con9:id xmlns:con9="http://www.bea.com/wli/sb/stages/config">_ActionId-3786916938139717671-15d29469.145efbe529b.-7b5d</con9:id>
                                     <con8:expr>
@@ -210,13 +189,6 @@ else typeswitch ($body/*[1])
                                             </con9:param>
                                         </con9:xqueryTransform>
                                     </con8:expr>
-                                    <con8:labels>
-                                        <con8:key>dynamicKey</con8:key>
-                                        <con8:varName>headerExtended</con8:varName>
-                                        <con8:value>
-                                            <con9:xpathText xmlns:con9="http://www.bea.com/wli/sb/stages/config">he:dynLog[1]/text()</con9:xpathText>
-                                        </con8:value>
-                                    </con8:labels>
                                 </con8:report>
                             </con7:actions>
                         </con7:case>

@@ -36,18 +36,32 @@ declare function local:func($header as element()? (:: schema-element(soap-env:He
                             else ()
                         }
                         <he:source>{fn:data($header/*[local-name()='serviceHeader']/*[local-name()='source'][1])}</he:source>
-		        <he:username>{$inbound/con:security/con:messageLevelClient/con:username[1]/text()}</he:username>
+                         {
+                            if ($header/*[local-name()='serviceHeader']/*[local-name()='requestorIp'][1])
+                            then <he:requestorIp>{fn:data($header/*[local-name()='serviceHeader']/*[local-name()='requestorIp'][1])}</he:requestorIp>
+                            else ()
+                        }
+                        {
+                            if ($header/*[local-name()='serviceHeader']/*[local-name()='requestTimestamp'][1])
+                            then <he:requestTimestamp>{fn:data($header/*[local-name()='serviceHeader']/*[local-name()='requestTimestamp'][1])}</he:requestTimestamp>
+                            else ()
+                        }
+                        {
+                            if ($header/*[local-name()='serviceHeader']/*[local-name()='username'][1])
+                            then <he:username>{fn:data($header/*[local-name()='serviceHeader']/*[local-name()='username'][1])}</he:username>
+                            else ()
+                        }
 		        <he:timestamp>{fn:current-dateTime()}</he:timestamp>
 	    		{
 	        		xf:specificInterface($inbound)
 	        	}
 	        	<he:contextInformation>
         		{
-        			let $hhtpRequest := $inbound/con:transport[1]/con:request[1]
+        			let $httpRequest := $inbound/con:transport[1]/con:request[1]
         			return
         			(
-        				<he:requestorIp>{$hhtpRequest/http:client-address[1]/text()}</he:requestorIp>,
-        				<he:requestorAgent>{$hhtpRequest/tran:headers[1]/http:User-Agent[1]/text()}</he:requestorAgent>,
+        				<he:requestorIp>{$httpRequest/http:client-address[1]/text()}</he:requestorIp>,
+        				<he:requestorAgent>{$httpRequest/tran:headers[1]/http:User-Agent[1]/text()}</he:requestorAgent>,
         				<he:sessionId>{$messageID}</he:sessionId>
         			)
         		}

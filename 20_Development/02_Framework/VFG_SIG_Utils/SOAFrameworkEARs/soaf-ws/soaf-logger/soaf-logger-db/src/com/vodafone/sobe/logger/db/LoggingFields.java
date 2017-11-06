@@ -40,6 +40,9 @@ public class LoggingFields {
 	
 	private String payload = "";
 	
+	private String dynamicKeys = "";
+	private String dynamicKey = "";
+	
 	public String getRequestId() {
 		return requestId;
 	}
@@ -242,5 +245,21 @@ public class LoggingFields {
 	
 	public void setPayload(String payload) {
 		this.payload = payload;
+	}
+	
+	public String getDynamicKeys() {
+		return dynamicKeys;
+	}
+	
+	public void setDynamicKeys(String dynamicKeys) {
+		this.dynamicKeys = dynamicKeys;
+	}
+	
+	public String getDynamicKey() {
+		return dynamicKey;
+	}
+	
+	public void setDynamicKey(String dynamicKey) {
+		this.dynamicKey = dynamicKey;
 	}
 }

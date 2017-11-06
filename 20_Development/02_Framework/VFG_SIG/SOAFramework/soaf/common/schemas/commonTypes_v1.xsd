@@ -17,6 +17,8 @@
                         <xs:element name="requestorIp" type="xs:string"  minOccurs="0"  maxOccurs="1"/>
                         <!-- Timestamp inserted by source -->
                         <xs:element name="requestTimestamp" type="xs:dateTime"  minOccurs="0"  maxOccurs="1"/>
+                        <!-- username  -->
+                        <xs:element name="username" type="xs:string"  minOccurs="0"  maxOccurs="1"/>                        
                         <xs:element ref="tns:attributes" minOccurs="0"/>
                         <xs:element ref="tns:responseCodes" minOccurs="0"/>
 		</xs:sequence>

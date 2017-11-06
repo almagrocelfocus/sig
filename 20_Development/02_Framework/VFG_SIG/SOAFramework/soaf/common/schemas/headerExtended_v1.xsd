@@ -10,6 +10,8 @@
 			<element name="requestId" type="string" />
 			<element name="correlationId" type="string" minOccurs="0" />
 			<element name="source" type="string" />
+                        <element name="requestorIp" type="string" minOccurs="0" maxOccurs="1"/>
+                        <element name="requestTimestamp" type="dateTime" minOccurs="0" maxOccurs="1"/>
 			<element name="priority" type="he:tPriority" minOccurs="0"/>
 			<element name="username" type="string" minOccurs="0" />
 			<element name="timestamp" type="dateTime" minOccurs="0" />

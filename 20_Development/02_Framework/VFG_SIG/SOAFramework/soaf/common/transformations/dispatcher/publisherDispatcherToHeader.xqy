@@ -37,6 +37,16 @@ declare function xf:publisherDispatcherToHeader($header as element(soap-env:Head
 		        	return
 		        		<he:source>{$source}</he:source>
 		        }
+                        	{
+		        	for $requestorIp in $header/*:ServiceHeader[1]/*:requestorIp[1]/text()
+		        	return
+		        		<he:requestorIp>{$requestorIp}</he:requestorIp>
+		        }
+                        {
+		        	for $requestTimestamp in $header/*:ServiceHeader[1]/*:requestTimestamp[1]/text()
+		        	return
+		        		<he:requestTimestamp>{$requestTimestamp}</he:requestTimestamp>
+		        }
 		        {
 		        	for $username in $header/*:ServiceHeader[1]/*:username[1]/text()
 		        	return

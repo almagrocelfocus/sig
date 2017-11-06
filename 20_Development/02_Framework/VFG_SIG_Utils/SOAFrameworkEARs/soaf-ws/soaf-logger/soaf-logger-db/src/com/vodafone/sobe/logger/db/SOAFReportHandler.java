@@ -20,6 +20,8 @@ import ch.qos.logback.core.joran.util.ConfigurationWatchListUtil;
 
 import com.bea.wli.reporting.jmsprovider.runtime.ReportMessage;
 
+import com.vodafone.sobe.logger.db.LoggerOperations;
+
 @MessageDriven(mappedName = "wli.reporting.jmsprovider.queue", name = "SOAFReportHandler")
 public class SOAFReportHandler implements MessageListener {
 
@@ -50,7 +52,6 @@ public class SOAFReportHandler implements MessageListener {
 				if ("ReportMessage".equals(messageClassName)) {
 					ReportMessage myReportMessage = (ReportMessage) myObject.getObject();
 
-					//handleReportData(myReportMessage.getXmlPayload(), myReportMessage.getXmlPayload().toString());
 					handleReportData(myReportMessage.getMetadata(), myReportMessage.getXmlPayload().toString());
 				}
 			}
@@ -67,7 +68,7 @@ public class SOAFReportHandler implements MessageListener {
 		try {
 			extractDataFromPayload(loggingFields, payload);
 
-			extractDataFromMetadata(loggingFields, xmlMetadata.toString());
+			LoggerOperations.extractDataFromMetadata(loggingFields, xmlMetadata.toString());
 
 			sendLog(loggingFields, payload, xmlMetadata.toString());
 
@@ -82,75 +83,47 @@ public class SOAFReportHandler implements MessageListener {
 			return;
 		}
 
-		loggingFields.setRequestId(extractPatternFromPayload(payload, SOAFReportPatterns.REQUEST_ID_PATTERN));
-		loggingFields.setCorrelationId(extractPatternFromPayload(payload, SOAFReportPatterns.CORRELATION_ID_PATTERN));
+		loggingFields.setRequestId(LoggerOperations.extractPatternFromPayload(payload, SOAFReportPatterns.REQUEST_ID_PATTERN));
+		loggingFields.setCorrelationId(LoggerOperations.extractPatternFromPayload(payload, SOAFReportPatterns.CORRELATION_ID_PATTERN));
 		
-		loggingFields.setDomain(extractPatternFromPayload(payload, SOAFReportPatterns.DOMAIN_PATTERN));
-		loggingFields.setCategory(extractPatternFromPayload(payload, SOAFReportPatterns.CATEGORY_PATTERN));
-		loggingFields.setTarget(extractPatternFromPayload(payload, SOAFReportPatterns.TARGET_PATTERN));
-		loggingFields.setService(extractPatternFromPayload(payload, SOAFReportPatterns.SERVICE_PATTERN));
-		loggingFields.setOperation(extractPatternFromPayload(payload, SOAFReportPatterns.OPERATION_PATTERN));
-		loggingFields.setVersion(extractPatternFromPayload(payload, SOAFReportPatterns.VERSION_PATTERN));
-		loggingFields.setSource(extractPatternFromPayload(payload, SOAFReportPatterns.SOURCE_PATTERN));
-		loggingFields.setTargetEndpoint(extractPatternFromPayload(payload, SOAFReportPatterns.TARGET_ENDPOINT_PATTERN));
+		loggingFields.setDomain(LoggerOperations.extractPatternFromPayload(payload, SOAFReportPatterns.DOMAIN_PATTERN));
+		loggingFields.setCategory(LoggerOperations.extractPatternFromPayload(payload, SOAFReportPatterns.CATEGORY_PATTERN));
+		loggingFields.setTarget(LoggerOperations.extractPatternFromPayload(payload, SOAFReportPatterns.TARGET_PATTERN));
+		loggingFields.setService(LoggerOperations.extractPatternFromPayload(payload, SOAFReportPatterns.SERVICE_PATTERN));
+		loggingFields.setOperation(LoggerOperations.extractPatternFromPayload(payload, SOAFReportPatterns.OPERATION_PATTERN));
+		loggingFields.setVersion(LoggerOperations.extractPatternFromPayload(payload, SOAFReportPatterns.VERSION_PATTERN));
+		loggingFields.setSource(LoggerOperations.extractPatternFromPayload(payload, SOAFReportPatterns.SOURCE_PATTERN));
+		loggingFields.setTargetEndpoint(LoggerOperations.extractPatternFromPayload(payload, SOAFReportPatterns.TARGET_ENDPOINT_PATTERN));
 		
-		loggingFields.setLogLevel(extractPatternFromPayload(payload, SOAFReportPatterns.LOG_LEVEL_PATTERN));
-		loggingFields.setTask(extractPatternFromPayload(payload, SOAFReportPatterns.TASK_PATTERN));
-		loggingFields.setUsername(extractPatternFromPayload(payload, SOAFReportPatterns.USERNAME_PATTERN));
+		loggingFields.setLogLevel(LoggerOperations.extractPatternFromPayload(payload, SOAFReportPatterns.LOG_LEVEL_PATTERN));
+		loggingFields.setTask(LoggerOperations.extractPatternFromPayload(payload, SOAFReportPatterns.TASK_PATTERN));
+		loggingFields.setUsername(LoggerOperations.extractPatternFromPayload(payload, SOAFReportPatterns.USERNAME_PATTERN));
 		
-		loggingFields.setTimestamp(extractPatternFromPayload(payload, SOAFReportPatterns.TIMESTAMP_PATTERN));
-		loggingFields.setStatusCode(extractPatternFromPayload(payload, SOAFReportPatterns.STATUS_CODE_PATTERN));
-		loggingFields.setStatusMessage(extractPatternFromPayload(payload, SOAFReportPatterns.STATUS_MESSAGE_PATTERN));
-		loggingFields.setEngine(extractPatternFromPayload(payload, SOAFReportPatterns.ENGINE_PATTERN));
-		loggingFields.setRequestorRequestId(extractPatternFromPayload(payload, SOAFReportPatterns.REQUESTOR_REQUEST_ID_PATTERN));
-		loggingFields.setRequestorIp(extractPatternFromPayload(payload, SOAFReportPatterns.REQUESTOR_IP_PATTERN));
-		loggingFields.setRequestorAgent(extractPatternFromPayload(payload, SOAFReportPatterns.REQUESTOR_AGENT_PATTERN));
-		loggingFields.setSessionId(extractPatternFromPayload(payload, SOAFReportPatterns.SESSION_ID_PATTERN));
-		loggingFields.setAction(extractPatternFromPayload(payload, SOAFReportPatterns.ACTION_PATTERN));
-		loggingFields.setObjectId(extractPatternFromPayload(payload, SOAFReportPatterns.OBJECT_ID_PATTERN));
-		loggingFields.setDescription(extractPatternFromPayload(payload, SOAFReportPatterns.DESCRIPTION_PATTERN));
-		loggingFields.setTimeToComplete(extractPatternFromPayload(payload, SOAFReportPatterns.TIME_TO_COMPLETE_PATTERN));
-		loggingFields.setAdapterTimeSum(extractPatternFromPayload(payload, SOAFReportPatterns.ADAPTER_TIME_SUM_PATTERN));
-		loggingFields.setTargetRequestId(extractPatternFromPayload(payload, SOAFReportPatterns.TARGET_REQUEST_ID_PATTERN));
-		loggingFields.setTargetIp(extractPatternFromPayload(payload, SOAFReportPatterns.TARGET_IP_PATTERN));
-		loggingFields.setTargetAgent(extractPatternFromPayload(payload, SOAFReportPatterns.TARGET_AGENT_PATTERN));
+		loggingFields.setTimestamp(LoggerOperations.extractPatternFromPayload(payload, SOAFReportPatterns.TIMESTAMP_PATTERN));
+		loggingFields.setStatusCode(LoggerOperations.extractPatternFromPayload(payload, SOAFReportPatterns.STATUS_CODE_PATTERN));
+		loggingFields.setStatusMessage(LoggerOperations.extractPatternFromPayload(payload, SOAFReportPatterns.STATUS_MESSAGE_PATTERN));
+		loggingFields.setEngine(LoggerOperations.extractPatternFromPayload(payload, SOAFReportPatterns.ENGINE_PATTERN));
+		loggingFields.setRequestorRequestId(LoggerOperations.extractPatternFromPayload(payload, SOAFReportPatterns.REQUESTOR_REQUEST_ID_PATTERN));
+		loggingFields.setRequestorIp(LoggerOperations.extractPatternFromPayload(payload, SOAFReportPatterns.REQUESTOR_IP_PATTERN));
+		loggingFields.setRequestorAgent(LoggerOperations.extractPatternFromPayload(payload, SOAFReportPatterns.REQUESTOR_AGENT_PATTERN));
+		loggingFields.setSessionId(LoggerOperations.extractPatternFromPayload(payload, SOAFReportPatterns.SESSION_ID_PATTERN));
+		loggingFields.setAction(LoggerOperations.extractPatternFromPayload(payload, SOAFReportPatterns.ACTION_PATTERN));
+		loggingFields.setObjectId(LoggerOperations.extractPatternFromPayload(payload, SOAFReportPatterns.OBJECT_ID_PATTERN));
+		loggingFields.setDescription(LoggerOperations.extractPatternFromPayload(payload, SOAFReportPatterns.DESCRIPTION_PATTERN));
+		loggingFields.setTimeToComplete(LoggerOperations.extractPatternFromPayload(payload, SOAFReportPatterns.TIME_TO_COMPLETE_PATTERN));
+		loggingFields.setAdapterTimeSum(LoggerOperations.extractPatternFromPayload(payload, SOAFReportPatterns.ADAPTER_TIME_SUM_PATTERN));
+		loggingFields.setTargetRequestId(LoggerOperations.extractPatternFromPayload(payload, SOAFReportPatterns.TARGET_REQUEST_ID_PATTERN));
+		loggingFields.setTargetIp(LoggerOperations.extractPatternFromPayload(payload, SOAFReportPatterns.TARGET_IP_PATTERN));
+		loggingFields.setTargetAgent(LoggerOperations.extractPatternFromPayload(payload, SOAFReportPatterns.TARGET_AGENT_PATTERN));
 		
-		loggingFields.setPayload(extractPatternFromPayload(payload, SOAFReportPatterns.PAYLOAD_PATTERN));
+		loggingFields.setPayload(LoggerOperations.extractPatternFromPayload(payload, SOAFReportPatterns.PAYLOAD_PATTERN));
+		
+		loggingFields.setDynamicKeys(LoggerOperations.extractPatternFromPayload(payload, SOAFReportPatterns.DYNAMIC_KEYS_PATTERN));
 		
 	}
 
-	private String extractPatternFromPayload(String payload, Pattern pattern) {
-		Matcher matcher = pattern.matcher(payload);
-		if (matcher.find()) {
-			return matcher.group(1);
-		}
-		return "N/A";
-	}
-
-	// To Check if some values that are not on payload can be extracted from
-	// metadata
-	private void extractDataFromMetadata(LoggingFields loggingFields, String metadata) {
-
-		if ("".equals(loggingFields.getTimestamp())) {
-			// <rep:timestamp>2014-02-25T14:19:06.584Z</rep:timestamp>
-			Pattern timestampPattern = Pattern.compile("<timestamp>(.*)</timestamp>");
-			Matcher matcher = timestampPattern.matcher(metadata);
-
-			if (matcher.find()) {
-				loggingFields.setTimestamp(matcher.group(1));
-			}
-		}
-
-		// Labels Parser start
-		Pattern pattern = SOAFReportPatterns.LABELS_PATTERN;
-		Matcher matcher = pattern.matcher(metadata);
-
-		if (matcher.find()) {
-			loggingFields.setLabels(matcher.group(1));
-		}
-		// Labels Parser end
-
-	}
+	
+	
 
 	private void sendLog(LoggingFields loggingFields, String payload, String metadata) {
 
@@ -234,36 +207,17 @@ public class SOAFReportHandler implements MessageListener {
 		MDC.put("target_ip", "".equals(loggingFields.getTargetIp()) ? "N/A" : loggingFields.getTargetIp());
 		MDC.put("target_agent", "".equals(loggingFields.getTargetAgent()) ? "N/A" : loggingFields.getTargetAgent());
 	
-		Map<String, String> labelsKVP = extractKVPFromLabels(loggingFields.getLabels());
+		//Map<String, String> labelsKVP = extractKVPFromLabels(loggingFields.getLabels());
 		
-	}
-	
-	private final String DYNAMIC_KEY = "dynamicKey";
-	private Map<String, String> extractKVPFromLabels(String labels){
+		MDC.put("dynamicKeys", "N/A".equals(loggingFields.getDynamicKeys())|| "".equals(loggingFields.getDynamicKeys()) ? "N/A" : "<dynamicKeys>" + loggingFields.getDynamicKeys() + "</dynamicKeys>");
+		//MDC.put("dynamicKey", "N/A".equals(loggingFields.getDynamicKey())|| "".equals(loggingFields.getDynamicKey()) ? "N/A" : loggingFields.getDynamicKey());
 		
-		Map<String, String> kvpMap = new HashMap<String, String>();
+		//MDC.put("dynamicKey", loggingFields.getDynamicKey());
 		
-		String[] labelValues = labels.split(";");
+		Map<String, String> labelsKVP = LoggerOperations.extractKeyValuesFromLabels(loggingFields.getDynamicKeys());
+		MDC.put("dynamicKey", (labelsKVP.isEmpty() || labelsKVP == null) ? "N/A" : labelsKVP.toString());
 		
-		for (String s : labelValues) {
-			String[] label = s.split("=");
-			if (label.length == 2) {
-				
-				if(DYNAMIC_KEY.equals(label[0])){
-					String[] dynamicKVP = label[1].split("_");
-					if(dynamicKVP.length == 2){
-						kvpMap.put(dynamicKVP[0], dynamicKVP[1]);
-					}else{LOGG_ERRORS.warn("Dynamic Key Malformed: " + label[1]);}
-				}
-				else{
-					kvpMap.put(label[0], label[1]);
-				}
-				
-			}
-		}
-		
-		
-		return kvpMap;
 	}
 
+	
 }
