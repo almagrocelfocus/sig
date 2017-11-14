@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:pipelineEntry xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/logging/config">
+  <con:coreEntry>
+    <con:binding type="Any SOAP" isSoap12="false" xsi:type="con:AnySoapBindingType" />
+    <con:xqConfiguration>
+      <con:snippetVersion>1.0</con:snippetVersion>
+    </con:xqConfiguration>
+  </con:coreEntry>
+  <con:router>
+    <con:pipeline type="request" name="request-#REQUEST#">
+      <con:stage name="sPrepareRequest" id="_StageId-#UUID#" xmlns:con3="http://www.bea.com/wli/sb/stages/routing/config" xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:oper="http://xmlns.oracle.com/servicebus/pipeline/operations" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:env="http://www.bea.com/wli/config/env" xmlns:tran="http://www.bea.com/wli/sb/transports">
+        <con:context />
+        <con:actions>
+          <con1:validate>
+            <con2:id>_ActionId-#UUID#</con2:id>
+            <con1:schema ref="#DOMAIN#/#CATEGORY#/pub/#SERVICE##VERSION#/schemas/#SERVICE#" />
+            <con1:schemaElement xmlns:v1="http://xmlns.telco.com/#DOMAIN#/#CATEGORY#/pub/#SERVICE#/v#VERSIONUM#">v1:#SERVICE#Request</con1:schemaElement>
+            <con1:varName>body</con1:varName>
+            <con1:location>
+              <con2:xpathText>*[1]</con2:xpathText>
+            </con1:location>
+          </con1:validate>
+          <con1:replace varName="body" contents-only="true">
+            <con2:id>_ActionId-#UUID#</con2:id>
+            <con1:expr>
+              <con2:xqueryText>'FIXME'(:#DOMAIN#/#CATEGORY#/proxyServices/#SERVICE##VERSION#/transformations/to_#SERVICE#:)</con2:xqueryText>
+            </con1:expr>
+          </con1:replace>
+        </con:actions>
+      </con:stage>
+      <con:stage id="_StageId-#UUID#" name="sPrepareRouting">
+        <con:context />
+        <con:actions>
+          <con1:replace varName="header" contents-only="true">
+            <con2:id>_ActionId-#UUID#</con2:id>
+            <con1:expr>
+              <con2:xqueryTransform>
+                <con2:resource ref="SOAFramework/soaf/common/transformations/proxyService/technicalDispatcherToHeader" />
+                <con2:param name="operation">
+                  <con2:path>''</con2:path>
+                </con2:param>
+                <con2:param name="category">
+                  <con2:path>'#CATEGORY#'</con2:path>
+                </con2:param>
+                <con2:param name="soapAction">
+                  <con2:path>''</con2:path>
+                </con2:param>
+                <con2:param name="service">
+                  <con2:path>'#SERVICE#'</con2:path>
+                </con2:param>
+                <con2:param name="domain">
+                  <con2:path>'#DOMAIN#'</con2:path>
+                </con2:param>
+                <con2:param name="header">
+                  <con2:path>$header/*</con2:path>
+                </con2:param>
+                <con2:param name="version">
+                  <con2:path>'#VERSIONUM#'</con2:path>
+                </con2:param>
+              </con2:xqueryTransform>
+            </con1:expr>
+          </con1:replace>
+        </con:actions>
+      </con:stage>
+      <con:stage id="_StageId-#UUID#" name="sInsertServiceHeader">
+        <con:context />
+        <con:actions>
+          <con1:insert varName="header">
+            <con2:id>_ActionId-#UUID#</con2:id>
+            <con1:where>last-child</con1:where>
+            <con1:expr>
+              <con2:xqueryTransform>
+                <con2:resource ref="SOAFramework/soaf/common/transformations/proxyService/headerExtendedToServiceHeader" />
+                <con2:param name="headerExtended">
+                  <con2:path>$header/*[1]</con2:path>
+                </con2:param>
+              </con2:xqueryTransform>
+            </con1:expr>
+          </con1:insert>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="response" name="response-#RESPONSE#">
+      <con:stage name="sPrepareResponse" id="_StageId-#UUID#" xmlns:con3="http://www.bea.com/wli/sb/stages/routing/config" xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:oper="http://xmlns.oracle.com/servicebus/pipeline/operations" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:env="http://www.bea.com/wli/config/env" xmlns:tran="http://www.bea.com/wli/sb/transports">
+        <con:context />
+        <con:actions>
+          <con1:ifThenElse>
+            <con2:id>_ActionId-#UUID#</con2:id>
+            <con1:case id="_BranchId-#UUID#">
+              <con1:condition>
+                <con2:xqueryText>$FIXME = fn:true()(:Success Case | data($header/*:serviceHeader/*:responseCodes/*:responseCode) = '0':)</con2:xqueryText>
+              </con1:condition>
+              <con1:actions>
+                <con1:replace varName="header" contents-only="true">
+                  <con2:id>_ActionId-#UUID#</con2:id>
+                  <con1:expr>
+                    <con2:xqueryTransform>
+                      <con2:resource ref="SOAFramework/soaf/common/transformations/proxyService/externalErrorToHeader" />
+                      <con2:param name="ExternalErrorCode">
+                        <con2:path>'FIXME'(:'0' | data($header/*:serviceHeader/*:responseCodes/*:responseCode):)</con2:path>
+                      </con2:param>
+                      <con2:param name="system">
+                        <con2:path>'#CATEGORY#'</con2:path>
+                      </con2:param>
+                      <con2:param name="ExternalErrorMessage">
+                        <con2:path>'FIXME'(:'Success' | data($header/*:serviceHeader/*:responseCodes/*:responseMessage):)</con2:path>
+                      </con2:param>
+                      <con2:param name="headerExtended">
+                        <con2:path>$header/*:headerExtended</con2:path>
+                      </con2:param>
+                    </con2:xqueryTransform>
+                  </con1:expr>
+                </con1:replace>
+                <con1:replace varName="body" contents-only="true">
+                  <con2:id>_ActionId-#UUID#</con2:id>
+                  <con1:expr>
+                    <con2:xqueryText>'FIXME'(:#DOMAIN#/#CATEGORY#/proxyServices/#SERVICE##VERSION#/transformations/from_#SERVICE#:)</con2:xqueryText>
+                  </con1:expr>
+                </con1:replace>
+              </con1:actions>
+            </con1:case>
+            <con1:case id="_BranchId-#UUID#">
+              <con1:condition>
+                <con2:xqueryText>not(empty($body/*:Fault/detail/*:fault/*:errorCode))</con2:xqueryText>
+              </con1:condition>
+              <con1:actions>
+                <con1:replace varName="header" contents-only="true">
+                  <con2:id>_ActionId-#UUID#</con2:id>
+                  <con1:expr>
+                    <con2:xqueryTransform>
+                      <con2:resource ref="SOAFramework/soaf/common/transformations/proxyService/externalErrorToHeader" />
+                      <con2:param name="ExternalErrorCode">
+                        <con2:path>data($body/*:Fault/detail/*:fault/*:errorCode)</con2:path>
+                      </con2:param>
+                      <con2:param name="system">
+                        <con2:path>'#CATEGORY#'</con2:path>
+                      </con2:param>
+                      <con2:param name="ExternalErrorMessage">
+                        <con2:path>substring(data($body/*:Fault/detail/*:fault/*:reason),0,500)</con2:path>
+                      </con2:param>
+                      <con2:param name="headerExtended">
+                        <con2:path>$header/*:headerExtended</con2:path>
+                      </con2:param>
+                    </con2:xqueryTransform>
+                  </con1:expr>
+                </con1:replace>
+                <con1:delete varName="body">
+                  <con2:id>_ActionId-#UUID#</con2:id>
+                </con1:delete>
+              </con1:actions>
+            </con1:case>
+            <con1:case id="_BranchId-#UUID#">
+              <con1:condition>
+                <con2:xqueryText>not(empty($header/*:serviceHeader/*:responseCodes))</con2:xqueryText>
+              </con1:condition>
+              <con1:actions>
+                <con1:replace varName="header" contents-only="true">
+                  <con2:id>_ActionId-#UUID#</con2:id>
+                  <con1:expr>
+                    <con2:xqueryTransform>
+                      <con2:resource ref="SOAFramework/soaf/common/transformations/proxyService/externalErrorToHeader" />
+                      <con2:param name="ExternalErrorCode">
+                        <con2:path>data($header/*:serviceHeader/*:responseCodes/*:responseCode)</con2:path>
+                      </con2:param>
+                      <con2:param name="system">
+                        <con2:path>'#CATEGORY#'</con2:path>
+                      </con2:param>
+                      <con2:param name="ExternalErrorMessage">
+                        <con2:path>data($header/*:serviceHeader/*:responseCodes/*:responseMessage)</con2:path>
+                      </con2:param>
+                      <con2:param name="headerExtended">
+                        <con2:path>$header/*:headerExtended</con2:path>
+                      </con2:param>
+                    </con2:xqueryTransform>
+                  </con1:expr>
+                </con1:replace>
+                <con1:delete varName="body">
+                  <con2:id>_ActionId-#UUID#</con2:id>
+                </con1:delete>
+              </con1:actions>
+            </con1:case>
+            <con1:default>
+              <con1:replace varName="header" contents-only="true">
+                <con2:id>_ActionId-#UUID#</con2:id>
+                <con1:expr>
+                  <con2:xqueryTransform>
+                    <con2:resource ref="SOAFramework/soaf/common/transformations/proxyService/externalErrorToHeader" />
+                    <con2:param name="ExternalErrorCode">
+                      <con2:path>'1'</con2:path>
+                    </con2:param>
+                    <con2:param name="system">
+                      <con2:path>'#CATEGORY#'</con2:path>
+                    </con2:param>
+                    <con2:param name="ExternalErrorMessage">
+                      <con2:path>'Unknown error : please check server log for more information.'</con2:path>
+                    </con2:param>
+                    <con2:param name="headerExtended">
+                      <con2:path>$header/*:headerExtended</con2:path>
+                    </con2:param>
+                  </con2:xqueryTransform>
+                </con1:expr>
+              </con1:replace>
+              <con1:delete varName="body">
+                <con2:id>_ActionId-#UUID#</con2:id>
+              </con1:delete>
+            </con1:default>
+          </con1:ifThenElse>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:flow>
+      <con:pipeline-node name="pp#SERVICE#">
+        <con:request>request-#REQUEST#</con:request>
+        <con:response>response-#RESPONSE#</con:response>
+      </con:pipeline-node>
+      <con:route-node name="CallBiz">
+        <con:context />
+        <con:actions>
+          <con1:route xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config">
+            <con2:id>_ActionId-#UUID#</con2:id>
+            <con1:service ref="SOAFramework/soaf/proxyService/businessDispatcher_v1/businessDispatcher" xsi:type="ref:ProxyRef" xmlns:ref="http://www.bea.com/wli/sb/reference" />
+            <con1:outboundTransform />
+            <con1:responseTransform />
+          </con1:route>
+        </con:actions>
+      </con:route-node>
+    </con:flow>
+  </con:router>
+</con:pipelineEntry>

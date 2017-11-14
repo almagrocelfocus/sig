@@ -1,0 +1,1 @@
+- Copy the logback file into Domain root directory

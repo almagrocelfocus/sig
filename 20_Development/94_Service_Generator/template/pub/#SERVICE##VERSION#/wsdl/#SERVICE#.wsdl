@@ -1,0 +1,41 @@
+<wsdl:definitions targetNamespace="http://xmlns.telco.com/#DOMAIN#/#CATEGORY#/pub/#SERVICE#/v#VERSIONUM#" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://xmlns.telco.com/#DOMAIN#/#CATEGORY#/pub/#SERVICE#/v#VERSIONUM#" xmlns:c="http://xmlns.telco.com/SOAFramework/soaf/common/schemas/commonTypes/v1">
+  <wsdl:types>
+    <xsd:schema>
+      <xsd:import namespace="http://xmlns.telco.com/#DOMAIN#/#CATEGORY#/pub/#SERVICE#/v#VERSIONUM#" schemaLocation="../schemas/#SERVICE#.xsd" />
+      <xsd:import namespace="http://xmlns.telco.com/SOAFramework/soaf/common/schemas/commonTypes/v1" schemaLocation="../../../../../SOAFramework/soaf/common/schemas/commonTypes_v1.xsd" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="#SERVICE##VERSION#Request">
+    <wsdl:part name="requestServiceHeader" element="c:serviceHeader" />
+    <wsdl:part name="requestParameters" element="tns:#SERVICE#Request" />
+  </wsdl:message>
+  <wsdl:message name="#SERVICE##VERSION#Response">
+    <wsdl:part name="responseServiceHeader" element="c:serviceHeader" />
+    <wsdl:part name="responseParameters" element="tns:#SERVICE#Response" />
+  </wsdl:message>
+  <wsdl:portType name="#SERVICE#_ptt">
+    <wsdl:operation name="#SERVICE##VERSION#">
+      <wsdl:input message="tns:#SERVICE##VERSION#Request" />
+      <wsdl:output message="tns:#SERVICE##VERSION#Response" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="#SERVICE#_binding" type="tns:#SERVICE#_ptt">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="#SERVICE##VERSION#">
+      <soap:operation soapAction="http://www.example.org/#CATEGORY#/#SERVICE##VERSION#" />
+      <wsdl:input>
+        <soap:body use="literal" parts="requestParameters" />
+        <soap:header message="tns:#SERVICE##VERSION#Request" part="requestServiceHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" parts="responseParameters" />
+        <soap:header message="tns:#SERVICE##VERSION#Response" part="responseServiceHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="#SERVICE#_service">
+    <wsdl:port name="#SERVICE#" binding="tns:#SERVICE#_binding">
+      <soap:address location="http://localhost:7001/#DOMAIN#/#CATEGORY#/pub/#SERVICE##VERSION#/#SERVICE#" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
