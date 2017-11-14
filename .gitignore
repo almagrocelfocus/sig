@@ -1,2 +1,10 @@
 .data/
 .metadata/
+20_Development/02_Framework/VFG_SIG/OSB_SIG/.settings
+20_Development/02_Framework/VFG_SIG/OSB_SIG
+20_Development/02_Framework/VFG_SIG/SOAFramework/.settings
+20_Development/02_Framework/VFG_SIG/SOAFrameworkBackendSimulator/.settings/oracle.xquery.mapper.jdev.model/soaf/common/transformations/stripNamespaces.xqy.xml
+20_Development/02_Framework/VFG_SIG/SOAFrameworkBackendSimulator/.settings/oracle.xquery.mapper.jdev.model/soaf/common/transformations/to_wsDispatcher.xqy.xml
+20_Development/02_Framework/VFG_SIG_Utils/SOAFrameworkEARs/soaf-ws/soaf-logger/soaf-logger-db/target/classes
+20_Development/02_Framework/VFG_SIG/.adf
+20_Development/02_Framework/VFG_SIG_Utils/Sample
