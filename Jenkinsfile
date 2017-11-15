@@ -4,10 +4,11 @@ pipeline {
 	triggers {
 		pollSCM('H/30 * * * *')
 	}
-	
+	/**
 	environment {
 		//GIT_CREDENTIALS_PWD = credentials('my-git-pwd')
 	}
+	**/
 	
 	stages {
 	
