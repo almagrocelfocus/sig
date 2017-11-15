@@ -15,7 +15,7 @@ pipeline {
 		stage('Build') {
 			steps {
 				sh "echo Building..."
-				sh "mvn clean ${env.GIT_CREDENTIALS_PWD}"
+				sh "mvn clean"
 				
 				/**
 				withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'jonathan-ci', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
