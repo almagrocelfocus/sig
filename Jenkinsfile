@@ -1,5 +1,10 @@
 pipeline {
-	agent any
+
+	agent {
+		dockerfile {
+			args '-v /root/.m2:/root/.m2 -v /root/.sonar:/root/.sonar'
+		}
+	}
 	
 	triggers {
 		pollSCM('H/30 * * * *')
