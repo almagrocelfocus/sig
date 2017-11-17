@@ -9,7 +9,7 @@
     <ser:ws-policy>
       <ser:binding-mode>no-policies</ser:binding-mode>
     </ser:ws-policy>
-    <ser:invoke ref="SIGFramework/eventHandling/proxyServices/event_newEvent_v1/event_newEvent" xsi:type="con1:PipelineRef" xmlns:con1="http://www.bea.com/wli/sb/pipeline/config" />
+    <ser:invoke ref="SIGFramework/eventHandling/proxyServices/newEvent_v1/newEvent" xsi:type="con1:PipelineRef" xmlns:con1="http://www.bea.com/wli/sb/pipeline/config" />
     <ser:xqConfiguration>
       <ser:snippetVersion>1.0</ser:snippetVersion>
     </ser:xqConfiguration>
@@ -18,7 +18,7 @@
     <tran:provider-id>http</tran:provider-id>
     <tran:inbound>true</tran:inbound>
     <tran:URI>
-      <env:value>/SIGFramework/eventHandling/proxyServices/event_newEvent_v1/event_newEvent</env:value>
+      <env:value>/SIGFramework/eventHandling/proxyServices/newEvent_v1/newEvent</env:value>
     </tran:URI>
     <tran:inbound-properties />
     <tran:all-headers>true</tran:all-headers>

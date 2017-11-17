@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:pipelineEntry xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/logging/config">
+    <con:coreEntry>
+        <con:binding type="Any SOAP" isSoap12="false" xsi:type="con:AnySoapBindingType"/>
+        <con:xqConfiguration>
+            <con:snippetVersion>1.0</con:snippetVersion>
+        </con:xqConfiguration>
+    </con:coreEntry>
+    <con:router>
+        <con:pipeline type="request" name="request-7e39e455-2eea-4958-ae97-52a7c85fa816">
+            <con:stage name="sPrepareRequest" id="_StageId-578607ad-a1ef-4e29-b348-766f01979b07" xmlns:con3="http://www.bea.com/wli/sb/stages/routing/config" xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:oper="http://xmlns.oracle.com/servicebus/pipeline/operations" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:env="http://www.bea.com/wli/config/env" xmlns:tran="http://www.bea.com/wli/sb/transports">
+                <con:context/>
+                <con:actions>
+                    <con1:validate>
+                        <con2:id>_ActionId-29cd244a-24a4-4b6c-b9e5-59532d0c3964</con2:id>
+                        <con1:schema ref="SIGFramework/eventHandling/pub/newEvent_v1/schemas/newEvent"/>
+                        <con1:schemaElement xmlns:v1="http://xmlns.telco.com/SIGFramework/eventHandling/pub/newEvent/v1">v1:newEventRequest</con1:schemaElement>
+                        <con1:varName>body</con1:varName>
+                        <con1:location>
+                            <con2:xpathText>*[1]</con2:xpathText>
+                        </con1:location>
+                    </con1:validate>
+                    <con1:replace varName="body" contents-only="true">
+                        <con2:id>_ActionId-6da050f7-768f-43d1-a255-1f8a591211c9</con2:id>
+                        <con1:expr>
+                            <con2:xqueryTransform>
+                                <con2:resource ref="SIGFramework/eventHandling/proxyServices/newEvent_v1/transformations/to_newEvent"/>
+                                <con2:param name="newEventProxy">
+                                    <con2:path>$body/*</con2:path>
+                                </con2:param>
+                            </con2:xqueryTransform>
+                        </con1:expr>
+                    </con1:replace>
+                </con:actions>
+            </con:stage>
+            <con:stage id="_StageId-66c3f220-317f-42b7-a576-15dd60c1061c" name="sPrepareRouting">
+                <con:context/>
+                <con:actions>
+                    <con1:replace varName="header" contents-only="true">
+                        <con2:id>_ActionId-cefbc01a-9473-45cd-9bce-d7df8cdadbc2</con2:id>
+                        <con1:expr>
+                            <con2:xqueryTransform>
+                                <con2:resource ref="SOAFramework/soaf/common/transformations/proxyService/technicalDispatcherToHeader"/>
+                                <con2:param name="operation">
+                                    <con2:path>'newEventSP'</con2:path>
+                                </con2:param>
+                                <con2:param name="category">
+                                    <con2:path>'eventHandling'</con2:path>
+                                </con2:param>
+                                <con2:param name="soapAction">
+                                    <con2:path>''</con2:path>
+                                </con2:param>
+                                <con2:param name="service">
+                                    <con2:path>'newEvent'</con2:path>
+                                </con2:param>
+                                <con2:param name="domain">
+                                    <con2:path>'SIGFramework'</con2:path>
+                                </con2:param>
+                                <con2:param name="header">
+                                    <con2:path>$header/*</con2:path>
+                                </con2:param>
+                                <con2:param name="version">
+                                    <con2:path>'1'</con2:path>
+                                </con2:param>
+                            </con2:xqueryTransform>
+                        </con1:expr>
+                    </con1:replace>
+                </con:actions>
+            </con:stage>
+            <con:stage id="_StageId-1022dc57-a8f7-47f3-9e9a-c71b6e9cdf73" name="sInsertServiceHeader">
+                <con:context/>
+                <con:actions>
+                    <con1:insert varName="header">
+                        <con2:id>_ActionId-fda5aadd-3d02-4511-9753-a2f53cf6c41c</con2:id>
+                        <con1:where>last-child</con1:where>
+                        <con1:expr>
+                            <con2:xqueryTransform>
+                                <con2:resource ref="SOAFramework/soaf/common/transformations/proxyService/headerExtendedToServiceHeader"/>
+                                <con2:param name="headerExtended">
+                                    <con2:path>$header/*[1]</con2:path>
+                                </con2:param>
+                            </con2:xqueryTransform>
+                        </con1:expr>
+                    </con1:insert>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="response" name="response-d92281c4-bf5b-4f2f-b9c6-5ab31fab3204">
+            <con:stage name="sPrepareResponse" id="_StageId-c80777df-f34c-48cf-97d0-b3d506bbb84e" xmlns:con3="http://www.bea.com/wli/sb/stages/routing/config" xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:oper="http://xmlns.oracle.com/servicebus/pipeline/operations" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:env="http://www.bea.com/wli/config/env" xmlns:tran="http://www.bea.com/wli/sb/transports">
+                <con:context/>
+                <con:actions>
+                    <con1:ifThenElse>
+                        <con2:id>_ActionId-e7953a12-ff5c-4342-9274-057447c1ff70</con2:id>
+                        <con1:case id="_BranchId-2df1fc52-5a82-4997-be09-1aeb90c9f204">
+                            <con1:condition>
+                                <con2:xqueryText>data($body/*:OutputParameters/*:O_ERRORCODE)='0'</con2:xqueryText>
+                            </con1:condition>
+                            <con1:actions>
+                                <con1:replace varName="header" contents-only="true">
+                                    <con2:id>_ActionId-608c2b4e-f83b-4329-a5e5-fbf7ba30d02e</con2:id>
+                                    <con1:expr>
+                                        <con2:xqueryTransform>
+                                            <con2:resource ref="SOAFramework/soaf/common/transformations/proxyService/externalErrorToHeader"/>
+                                            <con2:param name="ExternalErrorCode">
+                                                <con2:path>'0'</con2:path>
+                                            </con2:param>
+                                            <con2:param name="system">
+                                                <con2:path>'eventHandling'</con2:path>
+                                            </con2:param>
+                                            <con2:param name="ExternalErrorMessage">
+                                                <con2:path>'Success'</con2:path>
+                                            </con2:param>
+                                            <con2:param name="headerExtended">
+                                                <con2:path>$header/*:headerExtended</con2:path>
+                                            </con2:param>
+                                        </con2:xqueryTransform>
+                                    </con1:expr>
+                                </con1:replace>
+                                <con1:replace varName="body" contents-only="true">
+                                    <con2:id>_ActionId-319a6e37-eaac-4919-b6ab-c91289f395c9</con2:id>
+                                    <con1:expr>
+                                        <con2:xqueryTransform>
+                                            <con2:resource ref="SIGFramework/eventHandling/proxyServices/newEvent_v1/transformations/from_newEvent"/>
+                                            <con2:param name="newEventResponse">
+                                                <con2:path>$body/*[1]</con2:path>
+                                            </con2:param>
+                                        </con2:xqueryTransform>
+                                    </con1:expr>
+                                </con1:replace>
+                            </con1:actions>
+                        </con1:case>
+                        <con1:case id="_BranchId-9918b225-c933-4863-9b71-792a19d7ae6d">
+                            <con1:condition>
+                                <con2:xqueryText>not(empty($body/*:Fault/detail/*:fault/*:errorCode))</con2:xqueryText>
+                            </con1:condition>
+                            <con1:actions>
+                                <con1:replace varName="header" contents-only="true">
+                                    <con2:id>_ActionId-620aa65f-e6ce-4a52-aa9d-b1645230c934</con2:id>
+                                    <con1:expr>
+                                        <con2:xqueryTransform>
+                                            <con2:resource ref="SOAFramework/soaf/common/transformations/proxyService/externalErrorToHeader"/>
+                                            <con2:param name="ExternalErrorCode">
+                                                <con2:path>data($body/*:OutputParameters/*:O_ERRORCODE)</con2:path>
+                                            </con2:param>
+                                            <con2:param name="system">
+                                                <con2:path>'eventHandling'</con2:path>
+                                            </con2:param>
+                                            <con2:param name="ExternalErrorMessage">
+                                                <con2:path>substring(data($body/*:OutputParameters/*:O_ERRORTEXT),0,500)</con2:path>
+                                            </con2:param>
+                                            <con2:param name="headerExtended">
+                                                <con2:path>$header/*:headerExtended</con2:path>
+                                            </con2:param>
+                                        </con2:xqueryTransform>
+                                    </con1:expr>
+                                </con1:replace>
+                                <con1:delete varName="body">
+                                    <con2:id>_ActionId-0504da33-5039-47f6-afc1-88abfa6159fc</con2:id>
+                                </con1:delete>
+                            </con1:actions>
+                        </con1:case>
+                        <con1:case id="_BranchId-9a37bbe0-02c2-40aa-b69b-8fa17ce257e9">
+                            <con1:condition>
+                                <con2:xqueryText>not(empty($header/*:serviceHeader/*:responseCodes))</con2:xqueryText>
+                            </con1:condition>
+                            <con1:actions>
+                                <con1:replace varName="header" contents-only="true">
+                                    <con2:id>_ActionId-9a079cae-2fbb-4f17-883e-eccb78fd7229</con2:id>
+                                    <con1:expr>
+                                        <con2:xqueryTransform>
+                                            <con2:resource ref="SOAFramework/soaf/common/transformations/proxyService/externalErrorToHeader"/>
+                                            <con2:param name="ExternalErrorCode">
+                                                <con2:path>data($header/*:serviceHeader/*:responseCodes/*:responseCode)</con2:path>
+                                            </con2:param>
+                                            <con2:param name="system">
+                                                <con2:path>'eventHandling'</con2:path>
+                                            </con2:param>
+                                            <con2:param name="ExternalErrorMessage">
+                                                <con2:path>data($header/*:serviceHeader/*:responseCodes/*:responseMessage)</con2:path>
+                                            </con2:param>
+                                            <con2:param name="headerExtended">
+                                                <con2:path>$header/*:headerExtended</con2:path>
+                                            </con2:param>
+                                        </con2:xqueryTransform>
+                                    </con1:expr>
+                                </con1:replace>
+                                <con1:delete varName="body">
+                                    <con2:id>_ActionId-8f991546-9cb7-4805-b194-a2da07be81da</con2:id>
+                                </con1:delete>
+                            </con1:actions>
+                        </con1:case>
+                        <con1:default>
+                            <con1:replace varName="header" contents-only="true">
+                                <con2:id>_ActionId-6c21a222-10be-4c3e-8925-bf264f1b07bf</con2:id>
+                                <con1:expr>
+                                    <con2:xqueryTransform>
+                                        <con2:resource ref="SOAFramework/soaf/common/transformations/proxyService/externalErrorToHeader"/>
+                                        <con2:param name="ExternalErrorCode">
+                                            <con2:path>'1'</con2:path>
+                                        </con2:param>
+                                        <con2:param name="system">
+                                            <con2:path>'eventHandling'</con2:path>
+                                        </con2:param>
+                                        <con2:param name="ExternalErrorMessage">
+                                            <con2:path>'Unknown error : please check server log for more information.'</con2:path>
+                                        </con2:param>
+                                        <con2:param name="headerExtended">
+                                            <con2:path>$header/*:headerExtended</con2:path>
+                                        </con2:param>
+                                    </con2:xqueryTransform>
+                                </con1:expr>
+                            </con1:replace>
+                            <con1:delete varName="body">
+                                <con2:id>_ActionId-52d86d35-ef2b-4f9e-80b7-a3432bcc2e54</con2:id>
+                            </con1:delete>
+                        </con1:default>
+                    </con1:ifThenElse>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:flow>
+            <con:pipeline-node name="ppnewEvent">
+                <con:request>request-7e39e455-2eea-4958-ae97-52a7c85fa816</con:request>
+                <con:response>response-d92281c4-bf5b-4f2f-b9c6-5ab31fab3204</con:response>
+            </con:pipeline-node>
+            <con:route-node name="CallBiz">
+                <con:context/>
+                <con:actions>
+                    <con1:route xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config">
+                        <con2:id>_ActionId-fed98193-ea2a-45ed-98eb-714443b2a1a9</con2:id>
+                        <con1:service ref="SOAFramework/soaf/proxyService/businessDispatcher_v1/businessDispatcher" xsi:type="ref:ProxyRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        <con1:outboundTransform/>
+                        <con1:responseTransform/>
+                    </con1:route>
+                </con:actions>
+            </con:route-node>
+        </con:flow>
+    </con:router>
+</con:pipelineEntry>

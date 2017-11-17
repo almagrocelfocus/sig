@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://xmlns.telco.com/SIGFramework/eventHandling/pub/newEvent/v1" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:agt="http://xmlns.telco.com/SIGFramework/eventHandling/pub/newEvent/v1">
+  <element name="newEventRequest" >
+    <complexType>
+      <sequence>
+        <element name="customerId" type="string"/>
+        <element name="eventName" type="string"/>
+        <element name="eventDetails" type="anyType"/>          
+      </sequence>
+    </complexType>
+  </element>
+  <element name="newEventResponse">
+      <complexType>
+      <sequence>
+        <element name="eventId" type="string"/>
+      </sequence>
+    </complexType>
+  </element>
+</schema>

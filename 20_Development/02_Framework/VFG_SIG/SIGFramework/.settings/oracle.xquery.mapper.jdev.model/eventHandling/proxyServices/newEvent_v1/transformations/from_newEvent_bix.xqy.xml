@@ -1,0 +1,6 @@
+<view_states>
+   <function arity="1" name="newEventFunc">
+      <source_tree_view last.visible.row="3" last.visible.path="/sourceRoot[[0]]/OutputParameters[[0]]/O_EVENT_ID[[2]]" expanded.paths="/sourceRoot[[0]]/OutputParameters[[0]]" selected.paths="/sourceRoot[[0]]/OutputParameters[[0]]/O_EVENT_ID[[2]]" first.visible.path="/sourceRoot[[0]]/OutputParameters[[0]]" first.visible.row="0"/>
+      <target_tree_view last.visible.row="1" last.visible.path="/TargetRoot[[0]]/newEventResponse[[0]]/eventId[[0]]" expanded.paths="/TargetRoot[[0]]/newEventResponse[[0]]" selected.paths="/TargetRoot[[0]]/newEventResponse[[0]]/eventId[[0]]" first.visible.path="/TargetRoot[[0]]/newEventResponse[[0]]" first.visible.row="0"/>
+   </function>
+</view_states>
