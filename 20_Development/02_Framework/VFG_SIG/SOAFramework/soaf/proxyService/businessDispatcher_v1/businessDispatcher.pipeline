@@ -25,17 +25,17 @@
                     <con2:assign varName="SOAFBackendSimulator">
                         <con1:id xmlns:con6="http://www.bea.com/wli/sb/stages/config">_ActionId-N53ed7623.N6b2e8f12.0.14a5d0efe0a.N7e44</con1:id>
                         <con2:expr>
-                            <con1:xqueryText xmlns:con6="http://www.bea.com/wli/sb/stages/config"><![CDATA[if(exists($header/*:headerExtended/*:attributeList/*:attribute[./*:name = 'backend.simulator']/*:value)) then 
+                            <con6:xqueryText xmlns:con6="http://www.bea.com/wli/sb/stages/config"><![CDATA[if(exists($header/*:headerExtended/*:attributeList/*:attribute[./*:name = 'backend.simulator']/*:value)) then 
 <SOAFBackendSimulator>
   <Active>true</Active>
-  <ProxyURI>{ $header/*:headerExtended/*:attributeList/*:attribute[./*:name = 'backend.simulator']/*:value/text()  }</ProxyURI>
+  <ProxyURI>SOAFrameworkBackendSimulator/soaf/proxyServices/wsDispatcher_v1/wsDispatcher</ProxyURI>
 </SOAFBackendSimulator>
 else (
 <SOAFBackendSimulator>
   <Active>false</Active>
   <ProxyURI></ProxyURI>
 </SOAFBackendSimulator>
-)]]></con1:xqueryText>
+)]]></con6:xqueryText>
                         </con2:expr>
                     </con2:assign>
                 </con:actions>
@@ -118,7 +118,7 @@ else (
                     </con2:delete>
                 </con:actions>
             </con:stage>
-            <con:stage name="sLogServiceStart" errorHandler="_onErrorHandler-2348698588051999113--14611ccd.147c5f1bfc4.-7db6">
+            <con:stage name="sLogAdapterStart" errorHandler="_onErrorHandler-2348698588051999113--14611ccd.147c5f1bfc4.-7db6">
                 <con:context xmlns:con6="http://www.bea.com/wli/sb/stages/logging/config">
                     <con1:userNsDecl namespace="http://xmlns.telco.com/SOAFramework/soaf/common/schemas/headerExtended/v1" prefix="he" xmlns:con7="http://www.bea.com/wli/sb/stages/config"/>
                 </con:context>

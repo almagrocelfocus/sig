@@ -47,7 +47,15 @@ declare function xf:serviceLogEnd($headerInner as element()*,
         
                                 <log:source>{$headerExtended/he:source[1]/text()}</log:source>
                                 <log:targetEndpoint>{$headerExtended/he:adapterInformation[1]/he:uri[1]/text()}</log:targetEndpoint>
-				<log:level>{data($headerExtended/he:attributeList[1]/he:attribute[ he:name='LOG_LEVEL_EVENT' ][1]/he:value[1])}</log:level>
+				<log:level>
+                                {
+                                          if($responseCodes/he:responseCode[1]/text() = '0') then
+                                                if (fn:not(fn:empty(data($headerExtended/he:attributeList[1]/he:attribute[ he:name='LOG_LEVEL' ][1]/he:value[1]))))
+                                                  then data($headerExtended/he:attributeList[1]/he:attribute[ he:name='LOG_LEVEL' ][1]/he:value[1])
+                                                else 'DEBUG' 
+                                            else 'ERROR'
+                                }
+                                </log:level>
                                 <log:dynamicKeys>
                                  {
                                        if (fn:not(fn:empty($bodyInner))) then

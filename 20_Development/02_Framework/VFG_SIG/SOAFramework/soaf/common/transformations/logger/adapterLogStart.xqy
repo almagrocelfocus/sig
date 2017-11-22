@@ -49,7 +49,13 @@ declare function xf:GetServiceLogStart($headerInner as element()*,
 
                         <log:source>{$headerExtended/he:source[1]/text()}</log:source>
             		<log:targetEndpoint>N/A</log:targetEndpoint>(: Not in context yet :)
-			<log:level>{data($headerExtended/he:attributeList[1]/he:attribute[ he:name='LOG_LEVEL' ][1]/he:value[1])}</log:level>
+			<log:level>
+                        {
+                          if (fn:not(fn:empty(data($headerExtended/he:attributeList[1]/he:attribute[ he:name='LOG_LEVEL' ][1]/he:value[1]))))
+                          then data($headerExtended/he:attributeList[1]/he:attribute[ he:name='LOG_LEVEL' ][1]/he:value[1])
+                           else 'DEBUG'   
+                        }
+                        </log:level>
                         <log:dynamicKeys>
                         {
                                        if (fn:not(fn:empty($bodyInner))) then
