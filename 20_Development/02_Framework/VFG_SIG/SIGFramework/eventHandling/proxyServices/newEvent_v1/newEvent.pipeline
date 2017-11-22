@@ -129,6 +129,36 @@
                                 </con1:replace>
                             </con1:actions>
                         </con1:case>
+                        <con1:case id="_BranchId-N3f57c7ff.N228e7f42.0.15fe4a42878.N7f6f">
+                            <con1:condition>
+                                <con2:xqueryText>data($body/*:OutputParameters/*:O_ERRORCODE)!='0'</con2:xqueryText>
+                            </con1:condition>
+                            <con1:actions>
+                                <con1:replace varName="header" contents-only="true">
+                                    <con2:id>_ActionId-N3f57c7ff.N228e7f42.0.15fe4a42878.N7e79</con2:id>
+                                    <con1:expr>
+                                        <con2:xqueryTransform>
+                                            <con2:resource ref="SOAFramework/soaf/common/transformations/proxyService/externalErrorToHeader"/>
+                                            <con2:param name="ExternalErrorCode">
+                                                <con2:path>data($body/*:OutputParameters/*:O_ERRORCODE)</con2:path>
+                                            </con2:param>
+                                            <con2:param name="system">
+                                                <con2:path>'eventHandling'</con2:path>
+                                            </con2:param>
+                                            <con2:param name="ExternalErrorMessage">
+                                                <con2:path>substring(data($body/*:OutputParameters/*:O_ERRORTEXT),0,500)</con2:path>
+                                            </con2:param>
+                                            <con2:param name="headerExtended">
+                                                <con2:path>$header/*:headerExtended</con2:path>
+                                            </con2:param>
+                                        </con2:xqueryTransform>
+                                    </con1:expr>
+                                </con1:replace>
+                                <con1:delete varName="body">
+                                    <con2:id>_ActionId-N3f57c7ff.N228e7f42.0.15fe4a42878.N7e41</con2:id>
+                                </con1:delete>
+                            </con1:actions>
+                        </con1:case>
                         <con1:case id="_BranchId-9918b225-c933-4863-9b71-792a19d7ae6d">
                             <con1:condition>
                                 <con2:xqueryText>not(empty($body/*:Fault/detail/*:fault/*:errorCode))</con2:xqueryText>

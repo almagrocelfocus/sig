@@ -3,7 +3,7 @@
   <connection-factory UIConnectionName="SOAF_EVENTS" location="eis/DB/SOAF_EVENTS"/>
   <endpoint-interaction portType="newEventSP_ptt" operation="newEventSP">
     <interaction-spec className="oracle.tip.adapter.db.DBStoredProcedureInteractionSpec">
-      <property name="SchemaName" value="SOAF_EVENTS"/>
+      <property name="SchemaName" value="DEV_SOAF_EVENTS"/>
       <property name="PackageName" value="PKG_SOAF_EVENT_HANDLING"/>
       <property name="ProcedureName" value="NEW_EVENT"/>
       <property name="GetActiveUnitOfWork" value="false"/>
