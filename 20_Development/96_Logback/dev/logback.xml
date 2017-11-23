@@ -8,18 +8,18 @@
 	<appender name="FILEEVENT" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>/var/app/oracle/config/domains/SIGDEV_SOA/logs/vdf_sig-osb-event.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>logs/archive/vdf_sig-osb-event.%d{yyyy-MM-dd-HH-mm}.log.zip</fileNamePattern>
+			<fileNamePattern>/var/app/oracle/config/domains/SIGDEV_SOA/logs/archive/vdf_sig-osb-event.%d{yyyy-MM-dd-HH-mm}.log.zip</fileNamePattern>
 			<maxHistory>10</maxHistory>
 		</rollingPolicy>
 		<encoder>
-			<pattern>%d{yyyyMMddHHmmss} | %X{request_id} | %X{requestor_ip} | %X{correlation_id} | %X{action} | %X{object_id} | %X{description} | %X{requestor_agent} | %X{status_code} | %X{time_to_complete} | %X{adapter_time_sum} | %X{target_agent} | %X{target_request_id} |  %X{level} | %X{target_ip}%n</pattern>
+			<pattern>%d{yyyyMMddHHmmss} | %X{request_id} | %X{correlation_id} | %X{action} | %X{object_id} | %X{description} | %X{requestor_agent} | %X{status_code} | %X{time_to_complete} | %X{adapter_time_sum} | %X{target_agent} | %X{target_request_id} |  %X{level} | %X{target_ip}%n</pattern>
 		</encoder>
 	</appender>
 
 	<appender name="FILELOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>/var/app/oracle/config/domains/SIGDEV_SOA/logs/vdf_sig-osb-service.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-			<fileNamePattern>logs/archive/vdf_sig-osb-service.%i.log.zip</fileNamePattern>
+			<fileNamePattern>/var/app/oracle/config/domains/SIGDEV_SOA/logs/archive/vdf_sig-osb-service.%i.log.zip</fileNamePattern>
 			<minIndex>1</minIndex>
 			<maxIndex>9</maxIndex>
 		</rollingPolicy>
@@ -59,12 +59,12 @@
 		</encoder>
 	</appender>
 
-	<logger name="com.vodafone.sobe.logger.db.SOAFReportHandler" level="DEBUG">
+	<logger name="com.vodafone.sobe.logger.db.SOAFReportHandler">
 		<appender-ref ref="FILELOG" /> 
 		<appender-ref ref="DB_APPENDER" />
 		<appender-ref ref="STDOUT" />
 	</logger>
-	<logger name="com.vodafone.sobe.logger.db.SOAFReportEventHandler" level="DEBUG">
+	<logger name="com.vodafone.sobe.logger.db.SOAFReportEventHandler">
 		<appender-ref ref="FILEEVENT" />
 	</logger>
 	<root level="DEBUG">
