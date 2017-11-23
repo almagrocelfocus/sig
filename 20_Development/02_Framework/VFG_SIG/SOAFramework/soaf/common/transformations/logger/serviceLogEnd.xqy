@@ -47,7 +47,15 @@ declare function xf:serviceLogEnd($headerInner as element()*,
         
                                 <log:source>{$headerExtended/he:source[1]/text()}</log:source>
                                 <log:targetEndpoint>{$headerExtended/he:adapterInformation[1]/he:uri[1]/text()}</log:targetEndpoint>
-				<log:level>{data($headerExtended/he:attributeList[1]/he:attribute[ he:name='LOG_LEVEL_EVENT' ][1]/he:value[1])}</log:level>
+				<log:level>
+                                {
+                                          if($responseCodes/he:responseCode[1]/text() = '0') then
+                                                if (fn:not(fn:empty(data($headerExtended/he:attributeList[1]/he:attribute[ he:name='LOG_LEVEL' ][1]/he:value[1]))))
+                                                  then data($headerExtended/he:attributeList[1]/he:attribute[ he:name='LOG_LEVEL' ][1]/he:value[1])
+                                                else 'DEBUG' 
+                                            else 'ERROR'
+                                }
+                                </log:level>
                                 <log:dynamicKeys>
                                  {
                                        if (fn:not(fn:empty($bodyInner))) then
@@ -147,8 +155,25 @@ declare function xf:serviceLogEnd($headerInner as element()*,
 						<log:targetIp>{$targetIp/text()}</log:targetIp>
 				}
 				<log:payload>
-					<soap-env:Header>{$headerInner}</soap-env:Header>
-					<soap-env:Body>{$bodyInner}</soap-env:Body>
+					<soap-env:Header>
+                                          {
+                                            if (fn:not(fn:empty($headerExtended/he:attributeList[1]/he:attribute[he:name='LOG_HIDE_SERVICE_END'])) and fn:not(fn:empty($headerInner))) then
+                                               for $pathToHideHeader in $headerExtended/he:attributeList[1]/he:attribute[he:name='LOG_HIDE_SERVICE_END']
+                                                return   
+                                                   local:copy-replace($headerInner,tokenize($pathToHideHeader/he:value[1]/text(), "/"))
+                    
+                                            else  $headerInner
+                                          }
+                                        </soap-env:Header>
+                                        <soap-env:Body>
+                                         {
+                                            if (fn:not(fn:empty($headerExtended/he:attributeList[1]/he:attribute[he:name='LOG_HIDE_SERVICE_END'])) and fn:not(fn:empty($bodyInner))) then
+                                               for $pathToHideBody in $headerExtended/he:attributeList[1]/he:attribute[he:name='LOG_HIDE_SERVICE_END']
+                                                return   
+                                                   local:copy-replace($bodyInner,tokenize($pathToHideBody/he:value[1]/text(), "/"))
+                                            else  $bodyInner
+                                          }
+                                        </soap-env:Body>
 				</log:payload>
 			</log:input>
 };
@@ -179,6 +204,42 @@ declare function local:strip-ns($xml as node()) as node() {
          }
 };
 
+declare function local:copy-replace($element as element(),$steps as xs:string*) {  
+  if (local-name($element) = $steps[2])
+  then  local:replace-element-values($element,local:pad-string-to-length('', '*', 4))
+  
+  else element {node-name($element)}  
+               {$element/@*, 
+                for $child in $element/node()  
+                return if ($child instance of element())  
+                       then local:copy-replace($child,$steps)  
+                       else $child  
+               }  
+};  
+
+declare function local:pad-string-to-length
+  ( $stringToPad as xs:string? ,
+    $padChar as xs:string ,
+    $length as xs:integer )  as xs:string {
+
+   substring(
+     string-join (
+       ($stringToPad, for $i in (1 to $length) return $padChar)
+       ,'')
+    ,1,$length)
+ } ;
+ 
+ 
+declare function local:replace-element-values
+  ( $elements as element()* ,
+    $values as xs:string )  as element()* {
+
+   for $element at $seq in $elements
+   return element { node-name($element)}
+             { $element/@*,
+               $values[$seq] }
+ } ;
+ 
 declare variable $headerInner as element()* external;
 declare variable $headerExtended as element(he:headerExtended)? external;
 declare variable $bodyInner as item()? external;
