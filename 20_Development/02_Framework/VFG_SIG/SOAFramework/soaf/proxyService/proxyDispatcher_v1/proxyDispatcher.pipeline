@@ -191,35 +191,6 @@ return
 	fn:boolean($logSystemLevel >= $logLevel)</con7:xqueryText>
                             </con4:condition>
                             <con4:actions>
-                                <con4:ifThenElse>
-                                    <con7:id xmlns:con7="http://www.bea.com/wli/sb/stages/config">_ActionId-7f000001.77bffeb1.0.14b5e7418c5.N7f8d</con7:id>
-                                    <con4:case id="_BranchId-7f000001.77bffeb1.0.14b5e7418c5.N7f8c">
-                                        <con4:condition>
-                                            <con7:xqueryText xmlns:con7="http://www.bea.com/wli/sb/stages/config">string-length($headerExtended/he:attributeList[1]/he:attribute[ he:name='LOG_KEY_SERVICE_START' ][1]/he:value[1])>0</con7:xqueryText>
-                                        </con4:condition>
-                                        <con4:actions>
-                                            <con4:insert varName="headerExtended">
-                                                <con7:id xmlns:con7="http://www.bea.com/wli/sb/stages/config">_ActionId-7f000001.41ea0211.0.14b5f727810.N7e79</con7:id>
-                                                <con4:location>
-                                                    <con7:xpathText xmlns:con7="http://www.bea.com/wli/sb/stages/config">.</con7:xpathText>
-                                                </con4:location>
-                                                <con4:where>first-child</con4:where>
-                                                <con4:expr>
-                                                    <con7:xqueryTransform xmlns:con7="http://www.bea.com/wli/sb/stages/config">
-                                                        <con7:resource ref="SOAFramework/soaf/common/transformations/pub/evalXPath"/>
-                                                        <con7:param name="path">
-                                                            <con7:path>$headerExtended/*:attributeList[1]/*:attribute[*:name='LOG_KEY_SERVICE_START'][1]/*:value/text()</con7:path>
-                                                        </con7:param>
-                                                        <con7:param name="xml">
-                                                            <con7:path>$body/*[1]</con7:path>
-                                                        </con7:param>
-                                                    </con7:xqueryTransform>
-                                                </con4:expr>
-                                            </con4:insert>
-                                        </con4:actions>
-                                    </con4:case>
-                                    <con4:default/>
-                                </con4:ifThenElse>
                                 <con6:report>
                                     <con7:id xmlns:con7="http://www.bea.com/wli/sb/stages/config">_ActionId-5600035152657638483-635deec2.1448772776c.-7f44</con7:id>
                                     <con6:expr>
@@ -386,35 +357,6 @@ return
                                         <con7:xpathText xmlns:con7="http://www.bea.com/wli/sb/stages/config">./he:dynLog</con7:xpathText>
                                     </con4:location>
                                 </con4:delete>
-                                <con4:ifThenElse>
-                                    <con7:id xmlns:con7="http://www.bea.com/wli/sb/stages/config">_ActionId-7f000001.N325a1bf8.0.14b6e106b1b.N7e94</con7:id>
-                                    <con4:case id="_BranchId-7f000001.N325a1bf8.0.14b6e106b1b.N7e93">
-                                        <con4:condition>
-                                            <con7:xqueryText xmlns:con7="http://www.bea.com/wli/sb/stages/config">string-length($headerExtended/he:attributeList[1]/he:attribute[ he:name='LOG_KEY_SERVICE_END' ][1]/he:value[1])>0</con7:xqueryText>
-                                        </con4:condition>
-                                        <con4:actions>
-                                            <con4:insert varName="headerExtended">
-                                                <con7:id xmlns:con7="http://www.bea.com/wli/sb/stages/config">_ActionId-7f000001.N325a1bf8.0.14b6e106b1b.N7e92</con7:id>
-                                                <con4:location>
-                                                    <con7:xpathText xmlns:con7="http://www.bea.com/wli/sb/stages/config">.</con7:xpathText>
-                                                </con4:location>
-                                                <con4:where>first-child</con4:where>
-                                                <con4:expr>
-                                                    <con7:xqueryTransform xmlns:con7="http://www.bea.com/wli/sb/stages/config">
-                                                        <con7:resource ref="SOAFramework/soaf/common/transformations/pub/evalXPath"/>
-                                                        <con7:param name="path">
-                                                            <con7:path>$headerExtended/*:attributeList[1]/*:attribute[*:name='LOG_KEY_SERVICE_END'][1]/*:value/text()</con7:path>
-                                                        </con7:param>
-                                                        <con7:param name="xml">
-                                                            <con7:path>$body/*[1]</con7:path>
-                                                        </con7:param>
-                                                    </con7:xqueryTransform>
-                                                </con4:expr>
-                                            </con4:insert>
-                                        </con4:actions>
-                                    </con4:case>
-                                    <con4:default/>
-                                </con4:ifThenElse>
                                 <con6:report>
                                     <con7:id xmlns:con7="http://www.bea.com/wli/sb/stages/config">_ActionId-5600035152657638483-635deec2.1448772776c.-7f0c</con7:id>
                                     <con6:expr>

@@ -98,7 +98,7 @@
       <xs:any namespace="##any"/>
     </xs:sequence>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://10.235.1.103:7003/OSB_SIG/sig/pub/SIG_GetLogs_v1/SIG_GetLogs</con:endpoint><con:endpoint>http://localhost:7001/OSB_SIG/sig/pub/SIG_GetLogs_v1/SIG_GetLogs</con:endpoint></con:endpoints><con:operation id="1fe69797-b0c4-4c1b-a46c-dc2dbda8cf0e" isOneWay="false" action="http://www.example.org/sig/SIG_GetLogs_v1" name="SIG_GetLogs_v1" bindingOperationName="SIG_GetLogs_v1" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="b6413475-ac19-4c6d-a664-14a619b24d27" name="VFGSI-27_Request"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:7101/OSB_SIG/sig/pub/SIG_GetLogs_v1/SIG_GetLogs</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v1="http://xmlns.telco.com/SOAFramework/soaf/common/schemas/commonTypes/v1" xmlns:v11="http://xmlns.telco.com/OSB_SIG/sig/pub/SIG_GetLogs/v1">\r
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://10.235.1.103:7003/OSB_SIG/sig/pub/SIG_GetLogs_v1/SIG_GetLogs</con:endpoint><con:endpoint>http://localhost:7101/OSB_SIG/sig/pub/SIG_GetLogs_v1/SIG_GetLogs</con:endpoint></con:endpoints><con:operation id="1fe69797-b0c4-4c1b-a46c-dc2dbda8cf0e" isOneWay="false" action="http://www.example.org/sig/SIG_GetLogs_v1" name="SIG_GetLogs_v1" bindingOperationName="SIG_GetLogs_v1" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="b6413475-ac19-4c6d-a664-14a619b24d27" name="VFGSI-27_Request"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:7101/OSB_SIG/sig/pub/SIG_GetLogs_v1/SIG_GetLogs</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v1="http://xmlns.telco.com/SOAFramework/soaf/common/schemas/commonTypes/v1" xmlns:v11="http://xmlns.telco.com/OSB_SIG/sig/pub/SIG_GetLogs/v1">\r
    <soapenv:Header>\r
       <v1:serviceHeader>\r
          <source>BPEL</source>\r
@@ -123,7 +123,8 @@
 </soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/sig/SIG_GetLogs_v1"/><con:wsrmConfig version="1.2"/></con:call><con:call id="bb23adfd-1d99-4c39-9939-20bf443c256a" name="VFGSI-21_Request"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:7101/OSB_SIG/sig/pub/SIG_GetLogs_v1/SIG_GetLogs</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v1="http://xmlns.telco.com/SOAFramework/soaf/common/schemas/commonTypes/v1" xmlns:v11="http://xmlns.telco.com/OSB_SIG/sig/pub/SIG_GetLogs/v1">\r
    <soapenv:Header>\r
       <v1:serviceHeader>\r
-         <source>BPEL</source>\r
+         <source>BPEL3</source>\r
+          <correlationId>CID-31ad842a-ab3f-4d3f-ad91-2d295ad7c6b0</correlationId>
       </v1:serviceHeader>\r
    </soapenv:Header>\r
    <soapenv:Body>\r
@@ -164,7 +165,41 @@
          <v11:country>Spain</v11:country>\r
       </v11:SIG_GetLogsRequest>\r
    </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/sig/SIG_GetLogs_v1"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite id="c6bfaefd-315c-4c65-8a34-6c729fffeb0f" name="SIG_GetLogs_binding TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="801f4805-cdf3-413d-a293-7c853932989f" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SIG_GetLogs_v1 TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="ba202c69-ff38-45a4-8b02-254784af7fc0" name="SIG_GetLogs_v1 - Request 3"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SIG_GetLogs_binding</con:interface><con:operation>SIG_GetLogs_v1</con:operation><con:request name="SIG_GetLogs_v1 - Request 3" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="710446f5-d27f-443b-a935-a59c718eceb9"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:7101/OSB_SIG/sig/pub/SIG_GetLogs_v1/SIG_GetLogs</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v1="http://xmlns.telco.com/SOAFramework/soaf/common/schemas/commonTypes/v1" xmlns:v11="http://xmlns.telco.com/OSB_SIG/sig/pub/SIG_GetLogs/v1">\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/sig/SIG_GetLogs_v1"/><con:wsrmConfig version="1.2"/></con:call><con:call id="38395950-0715-4771-abd3-d949782fcebb" name="Request 7"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.235.1.103:7003/OSB_SIG/sig/pub/SIG_GetLogs_v1/SIG_GetLogs</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v1="http://xmlns.telco.com/SOAFramework/soaf/common/schemas/commonTypes/v1" xmlns:v11="http://xmlns.telco.com/OSB_SIG/sig/pub/SIG_GetLogs/v1">\r
+   <soapenv:Header>\r
+      <v1:serviceHeader>\r
+         <!--Optional:-->\r
+         <requestId>?</requestId>\r
+         <!--Optional:-->\r
+         <correlationId>?</correlationId>\r
+         <source>?</source>\r
+         <!--Optional:-->\r
+         <requestorIp>?</requestorIp>\r
+         <!--Optional:-->\r
+         <requestTimestamp>?</requestTimestamp>\r
+         <!--Optional:-->\r
+         <v1:attributes>\r
+            <!--1 or more repetitions:-->\r
+            <v1:attribute>\r
+               <name>?</name>\r
+               <value>?</value>\r
+            </v1:attribute>\r
+         </v1:attributes>\r
+         <!--Optional:-->\r
+         <v1:responseCodes>\r
+            <!--Optional:-->\r
+            <responseCode>?</responseCode>\r
+            <!--Optional:-->\r
+            <responseMessage>?</responseMessage>\r
+         </v1:responseCodes>\r
+      </v1:serviceHeader>\r
+   </soapenv:Header>\r
+   <soapenv:Body>\r
+      <v11:SIG_GetLogsRequest>\r
+         <v11:country>?</v11:country>\r
+      </v11:SIG_GetLogsRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/sig/SIG_GetLogs_v1"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite id="c6bfaefd-315c-4c65-8a34-6c729fffeb0f" name="SIG_GetLogs_binding TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="801f4805-cdf3-413d-a293-7c853932989f" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SIG_GetLogs_v1 TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="ba202c69-ff38-45a4-8b02-254784af7fc0" name="SIG_GetLogs_v1 - Request 3"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SIG_GetLogs_binding</con:interface><con:operation>SIG_GetLogs_v1</con:operation><con:request name="SIG_GetLogs_v1 - Request 3" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="710446f5-d27f-443b-a935-a59c718eceb9"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.235.1.103:7003/OSB_SIG/sig/pub/SIG_GetLogs_v1/SIG_GetLogs</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v1="http://xmlns.telco.com/SOAFramework/soaf/common/schemas/commonTypes/v1" xmlns:v11="http://xmlns.telco.com/OSB_SIG/sig/pub/SIG_GetLogs/v1">\r
    <soapenv:Header>\r
       <v1:serviceHeader>\r
 
@@ -176,4 +211,4 @@
          <v11:country>Spain</v11:country>\r
       </v11:SIG_GetLogsRequest>\r
    </soapenv:Body>\r
-</soapenv:Envelope>	]]></con:request><con:assertion type="SOAP Response" id="449fbecb-efaf-4a36-98f2-2530d8bd9137" name="SOAP Response"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/sig/SIG_GetLogs_v1"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:loadTest id="18638758-cde5-4bd7-a235-188625a226f9" name="LoadTest 1"><con:settings><con:setting id="HttpSettings@close-connections">false</con:setting></con:settings><con:threadCount>1000</con:threadCount><con:startDelay>0</con:startDelay><con:sampleInterval>250</con:sampleInterval><con:calculateTPSOnTimePassed>true</con:calculateTPSOnTimePassed><con:resetStatisticsOnThreadCountChange>true</con:resetStatisticsOnThreadCountChange><con:historyLimit>-1</con:historyLimit><con:testLimit>6000</con:testLimit><con:limitType>TIME</con:limitType><con:loadStrategy><con:type>Burst</con:type><con:config><burstDelay>0</burstDelay><burstDuration>2000</burstDuration></con:config></con:loadStrategy><con:assertion type="Step Status" name="Step Status"/><con:maxAssertionErrors>100</con:maxAssertionErrors><con:cancelExcessiveThreads>true</con:cancelExcessiveThreads><con:strategyInterval>500</con:strategyInterval></con:loadTest><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>
+</soapenv:Envelope>	]]></con:request><con:assertion type="SOAP Response" id="449fbecb-efaf-4a36-98f2-2530d8bd9137" name="SOAP Response"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/sig/SIG_GetLogs_v1"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:loadTest id="18638758-cde5-4bd7-a235-188625a226f9" name="LoadTest 1"><con:settings><con:setting id="HttpSettings@close-connections">false</con:setting></con:settings><con:threadCount>5000</con:threadCount><con:startDelay>0</con:startDelay><con:sampleInterval>250</con:sampleInterval><con:calculateTPSOnTimePassed>true</con:calculateTPSOnTimePassed><con:resetStatisticsOnThreadCountChange>true</con:resetStatisticsOnThreadCountChange><con:historyLimit>-1</con:historyLimit><con:testLimit>6000</con:testLimit><con:limitType>TIME</con:limitType><con:loadStrategy><con:type>Burst</con:type><con:config><burstDelay>0</burstDelay><burstDuration>2000</burstDuration></con:config></con:loadStrategy><con:assertion type="Step Status" name="Step Status"/><con:maxAssertionErrors>100</con:maxAssertionErrors><con:cancelExcessiveThreads>true</con:cancelExcessiveThreads><con:strategyInterval>500</con:strategyInterval></con:loadTest><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>

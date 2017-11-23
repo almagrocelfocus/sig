@@ -28,7 +28,7 @@ declare function xf:serviceLogEnd($headerInner as element()*,
                                         return 
                                                 <log:category>{$category/text()}</log:category>
                                 }
-                                <log:target>pub</log:target>
+                                <log:target>proxyServices</log:target>
                                 {
                                         for $service in $headerExtended/he:businessInterface[1]/he:service[1]
                                         return 
