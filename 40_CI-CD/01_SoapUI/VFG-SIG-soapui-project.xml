@@ -120,11 +120,11 @@
          <v11:country>Spain</v11:country>\r
       </v11:SIG_GetLogsRequest>\r
    </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/sig/SIG_GetLogs_v1"/><con:wsrmConfig version="1.2"/></con:call><con:call id="bb23adfd-1d99-4c39-9939-20bf443c256a" name="VFGSI-21_Request"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:7101/OSB_SIG/sig/pub/SIG_GetLogs_v1/SIG_GetLogs</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v1="http://xmlns.telco.com/SOAFramework/soaf/common/schemas/commonTypes/v1" xmlns:v11="http://xmlns.telco.com/OSB_SIG/sig/pub/SIG_GetLogs/v1">\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/sig/SIG_GetLogs_v1"/><con:wsrmConfig version="1.2"/></con:call><con:call id="bb23adfd-1d99-4c39-9939-20bf443c256a" name="VFGSI-21_Request"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.235.1.103:7003/OSB_SIG/sig/pub/SIG_GetLogs_v1/SIG_GetLogs</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v1="http://xmlns.telco.com/SOAFramework/soaf/common/schemas/commonTypes/v1" xmlns:v11="http://xmlns.telco.com/OSB_SIG/sig/pub/SIG_GetLogs/v1">\r
    <soapenv:Header>\r
       <v1:serviceHeader>\r
-         <source>BPEL3</source>\r
-          <correlationId>CID-31ad842a-ab3f-4d3f-ad91-2d295ad7c6b0</correlationId>
+         <source>BPEL</source>\r
+         
       </v1:serviceHeader>\r
    </soapenv:Header>\r
    <soapenv:Body>\r
@@ -199,7 +199,141 @@
          <v11:country>?</v11:country>\r
       </v11:SIG_GetLogsRequest>\r
    </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/sig/SIG_GetLogs_v1"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite id="c6bfaefd-315c-4c65-8a34-6c729fffeb0f" name="SIG_GetLogs_binding TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="801f4805-cdf3-413d-a293-7c853932989f" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SIG_GetLogs_v1 TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="ba202c69-ff38-45a4-8b02-254784af7fc0" name="SIG_GetLogs_v1 - Request 3"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SIG_GetLogs_binding</con:interface><con:operation>SIG_GetLogs_v1</con:operation><con:request name="SIG_GetLogs_v1 - Request 3" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="710446f5-d27f-443b-a935-a59c718eceb9"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.235.1.103:7003/OSB_SIG/sig/pub/SIG_GetLogs_v1/SIG_GetLogs</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v1="http://xmlns.telco.com/SOAFramework/soaf/common/schemas/commonTypes/v1" xmlns:v11="http://xmlns.telco.com/OSB_SIG/sig/pub/SIG_GetLogs/v1">\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/sig/SIG_GetLogs_v1"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" id="993a9d41-363c-4f3a-abfc-56b21f4b545e" wsaVersion="NONE" name="Weather_GetCitiesByCountry_binding" type="wsdl" bindingName="{http://xmlns.telco.com/GlobalApplication/weather/pub/Weather_GetCitiesByCountry/v1}Weather_GetCitiesByCountry_binding" soapVersion="1_1" anonymous="optional" definition="file:/D:/VFG_SIG/git/vfg_sig/20_Development/02_Framework/VFG_SIG/GlobalApplication/weather/pub/Weather_GetCitiesByCountry_v1/wsdl/Weather_GetCitiesByCountry.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/D:/VFG_SIG/git/vfg_sig/20_Development/02_Framework/VFG_SIG/GlobalApplication/weather/pub/Weather_GetCitiesByCountry_v1/wsdl/Weather_GetCitiesByCountry.wsdl"><con:part><con:url>file:/D:/VFG_SIG/git/vfg_sig/20_Development/02_Framework/VFG_SIG/GlobalApplication/weather/pub/Weather_GetCitiesByCountry_v1/wsdl/Weather_GetCitiesByCountry.wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://xmlns.telco.com/GlobalApplication/weather/pub/Weather_GetCitiesByCountry/v1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://xmlns.telco.com/GlobalApplication/weather/pub/Weather_GetCitiesByCountry/v1" xmlns:c="http://xmlns.telco.com/SOAFramework/soaf/common/schemas/commonTypes/v1">
+  <wsdl:types>
+    <xsd:schema>
+      <xsd:import namespace="http://xmlns.telco.com/GlobalApplication/weather/pub/Weather_GetCitiesByCountry/v1" schemaLocation="../schemas/Weather_GetCitiesByCountry.xsd"/>
+      <xsd:import namespace="http://xmlns.telco.com/SOAFramework/soaf/common/schemas/commonTypes/v1" schemaLocation="../../../../../SOAFramework/soaf/common/schemas/commonTypes_v1.xsd"/>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="Weather_GetCitiesByCountry_v1Request">
+    <wsdl:part name="requestServiceHeader" element="c:serviceHeader"/>
+    <wsdl:part name="requestParameters" element="tns:Weather_GetCitiesByCountryRequest"/>
+  </wsdl:message>
+  <wsdl:message name="Weather_GetCitiesByCountry_v1Response">
+    <wsdl:part name="responseServiceHeader" element="c:serviceHeader"/>
+    <wsdl:part name="responseParameters" element="tns:Weather_GetCitiesByCountryResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="Weather_GetCitiesByCountry_ptt">
+    <wsdl:operation name="Weather_GetCitiesByCountry_v1">
+      <wsdl:input message="tns:Weather_GetCitiesByCountry_v1Request"/>
+      <wsdl:output message="tns:Weather_GetCitiesByCountry_v1Response"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="Weather_GetCitiesByCountry_binding" type="tns:Weather_GetCitiesByCountry_ptt">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="Weather_GetCitiesByCountry_v1">
+      <soap:operation soapAction="http://www.example.org/weather/Weather_GetCitiesByCountry_v1"/>
+      <wsdl:input>
+        <soap:body use="literal" parts="requestParameters"/>
+        <soap:header message="tns:Weather_GetCitiesByCountry_v1Request" part="requestServiceHeader" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" parts="responseParameters"/>
+        <soap:header message="tns:Weather_GetCitiesByCountry_v1Response" part="responseServiceHeader" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Weather_GetCitiesByCountry_service">
+    <wsdl:port name="Weather_GetCitiesByCountry" binding="tns:Weather_GetCitiesByCountry_binding">
+      <soap:address location="http://localhost:7001/GlobalApplication/weather/pub/Weather_GetCitiesByCountry_v1/Weather_GetCitiesByCountry"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\D:\VFG_SIG\git\vfg_sig\20_Development\02_Framework\VFG_SIG\GlobalApplication\weather\pub\Weather_GetCitiesByCountry_v1\schemas\Weather_GetCitiesByCountry.xsd</con:url><con:content><![CDATA[<schema targetNamespace="http://xmlns.telco.com/GlobalApplication/weather/pub/Weather_GetCitiesByCountry/v1" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:agt="http://xmlns.telco.com/GlobalApplication/weather/pub/Weather_GetCitiesByCountry/v1">
+  <element name="Weather_GetCitiesByCountryRequest">
+    <complexType>
+      <sequence>
+        <element name="country" type="string" minOccurs="1" maxOccurs="1"/>
+      </sequence>
+    </complexType>
+  </element>
+  <element name="Weather_GetCitiesByCountryResponse">
+    <complexType>
+      <sequence>
+        <element name="list" type="string" minOccurs="1" maxOccurs="1"/>
+      </sequence>
+    </complexType>
+  </element>
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\D:\VFG_SIG\git\vfg_sig\20_Development\02_Framework\VFG_SIG\SOAFramework\soaf\common\schemas\commonTypes_v1.xsd</con:url><con:content><![CDATA[<xs:schema version="1.0" targetNamespace="http://xmlns.telco.com/SOAFramework/soaf/common/schemas/commonTypes/v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://xmlns.telco.com/SOAFramework/soaf/common/schemas/commonTypes/v1">
+  <xs:element name="serviceHeader" type="tns:serviceHeader"/>
+  <xs:complexType name="serviceHeader">
+    <xs:sequence>
+      <!--Unique request Id (should be unique to the request)-->
+      <xs:element name="requestId" type="xs:string" minOccurs="0" maxOccurs="1"/>
+      <!--Process ID Identifier (can be re-used across multiple calls)-->
+      <xs:element name="correlationId" type="xs:string" minOccurs="0" maxOccurs="1"/>
+      <!--Channel -> Example: "BSS","SIEBEL","PORTAL"-->
+      <xs:element name="source" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      <!--IP from Source -> Example: "10.32.3.2"-->
+      <xs:element name="requestorIp" type="xs:string" minOccurs="0" maxOccurs="1"/>
+      <!--Timestamp inserted by source-->
+      <xs:element name="requestTimestamp" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+      <!--username-->
+      <xs:element name="username" type="xs:string" minOccurs="0" maxOccurs="1"/>
+      <xs:element ref="tns:attributes" minOccurs="0"/>
+      <xs:element ref="tns:responseCodes" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="attributes" type="tns:attributes"/>
+  <xs:complexType name="attributes">
+    <xs:sequence>
+      <xs:element ref="tns:attribute" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="attribute" type="tns:attribute"/>
+  <xs:complexType name="attribute">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element name="value" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="responseCodes" type="tns:responseCodes"/>
+  <xs:complexType name="responseCodes">
+    <xs:sequence>
+      <!--Only Functional Error Response-->
+      <xs:element name="responseCode" type="xs:string" minOccurs="0"/>
+      <xs:element name="responseMessage" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Payload">
+    <xs:sequence>
+      <xs:any namespace="##any"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://10.235.1.103:7003/GlobalApplication/weather/pub/Weather_GetCitiesByCountry_v1/Weather_GetCitiesByCountry</con:endpoint><con:endpoint>http://localhost:7101/GlobalApplication/weather/pub/Weather_GetCitiesByCountry_v1/Weather_GetCitiesByCountry</con:endpoint></con:endpoints><con:operation id="a8ca5c16-d1d6-49d6-8ec2-e9cb60d5e245" isOneWay="false" action="http://www.example.org/weather/Weather_GetCitiesByCountry_v1" name="Weather_GetCitiesByCountry_v1" bindingOperationName="Weather_GetCitiesByCountry_v1" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="63f65904-9016-4027-ae2f-44cd75ba2623" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:7101/GlobalApplication/weather/pub/Weather_GetCitiesByCountry_v1/Weather_GetCitiesByCountry</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v1="http://xmlns.telco.com/SOAFramework/soaf/common/schemas/commonTypes/v1" xmlns:v11="http://xmlns.telco.com/GlobalApplication/weather/pub/Weather_GetCitiesByCountry/v1">\r
+   <soapenv:Header>\r
+      <v1:serviceHeader>\r
+         <!--Optional:-->\r
+         <requestId>RID-115</requestId>\r
+         <!--Optional:-->\r
+         <correlationId>CID-107</correlationId>\r
+         <source>VDF</source>\r
+         <!--Optional:-->\r
+         <requestorIp>10.121.123.3</requestorIp>\r
+         <!--Optional:-->\r
+         <requestTimestamp>2002-05-30T09:00:00</requestTimestamp>\r
+         <!--Optional:-->\r
+         <username>UserXPTO</username>\r
+         <!--Optional:-->\r
+      </v1:serviceHeader>\r
+   </soapenv:Header>\r
+   <soapenv:Body>\r
+      <v11:Weather_GetCitiesByCountryRequest>\r
+         <v11:country>Spain</v11:country>\r
+      </v11:Weather_GetCitiesByCountryRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/weather/Weather_GetCitiesByCountry_v1"/><con:wsrmConfig version="1.2"/></con:call><con:call id="1e39d17d-9acc-4a1b-a713-4dd98e2e0f3f" name="Request_OnlySource"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.235.1.103:7003/GlobalApplication/weather/pub/Weather_GetCitiesByCountry_v1/Weather_GetCitiesByCountry</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v1="http://xmlns.telco.com/SOAFramework/soaf/common/schemas/commonTypes/v1" xmlns:v11="http://xmlns.telco.com/GlobalApplication/weather/pub/Weather_GetCitiesByCountry/v1">
+   <soapenv:Header>
+      <v1:serviceHeader>
+         <source>VDF</source>
+      </v1:serviceHeader>
+   </soapenv:Header>
+   <soapenv:Body>
+      <v11:Weather_GetCitiesByCountryRequest>
+         <v11:country>Spain</v11:country>
+      </v11:Weather_GetCitiesByCountryRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/weather/Weather_GetCitiesByCountry_v1"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite id="c6bfaefd-315c-4c65-8a34-6c729fffeb0f" name="SIG_GetLogs_binding TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="801f4805-cdf3-413d-a293-7c853932989f" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SIG_GetLogs_v1 TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="ba202c69-ff38-45a4-8b02-254784af7fc0" name="SIG_GetLogs_v1 - Request 3"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SIG_GetLogs_binding</con:interface><con:operation>SIG_GetLogs_v1</con:operation><con:request name="SIG_GetLogs_v1 - Request 3" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="710446f5-d27f-443b-a935-a59c718eceb9"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:7101/OSB_SIG/sig/pub/SIG_GetLogs_v1/SIG_GetLogs</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v1="http://xmlns.telco.com/SOAFramework/soaf/common/schemas/commonTypes/v1" xmlns:v11="http://xmlns.telco.com/OSB_SIG/sig/pub/SIG_GetLogs/v1">\r
    <soapenv:Header>\r
       <v1:serviceHeader>\r
 
@@ -211,4 +345,4 @@
          <v11:country>Spain</v11:country>\r
       </v11:SIG_GetLogsRequest>\r
    </soapenv:Body>\r
-</soapenv:Envelope>	]]></con:request><con:assertion type="SOAP Response" id="449fbecb-efaf-4a36-98f2-2530d8bd9137" name="SOAP Response"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/sig/SIG_GetLogs_v1"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:loadTest id="18638758-cde5-4bd7-a235-188625a226f9" name="LoadTest 1"><con:settings><con:setting id="HttpSettings@close-connections">false</con:setting></con:settings><con:threadCount>5000</con:threadCount><con:startDelay>0</con:startDelay><con:sampleInterval>250</con:sampleInterval><con:calculateTPSOnTimePassed>true</con:calculateTPSOnTimePassed><con:resetStatisticsOnThreadCountChange>true</con:resetStatisticsOnThreadCountChange><con:historyLimit>-1</con:historyLimit><con:testLimit>6000</con:testLimit><con:limitType>TIME</con:limitType><con:loadStrategy><con:type>Burst</con:type><con:config><burstDelay>0</burstDelay><burstDuration>2000</burstDuration></con:config></con:loadStrategy><con:assertion type="Step Status" name="Step Status"/><con:maxAssertionErrors>100</con:maxAssertionErrors><con:cancelExcessiveThreads>true</con:cancelExcessiveThreads><con:strategyInterval>500</con:strategyInterval></con:loadTest><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>
+</soapenv:Envelope>	]]></con:request><con:assertion type="SOAP Response" id="449fbecb-efaf-4a36-98f2-2530d8bd9137" name="SOAP Response"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.example.org/sig/SIG_GetLogs_v1"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:loadTest id="18638758-cde5-4bd7-a235-188625a226f9" name="LoadTest 1"><con:settings><con:setting id="HttpSettings@close-connections">false</con:setting></con:settings><con:threadCount>5000</con:threadCount><con:startDelay>0</con:startDelay><con:sampleInterval>250</con:sampleInterval><con:calculateTPSOnTimePassed>true</con:calculateTPSOnTimePassed><con:resetStatisticsOnThreadCountChange>true</con:resetStatisticsOnThreadCountChange><con:historyLimit>-1</con:historyLimit><con:testLimit>6000</con:testLimit><con:limitType>TIME</con:limitType><con:loadStrategy><con:type>Burst</con:type><con:config><burstDelay>0</burstDelay><burstDuration>2000</burstDuration></con:config></con:loadStrategy><con:assertion type="Step Status" name="Step Status"/><con:maxAssertionErrors>100</con:maxAssertionErrors><con:cancelExcessiveThreads>true</con:cancelExcessiveThreads><con:strategyInterval>500</con:strategyInterval></con:loadTest><con:properties/></con:testCase><con:properties/></con:testSuite><con:endpointStrategy/><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>
