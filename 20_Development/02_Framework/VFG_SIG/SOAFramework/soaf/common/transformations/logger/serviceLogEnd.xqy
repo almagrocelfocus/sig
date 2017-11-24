@@ -60,33 +60,37 @@ declare function xf:serviceLogEnd($headerInner as element()*,
                                  {
                                        if (fn:not(fn:empty($bodyInner))) then
                                        for $pathDynamicKeyHeader in $headerExtended/he:attributeList[1]/he:attribute[he:name='LOG_KEY_SERVICE_END']
-                                        return   
-                                          let $dynamicLogBody := local:evalPathImpl(tokenize($pathDynamicKeyHeader/he:value[1]/text(), "/"), local:strip-ns($bodyInner))
-                                          return
-                                                if (fn:not(fn:empty($dynamicLogBody))) then
-                                                       <log:dynamicKey>
-                                                            <log:dynamicKeyName>{fn:node-name($dynamicLogBody)}</log:dynamicKeyName>
-                                                            <log:dynamicKeyValue>{$dynamicLogBody/text()}</log:dynamicKeyValue>
-                                                        </log:dynamicKey>
-                                                        
-                                                    else
-                                                     ()
+                                        return 
+                                          if ($pathDynamicKeyHeader/he:value[1]/text() != $headerExtended/he:attributeList[1]/he:attribute[he:name='LOG_HIDE_SERVICE_END']/he:value[1]/text()) then
+                                            let $dynamicLogBody := local:evalPathImpl(tokenize($pathDynamicKeyHeader/he:value[1]/text(), "/"), local:strip-ns($bodyInner))
+                                            return
+                                                  if (fn:not(fn:empty($dynamicLogBody))) then
+                                                         <log:dynamicKey>
+                                                              <log:dynamicKeyName>{fn:node-name($dynamicLogBody)}</log:dynamicKeyName>
+                                                              <log:dynamicKeyValue>{$dynamicLogBody/text()}</log:dynamicKeyValue>
+                                                          </log:dynamicKey>
+                                                          
+                                                      else
+                                                       ()
+                                         else ()               
                                        else ()              
                                   }
                                   {
                                        if (fn:not(fn:empty(<soap-env:Header>{$headerInner}</soap-env:Header>/*:serviceHeader))) then
                                        for $pathDynamicKeyHeader in $headerExtended/he:attributeList[1]/he:attribute[he:name='LOG_KEY_SERVICE_END']
                                         return   
-                                          let $dynamicLogHeader := local:evalPathImpl(tokenize($pathDynamicKeyHeader/he:value[1]/text(), "/"), local:strip-ns(<soap-env:Header>{$headerInner}</soap-env:Header>/*:serviceHeader))
-                                          return
-                                                if (fn:not(fn:empty($dynamicLogHeader))) then
-                                                       <log:dynamicKey>
-                                                            <log:dynamicKeyName>{fn:node-name($dynamicLogHeader)}</log:dynamicKeyName>
-                                                            <log:dynamicKeyValue>{$dynamicLogHeader/text()}</log:dynamicKeyValue>
-                                                        </log:dynamicKey>
-                                                        
-                                                    else
-                                                     ()
+                                          if ($pathDynamicKeyHeader/he:value[1]/text() != $headerExtended/he:attributeList[1]/he:attribute[he:name='LOG_HIDE_SERVICE_END']/he:value[1]/text()) then
+                                            let $dynamicLogHeader := local:evalPathImpl(tokenize($pathDynamicKeyHeader/he:value[1]/text(), "/"), local:strip-ns(<soap-env:Header>{$headerInner}</soap-env:Header>/*:serviceHeader))
+                                            return
+                                                  if (fn:not(fn:empty($dynamicLogHeader))) then
+                                                         <log:dynamicKey>
+                                                              <log:dynamicKeyName>{fn:node-name($dynamicLogHeader)}</log:dynamicKeyName>
+                                                              <log:dynamicKeyValue>{$dynamicLogHeader/text()}</log:dynamicKeyValue>
+                                                          </log:dynamicKey>
+                                                          
+                                                      else
+                                                       ()
+                                        else ()               
                                        else ()              
                                   }
                                 </log:dynamicKeys>         
