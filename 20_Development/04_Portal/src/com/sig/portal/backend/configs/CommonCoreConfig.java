@@ -12,6 +12,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.core.env.Environment;
 
 import com.bea.core.repackaged.springframework.beans.factory.annotation.Autowired;
 
@@ -30,7 +31,7 @@ public class CommonCoreConfig {
     private Environment environment;
     
     @Bean
-    public DataSource mysqlDataSource() {
+    public DataSource oracleSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(environment.getRequiredProperty("jdbc.driverClassName"));
         dataSource.setUrl(environment.getRequiredProperty("jdbc.url"));
